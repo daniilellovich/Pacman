@@ -14,7 +14,7 @@ namespace Pacman
         public float HeuristicEstimatePathLength { get; set; }// approximate estimate distance to goal (H)
         public float EstimateFullPathLength { get { return this.PathLengthFromStart + this.HeuristicEstimatePathLength; } }// expected distance to goal (F)
     }
-    public class GhostPathFinder
+    public class PathFinder
     {
         string[] lines;
         int Height, Width;
@@ -81,17 +81,17 @@ namespace Pacman
         }
 
         //getting list of neighbours for point
-        private Collection<PathNode> GetNeighbours(PathNode pathNode, Point goal, string[] field, Point previousLocation)
+        private Collection<PathNode> GetNeighbours(PathNode pathNode, Point goal, Tile[,] tiles, Point previousLocation)
         {
             var result = new Collection<PathNode>();
 
-            Point[] neighbourPoints = new Point[4];
-            neighbourPoints[0] = new Point(pathNode.Position.X, pathNode.Position.Y + 1);
-            neighbourPoints[1] = new Point(pathNode.Position.X + 1, pathNode.Position.Y);
-            neighbourPoints[2] = new Point(pathNode.Position.X, pathNode.Position.Y - 1);
-            neighbourPoints[3] = new Point(pathNode.Position.X - 1, pathNode.Position.Y);
+            Point[] neighbourTiles = new Point[4];
+            neighbourTiles[0] = Game.State.Level.Tiles[pathNode.Position.X, pathNode.Position.Y + 1];
+            neighbourTiles[1] = new Point(pathNode.Position.X + 1, pathNode.Position.Y);
+            neighbourTiles[2] = new Point(pathNode.Position.X, pathNode.Position.Y - 1);
+            neighbourTiles[3] = new Point(pathNode.Position.X - 1, pathNode.Position.Y);
 
-            foreach (var point in neighbourPoints)
+            foreach (var tile in neighbourTiles)
             {         
                 if (point == previousLocation)   //to prevent backtracking
                     continue;
