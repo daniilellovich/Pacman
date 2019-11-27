@@ -7,8 +7,6 @@ namespace Pacman
 {
     public static class Game
     {
-        public static Size TileSize = new Size(StartForm.resolution.Height / 40, StartForm.resolution.Height / 40);
-
         public static GameState State { get; set; }
         public static string MapName;
         public static int LevelNum = 1;
@@ -17,12 +15,14 @@ namespace Pacman
 
         public static void Init()
         {
+            Tile.Size = new Size(StartForm.resolution.Height / 40, StartForm.resolution.Height / 40);
+
             State = new GameState();
             MapName = "Levels\\Pacman.txt";
 
             State.Level = new Level();
             State.Behaviors = new Behaviors();
-            State.GhostPathFinder = new GhostPathFinder(MapName);
+            State.GhostPathFinder = new GhostPathFinder();
             State.ItemsController = new ItemsController();
 
             InitCharacters();
@@ -44,7 +44,8 @@ namespace Pacman
         {
             State.Pacman.Update();
             State.ItemsController.Update();
-    //        State.Blinky.Update();
+
+            State.Blinky.Update();
     //        State.Pinky.Update();
     //        if (Game.State.Pacman._dotsEaten > 50)   ///временно
     //            State.Inky.Update();

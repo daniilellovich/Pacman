@@ -9,6 +9,8 @@ namespace Pacman
 
         public MovementDelegate _movementDelegate;
 
+        Point _destination;
+
         public void ChangeMode(MovementDelegate movementDelegate, Bitmap sprite)
         {
             SetSprite(sprite);
@@ -22,18 +24,55 @@ namespace Pacman
             Location = location;
             Speed    = speed;
             _movementDelegate = mode;
-            Destination = _movementDelegate(Location);
+            _destination = _movementDelegate(Location);
         }
 
         public override void Update()
         {
-            int dx = Location.IsOnX(Destination) ? ((Location.X < Destination.X) ? 1 : -1) : 0;
-            int dy = Location.IsOnY(Destination) ? ((Location.Y < Destination.Y) ? 1 : -1) : 0;
+            int dx = !Location.IsOnX(_destination) ? ((Location.X < _destination.X) ? 1 : -1) : 0;
+            int dy = !Location.IsOnY(_destination) ? ((Location.Y < _destination.Y) ? 1 : -1) : 0;
 
-            if (Location.IsOn(Destination))
-               Destination = _movementDelegate(Location);
+            if (Location.IsOn(_destination))
+                _destination = _movementDelegate(Location);
 
-            Move(dx, dy);         
+            Move(dx, dy);
         }
+
+        //Point a;
+        //bool flag = true;
+
+        //public override void Update()
+        //{
+        //    int dx = 0;
+        //    int dy = 0;
+        //    float speed = Speed;
+
+        //    float LX = Location.Y;
+        //    float LY = Location.X;
+
+        //    if (flag == true)
+        //    {
+        //        a = _movementDelegate(Location);
+        //        flag = false;
+        //    }
+
+        //    if (Math.Abs(LY - a.Y) > 0.06)
+        //    {
+        //        if (LY < a.Y) dx = 1;
+        //        if (LY > a.Y) dx = -1;
+        //    }
+
+        //    if (Math.Abs(LX - a.X) > 0.06)
+        //    {
+        //        if (LX < a.X) dy = 1;
+        //        if (LX > a.X) dy = -1;
+        //    }
+
+        //    if ((Math.Abs(LX - a.X) < 0.08) && (Math.Abs(LY - a.Y) < 0.08))
+        //        a = _movementDelegate(Location);
+
+        //    Move(dx, dy);
+        //}
+
     }
 }

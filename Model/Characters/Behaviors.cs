@@ -78,7 +78,7 @@ namespace Pacman
             int Y = pacmanLocation.Y;
             int p = 0, q = 0;
 
-            switch (Game.State.Pacman._lastDirection)
+            switch (Game.State.Pacman.CurrentDir)
             {
                 case Pacman.Directions.up:
                     p = -5; q = 0;
@@ -164,7 +164,7 @@ namespace Pacman
             int X = pacmanLocation.X;
             int Y = pacmanLocation.Y;
 
-            switch (Game.State.Pacman._lastDirection)
+            switch (Game.State.Pacman.CurrentDir)
             {
                 case Pacman.Directions.up:
                     pacmanLocForInky = new Point(X - 2, Y);

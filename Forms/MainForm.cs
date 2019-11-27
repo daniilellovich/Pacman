@@ -50,7 +50,7 @@ namespace Pacman
             stageL.Font = new Font(StartForm.private_fonts.Families[0], r / 110, FontStyle.Regular, GraphicsUnit.Point, 0);
             scoreL.Font = highScoreTextL.Font;
             highScoreL.Font = highScoreTextL.Font;
-            SetClientSizeCore(Game.State.Level.Width * Game.TileSize.Width, Game.State.Level.Height * Game.TileSize.Height);
+            SetClientSizeCore(Game.State.Level.Width * Tile.Size.Width, Game.State.Level.Height * Tile.Size.Height);
         }
 
         void tmMain_Tick(object sender, EventArgs e)

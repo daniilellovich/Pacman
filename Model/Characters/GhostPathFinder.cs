@@ -17,15 +17,10 @@ namespace Pacman
     public class GhostPathFinder
     {
         string[] lines;
-        int Height, Width;
 
-        public GhostPathFinder(string level)
-        {
-            lines = Properties.Resources.PacmanMap.Split(new char[] { '\n' });
-            //Width = lines[0].Length - 1;
-            //Height = lines.Length - 1;
-        }
-
+        public GhostPathFinder()    
+            => lines = Properties.Resources.PacmanMap.Split(new char[] { '\n' });
+        
         public Point FindPath(Point start, Point goal, Point previousLocation)
         {
             // step 1
@@ -63,11 +58,11 @@ namespace Pacman
                         openSet.Add(neighbourNode);
                     else
                         if (openNode.PathLengthFromStart > neighbourNode.PathLengthFromStart)
-                        {
-                            // step 9
-                            openNode.CameFrom = currentNode;
-                            openNode.PathLengthFromStart = neighbourNode.PathLengthFromStart;
-                        }
+                    {
+                        // step 9
+                        openNode.CameFrom = currentNode;
+                        openNode.PathLengthFromStart = neighbourNode.PathLengthFromStart;
+                    }
                 }
             }
             // step 10
@@ -76,9 +71,7 @@ namespace Pacman
 
         //approximate distance estimate function       
         private float GetHeuristicPathLength(Point from, Point to)
-        {
-            return Math.Abs(from.X - to.X) + Math.Abs(from.Y - to.Y);
-        }
+             => Math.Abs(from.X - to.X) + Math.Abs(from.Y - to.Y);
 
         //getting list of neighbours for point
         private Collection<PathNode> GetNeighbours(PathNode pathNode, Point goal, string[] field, Point previousLocation)
@@ -92,7 +85,7 @@ namespace Pacman
             neighbourPoints[3] = new Point(pathNode.Position.X - 1, pathNode.Position.Y);
 
             foreach (var point in neighbourPoints)
-            {         
+            {
                 if (point == previousLocation)   //to prevent backtracking
                     continue;
                 if ((point.X < 0) || (point.X >= field.Length))
@@ -100,9 +93,9 @@ namespace Pacman
                 if ((point.Y < 0) || (point.Y >= field[0].Length))
                     continue;
 
-                if ((field[point.X][point.Y] != '.') &&   //Добавить сюда проходы чтобы через них шли призраки
-                    (field[point.X][point.Y] != ' ') &&
-                    (field[point.X][point.Y] != 'p'))
+                if ((field[Convert.ToInt32(point.X)][Convert.ToInt32(point.Y)] != '.') &&   //Добавить сюда проходы чтобы через них шли призраки
+                    (field[Convert.ToInt32(point.X)][Convert.ToInt32(point.Y)] != ' ') &&
+                    (field[Convert.ToInt32(point.X)][Convert.ToInt32(point.Y)] != 'p'))
                     continue;
 
                 PathNode neighbourNode = new PathNode()
@@ -130,8 +123,8 @@ namespace Pacman
             }
             result.Reverse();
 
-            if (result.Count > 1)           
-                return result[1];           
+            if (result.Count > 1)
+                return result[1];
             else
                 return new Point(0, 0);
         }

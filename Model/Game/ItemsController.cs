@@ -21,7 +21,7 @@ namespace Pacman
             if (Game.scoreCounter > Convert.ToInt32(StartForm.mf.highScoreL.Text))
                 StartForm.mf.highScoreL.Text = Convert.ToString(Game.scoreCounter);
             Game.scoreCounter = 0;
-            Game.State.Pacman._dotsEaten = 0;
+            Game.State.Pacman.DotsEaten = 0;
             Thread.Sleep(4000);
 
             PauseForm pf = new PauseForm();
@@ -75,7 +75,7 @@ namespace Pacman
             {
                 Game.State.Level.Tiles[i, j] = new Floor(new Point(i, j));
                 Game.scoreCounter += 10;
-                Game.State.Pacman._dotsEaten++;
+                Game.State.Pacman.DotsEaten++;
                 SoundController.PlaySound("DotEaten");
                 Thread.Sleep(17);
             }
@@ -84,7 +84,7 @@ namespace Pacman
             {
                 Game.State.Level.Tiles[i, j] = new Floor(new Point(i, j));
                 Game.scoreCounter += 50;
-                Game.State.Pacman._dotsEaten++;
+                Game.State.Pacman.DotsEaten++;
                 SoundController.PlaySound("EnergizerEaten");
                 Thread.Sleep(51);
                 Game.State.BehaviorChanger.GhostAreFrightened();
@@ -161,7 +161,7 @@ namespace Pacman
                 //  StartForm.mf.readyLabelP.Hide();
             }
 
-            if (Game.State.Pacman._dotsEaten == 244)
+            if (Game.State.Pacman.DotsEaten == 244)
             {
                 if (youWon == false)
                 {
@@ -170,7 +170,7 @@ namespace Pacman
                     SoundController.StopLongSound();
                     Game.LevelNum++;
                     StartForm.mf.stageL.Text = "stage " + Convert.ToString(Game.LevelNum) + "/256";                   
-                    Game.State.Pacman._dotsEaten = 0;
+                    Game.State.Pacman.DotsEaten = 0;
                     Game.State = new GameState();
                     Game.Init();
                     Thread.Sleep(2000); //сделать анимацию победы
@@ -187,9 +187,9 @@ namespace Pacman
             if (Game.State.Clyde._isEaten)
                 Game.State.Behaviors.CheckIfClydeAtHome();
 
-            if (Game.State.Pacman._dotsEaten == 70)
+            if (Game.State.Pacman.DotsEaten == 70)
                 Game.State.Level.Tiles[14, 20] = new Cherries(new Point(14, 20));
-            if (Game.State.Pacman._dotsEaten == 170)
+            if (Game.State.Pacman.DotsEaten == 170)
                 Game.State.Level.Tiles[14, 20] = new Cherries(new Point(14, 20));
 
             if (pacmanTile is Cherries)

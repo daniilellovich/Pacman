@@ -81,8 +81,6 @@ namespace Pacman
 
         public bool IsWalkablePoint(Point point)
         {
-            //      return Tiles[point.X, point.Y].Walkable;
-
             if ((point.X < 0 || point.X >= Height) ||
               (point.Y < 0 || point.Y >= Width))
                 return false;
@@ -93,11 +91,6 @@ namespace Pacman
             else
                 return true;
         }
-
-        //public void ChangeTileTo(Tile tile)
-        //{
-
-        //}
 
         #region Ghosts corners
         public Point BlinkyCorner { get; } = new Point(4, 21);    //26 Game.State.Level.BlinkyCorner

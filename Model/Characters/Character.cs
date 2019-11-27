@@ -10,6 +10,8 @@ namespace Pacman
         public float Speed { get; protected set; }
         public PointF Location { get; protected set; }
 
+        public bool _isEaten;
+
         protected void Move(int dx, int dy)
         {
             float newX = Location.X + dx * Speed;
@@ -18,11 +20,7 @@ namespace Pacman
 
             Sprite.MoveSprite(dx, dy, Speed);
         }
-
-        protected PointF Destination;
-
-        public bool _isEaten;
-        
+       
         public void SetSprite(Bitmap image) 
             => Sprite.SetSprite(image);
         
@@ -33,8 +31,8 @@ namespace Pacman
 
         public void Draw(Graphics gr)
         {
-            var x = (int)(Location.X * Game.TileSize.Width  - 6);
-            var y = (int)(Location.Y * Game.TileSize.Height - 6);
+            var x = (int)(Location.X * Tile.Size.Width  - 6);
+            var y = (int)(Location.Y * Tile.Size.Height - 6);
             Sprite.Draw(gr, new System.Drawing.Point(x, y));
         }
     }

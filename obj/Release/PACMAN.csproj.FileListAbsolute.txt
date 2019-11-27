@@ -1,0 +1,14 @@
+C:\Users\Windows\Desktop\pacman\PACMAN\bin\Release\Fonts\atari full.ttf
+C:\Users\Windows\Desktop\pacman\PACMAN\bin\Release\Levels\Pacman.txt
+C:\Users\Windows\Desktop\pacman\PACMAN\bin\Release\Levels\test.txt
+C:\Users\Windows\Desktop\pacman\PACMAN\bin\Release\Pacman.exe.config
+C:\Users\Windows\Desktop\pacman\PACMAN\bin\Release\Pacman.exe
+C:\Users\Windows\Desktop\pacman\PACMAN\bin\Release\Pacman.pdb
+C:\Users\Windows\Desktop\pacman\PACMAN\obj\Release\PACMAN.csprojAssemblyReference.cache
+C:\Users\Windows\Desktop\pacman\PACMAN\obj\Release\Pacman.Controls.LevelPanel.resources
+C:\Users\Windows\Desktop\pacman\PACMAN\obj\Release\Pacman.PacmanMainForm.resources
+C:\Users\Windows\Desktop\pacman\PACMAN\obj\Release\Pacman.Properties.Resources.resources
+C:\Users\Windows\Desktop\pacman\PACMAN\obj\Release\PACMAN.csproj.GenerateResource.cache
+C:\Users\Windows\Desktop\pacman\PACMAN\obj\Release\PACMAN.csproj.CoreCompileInputs.cache
+C:\Users\Windows\Desktop\pacman\PACMAN\obj\Release\Pacman.exe
+C:\Users\Windows\Desktop\pacman\PACMAN\obj\Release\Pacman.pdb
