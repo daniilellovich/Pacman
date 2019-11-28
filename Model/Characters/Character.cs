@@ -5,35 +5,38 @@ namespace Pacman
 {
     public abstract class Character
     {
-        public PointF Home { get; protected set; }
-        protected Sprite Sprite { get; set; }
-        public float Speed { get; protected set; }
-        public PointF Location { get; protected set; }
+        public PointF LocationF { get; protected set; }
+        public Point Location => LocationF.ToPoint();
+        private float _speed;
+        private Sprite _sprite;
 
-        public bool _isEaten;
+        //  public bool _isEaten;
 
-        protected void Move(int dx, int dy)
-        {
-            float newX = Location.X + dx * Speed;
-            float newY = Location.Y + dy * Speed;
-            Location = new PointF(newX, newY);
+        public Character()
+            => _sprite = new Sprite();
 
-            Sprite.MoveSprite(dx, dy, Speed);
-        }
-       
         public void SetSprite(Bitmap image) 
-            => Sprite.SetSprite(image);
-        
+            => _sprite.SetSprite(image);
+
         public void SetSpeed(float speed) 
-            => Speed = speed;
+            => _speed = speed;
 
         public abstract void Update();
 
+        protected void Move(int dx, int dy)
+        {
+            float newX = LocationF.X + dx * _speed;
+            float newY = LocationF.Y + dy * _speed;
+            LocationF = new PointF(newX, newY);
+
+            _sprite.MoveSprite(dx, dy, _speed);
+        }
+
         public void Draw(Graphics gr)
         {
-            var x = (int)(Location.X * Tile.Size.Width  - 6);
-            var y = (int)(Location.Y * Tile.Size.Height - 6);
-            Sprite.Draw(gr, new System.Drawing.Point(x, y));
+            var x = (int)(LocationF.X * Tile.Size.Width  - 6);
+            var y = (int)(LocationF.Y * Tile.Size.Height - 6);
+            _sprite.Draw(gr, new System.Drawing.Point(x, y));
         }
     }
 }

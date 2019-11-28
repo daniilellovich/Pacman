@@ -11,7 +11,8 @@ namespace Pacman
     public class ItemsController
     {
         public bool youWon = false;
-      //  int lives = 3;
+        //  int lives = 3;
+        List<Ghost> _ghosts;
 
         public void GameOver()
         {
@@ -35,27 +36,9 @@ namespace Pacman
 
         public void Update()
         {
-            #region creating tilesCoord
-            var i = (int)(Game.State.Pacman.Location.X + 0.5f);
-            var j = (int)(Game.State.Pacman.Location.Y + 0.5f);
+            var i = (int)(Game.State.Pacman.LocationF.X + 0.5f);
+            var j = (int)(Game.State.Pacman.LocationF.Y + 0.5f);
             Tile pacmanTile = Game.State.Level.Tiles[i, j];
-
-            var p = (int)(Game.State.Blinky.Location.X + 0.5f);
-            var q = (int)(Game.State.Blinky.Location.Y + 0.5f);
-            Tile blinkyTile = Game.State.Level.Tiles[p, q];
-
-            var r = (int)(Game.State.Pinky.Location.X + 0.5f);
-            var s = (int)(Game.State.Pinky.Location.Y + 0.5f);
-            Tile pinkyTile = Game.State.Level.Tiles[r, s];
-
-            var a = (int)(Game.State.Inky.Location.X + 0.5f);
-            var b = (int)(Game.State.Inky.Location.Y + 0.5f);
-            Tile inkyTile = Game.State.Level.Tiles[a, b];
-
-            var c = (int)(Game.State.Clyde.Location.X + 0.5f);
-            var d = (int)(Game.State.Clyde.Location.Y + 0.5f);
-            Tile clydeTile = Game.State.Level.Tiles[c, d];
-            #endregion
 
             if ((Keyboard.IsKeyDown(Keys.Escape)))
             {
@@ -87,79 +70,62 @@ namespace Pacman
                 Game.State.Pacman.DotsEaten++;
                 SoundController.PlaySound("EnergizerEaten");
                 Thread.Sleep(51);
-                Game.State.BehaviorChanger.GhostAreFrightened();
+        //        Game.State.BehaviorChanger.GhostAreFrightened();
             }
 
-            if (Game.State.BehaviorChanger._isFrightened)
-            {
-                if (pacmanTile == blinkyTile)
-                {
-                    Game.State.Blinky.SetSpeed(0.14f);
-                    Game.State.Blinky._isEaten = true;
-                    Game.State.Blinky.ChangeMode(Game.State.Behaviors.BlinkyReturningHome, GameResources.GhostEyes);
-                    //Thread.Sleep(51);
-                }
-                if (pacmanTile == pinkyTile)
-                {
-                    Game.State.Pinky.SetSpeed(0.14f);
-                    Game.State.Pinky._isEaten = true;
-                    Game.State.Pinky.ChangeMode(Game.State.Behaviors.PinkyReturningHome, GameResources.GhostEyes);
-                    //Thread.Sleep(51);
+            //if (Game.State.BehaviorChanger._ghostsAreFrightened)
+            //{
+            //    foreach(var ghost in _ghosts)
+            //    {
+            //        var p = (int)(ghost.LocationF.X + 0.5f);
+            //        var q = (int)(ghost.LocationF.Y + 0.5f);
+            //        Tile ghostTile = Game.State.Level.Tiles[p, q];
 
-                }
-                if (pacmanTile == inkyTile)
-                {
-                    Game.State.Inky.SetSpeed(0.14f);
-                    Game.State.Inky._isEaten = true;
-                    Game.State.Inky.ChangeMode(Game.State.Behaviors.InkyReturningHome, GameResources.GhostEyes);
-                    //       Thread.Sleep(51);
+            //        if (pacmanTile == ghostTile)
+            //        {
+            //            ghost.SetSpeed(0.14f);
+            //            //  ghost.IsEaten();
+            //            ghost.ChangeMode(ghost.ReturningHome);
+            //        }
+            //    }
 
-                }
-                if (pacmanTile == clydeTile)
-                {
-                    Game.State.Clyde.SetSpeed(0.14f);
-                    Game.State.Clyde._isEaten = true;
-                    Game.State.Clyde.ChangeMode(Game.State.Behaviors.ClydeReturningHome, GameResources.GhostEyes);
-                    //     Thread.Sleep(51);
-                }
+            //    SoundController.PlaySound("MonsterEaten");
+            //}
 
-                SoundController.PlaySound("MonsterEaten");
-            }
+            //if (((pacmanTile == blinkyTile) || (pacmanTile == pinkyTile) ||
+            //    (pacmanTile == inkyTile) || (pacmanTile == clydeTile))
+            //    && (Game.State.BehaviorChanger._isFrightened == false))
+            //{
+            //    SoundController.StopLongSound();
+            //    SoundController.PlaySound("PacmanEaten");
+            ////    lives--;
+            ////    switch (lives)
+            //    //{
+            //    //    case 0:
+            //    //        GameOver();
+            //    //        break;
+            //    //    case 1:
+            //    //        Game.State.Level.Tiles[0, 34] = new Floor(new Point(4, 34));
+            //    //        break;
+            //    //    case 2:
+            //    //        Game.State.Level.Tiles[2, 34] = new Floor(new Point(4, 34));
+            //    //        break;
+            //    //}
 
-            if (((pacmanTile == blinkyTile) || (pacmanTile == pinkyTile) ||
-                (pacmanTile == inkyTile) || (pacmanTile == clydeTile))
-                && (Game.State.BehaviorChanger._isFrightened == false))
-            {
-                SoundController.StopLongSound();
-                SoundController.PlaySound("PacmanEaten");
-            //    lives--;
-            //    switch (lives)
-                //{
-                //    case 0:
-                //        GameOver();
-                //        break;
-                //    case 1:
-                //        Game.State.Level.Tiles[0, 34] = new Floor(new Point(4, 34));
-                //        break;
-                //    case 2:
-                //        Game.State.Level.Tiles[2, 34] = new Floor(new Point(4, 34));
-                //        break;
-                //}
+            //    //               if (Game.State.Pacman.dotsCounter == 70)
 
-                //               if (Game.State.Pacman.dotsCounter == 70)
+            //    //       if (Game.State.Pacman.dotsCounter == 170)
 
-                //       if (Game.State.Pacman.dotsCounter == 170)
-
-                Thread.Sleep(1500);
-                Game.InitCharacters();
-            //    Game.InitCharactersControllers();
-                SoundController.PlayLongSound(Resources.Siren);
-                Game.State.BehaviorChanger._currentTime = 0;
-                Game.State.BehaviorChanger._frightenedTime = 0;
-                //  StartForm.mf.readyLabelP.Show();
-                //  Thread.Sleep(1000);
-                //  StartForm.mf.readyLabelP.Hide();
-            }
+            //    Thread.Sleep(1500);
+            ////    Game.InitCharacters();
+            ////    Game.InitCharactersControllers();
+            //    SoundController.PlayLongSound(Resources.Siren);
+            //    Game.State.BehaviorChanger._currentTime = 0;
+            //    Game.State.BehaviorChanger._frightenedTime = 0;
+            //    //  StartForm.mf.readyLabelP.Show();
+            //    //  Thread.Sleep(1000);
+            //    //  StartForm.mf.readyLabelP.Hide();
+            //}
 
             if (Game.State.Pacman.DotsEaten == 244)
             {
@@ -178,14 +144,14 @@ namespace Pacman
                 }
             }
 
-            if (Game.State.Blinky._isEaten)
-                Game.State.Behaviors.CheckIfBlinkyAtHome();
-            if (Game.State.Pinky._isEaten)
-                Game.State.Behaviors.CheckIfPinkyAtHome();
-            if (Game.State.Inky._isEaten)
-                Game.State.Behaviors.CheckIfInkyAtHome();
-            if (Game.State.Clyde._isEaten)
-                Game.State.Behaviors.CheckIfClydeAtHome();
+            //if (Game.State.Blinky._isEaten)
+            //    Game.State.Behaviors.CheckIfBlinkyAtHome();
+            //if (Game.State.Pinky._isEaten)
+            //    Game.State.Behaviors.CheckIfPinkyAtHome();
+            //if (Game.State.Inky._isEaten)
+            //    Game.State.Behaviors.CheckIfInkyAtHome();
+            //if (Game.State.Clyde._isEaten)
+            //    Game.State.Behaviors.CheckIfClydeAtHome();
 
             if (Game.State.Pacman.DotsEaten == 70)
                 Game.State.Level.Tiles[14, 20] = new Cherries(new Point(14, 20));

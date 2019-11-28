@@ -58,14 +58,20 @@ namespace Pacman
         public Point ToPoint()
             => new Point(Convert.ToInt32(X), Convert.ToInt32(Y));
 
-        public bool IsOnX(PointF point)
-            => Math.Abs(X - point.X) < 0.06;
+        public bool IsOnX(PointF point, float ebsilon)
+            => Math.Abs(X - point.X) < ebsilon;
 
-        public bool IsOnY(PointF point)
-            => Math.Abs(Y - point.Y) < 0.06;
+        public bool IsOnY(PointF point, float ebsilon)
+            => Math.Abs(Y - point.Y) < ebsilon;
 
-        public bool IsOn(PointF point)
-            => IsOnY(point) && IsOnY(point);
+        public bool IsOnXandY(PointF point, float ebsilon)
+            => IsOnX(point, ebsilon) && IsOnY(point, ebsilon);
+
+        public bool IsOnXorY(PointF point, float ebsilon)
+            => IsOnX(point, ebsilon) || IsOnY(point, ebsilon);
+
+        public bool IsFarFrom(Point point, float ebsilon)
+            => (Math.Abs(X - point.X) > ebsilon || Math.Abs(Y - point.Y) > ebsilon);
 
         public override string ToString()
             => $"({string.Format("{0:N2}", X)} ; {string.Format("{0:N2}", Y)})";

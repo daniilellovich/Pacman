@@ -56,10 +56,7 @@ namespace Pacman
             SoundController.PlaySound("Intro");
         }
 
-        private void RecordsB_Click(object sender, EventArgs e)
-        {
-
-        }
+        private void RecordsB_Click(object sender, EventArgs e) { }
 
         private void ExitB_Click(object sender, EventArgs e)
             => Application.Exit();

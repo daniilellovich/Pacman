@@ -60,11 +60,11 @@ namespace Pacman
 
             if (hiddenFeaturesVisible)
             {
-                Game.State.Behaviors.ShowPoints();
+           //     Game.State.Behaviors.ShowPoints();
                 path.Show(); //не открывать каждый раз, сделать флажок
                 //проверить нужна ли строка ниже
        //         this.path.Font = new Font(StartForm.private_fonts.Families[0], resolution.Height / 128, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
-                path.Text = Game.State.Behaviors.Output();
+           //     path.Text = Game.State.Behaviors.Output();
             }
             else
                 path.Hide();
@@ -75,23 +75,26 @@ namespace Pacman
         public int timer = 0;
         private void MainTimer_Tick(object sender, EventArgs e)
         {
-            readyLabelP.Show();
+           // readyLabelP.Show();
 
-            if (timer == 1)
+            if (timer == 0)
             {
                 tmMain.Start();
-                readyLabelP.Hide();
+         //       readyLabelP.Hide();
                 BehaviorControllerTimer.Start();
                 SoundController.PlayLongSound(Resources.Siren);
-                Game.State.Level.Tiles[4, 34] = new Floor(new Point(4, 34));
+        //        Game.State.Level.Tiles[4, 34] = new Floor(new Point(4, 34));
                 MainTimer.Stop();
             }   
             
             timer++;
         }
 
+        int sec=0;
         private void BehaviorControllerTimer_Tick(object sender, EventArgs e)
-            => Game.State.BehaviorChanger.BehaviorsController();
+        {          
+            Game.State.BehaviorChanger.BehaviorsController(sec++);
+        }
 
         private void scoreL_Click(object sender, EventArgs e) //убрать клик, сделать по клавиатуре
         {

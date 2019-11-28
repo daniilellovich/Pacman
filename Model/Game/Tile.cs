@@ -21,10 +21,10 @@ namespace Pacman
                              Size.Width,
                              Size.Height);
 
-        public virtual bool IsWalkable =>
-            (Location.X < Game.State.Level.Width &&
-             Location.X > 0 && Location.Y > 0 &&
-             Location.Y < Game.State.Level.Height);
+        public virtual bool IsWalkable => true;
+            //(Location.X < Game.State.Level.Width &&
+            // Location.X > 0 && Location.Y > 0 &&
+            // Location.Y < Game.State.Level.Height);
 
    //     public virtual bool UnwalkableForPacman =>
    //         !IsWalkable && Location != Door;

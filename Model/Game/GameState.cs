@@ -2,7 +2,6 @@ namespace Pacman
 {
     public class GameState
     {
-        public Behaviors Behaviors { get; set; }
         public GhostPathFinder GhostPathFinder { get; set; }
         public BehaviorChanger BehaviorChanger { get; set; }
         public Level Level { get; set; }

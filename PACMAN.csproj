@@ -75,12 +75,16 @@
     <Compile Include="Forms\PauseForm.Designer.cs">
       <DependentUpon>PauseForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\Characters\Ghosts\Blinky.cs" />
+    <Compile Include="Model\Characters\Ghosts\Clyde.cs" />
+    <Compile Include="Model\Characters\Ghosts\Inky.cs" />
+    <Compile Include="Model\Characters\Ghosts\Pinky.cs" />
     <Compile Include="Model\READYCLASSES\Point.cs" />
     <Compile Include="Model\Characters\GhostPathFinder.cs" />
     <Compile Include="Model\Characters\BehaviorChanger.cs" />
     <Compile Include="Model\Characters\Character.cs" />
     <Compile Include="Model\READYCLASSES\Keyboard.cs" />
-    <Compile Include="Model\Characters\Ghost.cs" />
+    <Compile Include="Model\Characters\Ghosts\Ghost.cs" />
     <Compile Include="Model\Game\Game.cs" />
     <Compile Include="Model\READYCLASSES\GameResources.cs" />
     <Compile Include="Model\Game\GameState.cs" />
@@ -97,7 +101,7 @@
     </Compile>
     <Compile Include="Model\Characters\Pacman.cs" />
     <Compile Include="Model\Game\SoundController.cs" />
-    <Compile Include="Model\Characters\Sprite.cs" />
+    <Compile Include="Model\READYCLASSES\Sprite.cs" />
     <Compile Include="Forms\StartForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -106,7 +110,6 @@
     </Compile>
     <Compile Include="Model\Game\Tile.cs" />
     <Compile Include="Model\Game\Tiles.cs" />
-    <Compile Include="Model\Characters\Behaviors.cs" />
     <Compile Include="Model\Game\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Pictures\FormPics\volumeOn.png">

@@ -158,10 +158,7 @@ namespace Pacman
         public BlinkyFinishPoint(Point location) : base(location) { }
 
         public override void Draw(Graphics gr)
-        {
-            gr.DrawImageUnscaledAndClipped(GameResources.Cell, Rect);////////////////change to floor
-            gr.DrawImageUnscaledAndClipped(GameResources.BlinkyFinishPoint, Rect);
-        }
+            => gr.DrawImageUnscaledAndClipped(GameResources.BlinkyFinishPoint, Rect);
     }
 
     public class PinkyFinishPoint : Tile
@@ -169,10 +166,7 @@ namespace Pacman
         public PinkyFinishPoint(Point location) : base(location) { }
 
         public override void Draw(Graphics gr)
-        {
-            gr.DrawImageUnscaledAndClipped(GameResources.Cell, Rect);////////////////change to floor
-            gr.DrawImageUnscaledAndClipped(GameResources.PinkyFinishPoint, Rect);
-        }
+            => gr.DrawImageUnscaledAndClipped(GameResources.PinkyFinishPoint, Rect);
     }
 
     public class InkyFinishPoint : Tile
@@ -180,10 +174,7 @@ namespace Pacman
         public InkyFinishPoint(Point location) : base(location) { }
 
         public override void Draw(Graphics gr)
-        {
-            gr.DrawImageUnscaledAndClipped(GameResources.Cell, Rect);////////////////change to floor
-            gr.DrawImageUnscaledAndClipped(GameResources.InkyFinishPoint, Rect);
-        }
+            => gr.DrawImageUnscaledAndClipped(GameResources.InkyFinishPoint, Rect);
     }
 
     public class ClydeFinishPoint : Tile
@@ -191,10 +182,7 @@ namespace Pacman
         public ClydeFinishPoint(Point location) : base(location) { }
 
         public override void Draw(Graphics gr)
-        {
-            gr.DrawImageUnscaledAndClipped(GameResources.Cell, Rect);////////////////change to floor
-            gr.DrawImageUnscaledAndClipped(GameResources.ClydeFinishPoint, Rect);
-        }
+            => gr.DrawImageUnscaledAndClipped(GameResources.ClydeFinishPoint, Rect);
     }
 
     #endregion

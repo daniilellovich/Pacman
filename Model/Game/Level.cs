@@ -66,6 +66,7 @@ namespace Pacman
                     if (_lines[l][k] == '.')
                         Tiles[k, l] = new Dot(new Point(k, l));
 
+
             Tiles[1, 6] = new Energizer(new Point(1, 6));
             Tiles[26, 6] = new Energizer(new Point(26, 6));
             Tiles[1, 26] = new Energizer(new Point(1, 26));
@@ -81,22 +82,25 @@ namespace Pacman
 
         public bool IsWalkablePoint(Point point)
         {
-            if ((point.X < 0 || point.X >= Height) ||
-              (point.Y < 0 || point.Y >= Width))
+            if ((point.X < 0 || point.X >= Width) ||
+              (point.Y < 0 || point.Y >= Height))
                 return false;
 
-            if ((_lines[point.X][point.Y] != '.') &&
-                (_lines[point.X][point.Y] != ' '))
+            if ((_lines[point.Y][point.X] != '.') &&
+                (_lines[point.Y][point.X] != ' ') &&
+                (_lines[point.Y][point.X] != 'p'))
                 return false;
             else
                 return true;
         }
 
-        #region Ghosts corners
-        public Point BlinkyCorner { get; } = new Point(4, 21);    //26 Game.State.Level.BlinkyCorner
-        public Point InkyCorner { get; } = new Point(32, 26);     //15 Game.State.Level.InkyCorner
-        public Point PinkyCorner { get; } = new Point(4, 6);      //1 Game.State.Level.PinkyCorner
-        public Point ClydeCorner { get; } = new Point(32, 1);     //12 Game.State.Level.ClydeCorner
-        #endregion
+        //public void ChangeTileTo(Tile tile)
+        //{
+
+        //}
+
+        //#region Ghosts corners
+        //public Point ClydeCorner { get; } = new Point(32, 1);     //12 Game.State.Level.ClydeCorner
+        //#endregion
     }
 }
