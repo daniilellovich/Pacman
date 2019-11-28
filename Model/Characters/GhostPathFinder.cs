@@ -164,7 +164,7 @@ namespace Pacman
         public float HeuristicEstimatePathLength { get; set; }// approximate estimate distance to goal (H)
         public float EstimateFullPathLength { get { return this.PathLengthFromStart + this.HeuristicEstimatePathLength; } }// expected distance to goal (F)
     }
-    public class PathFinder
+    public class GhostPathFinder
     {
         Level _level;
 
@@ -226,35 +226,20 @@ namespace Pacman
         }
 
         //getting list of neighbours for point
-<<<<<<< HEAD
         private Collection<PathNode> GetNeighbours(PathNode pathNode, Point goal, Point previousLocation)
-=======
-        private Collection<PathNode> GetNeighbours(PathNode pathNode, Point goal, Tile[,] tiles, Point previousLocation)
->>>>>>> 2d0e88a425ac8ac90347e677acca60052a40a994
         {
             var result = new Collection<PathNode>();
 
-            Point[] neighbourTiles = new Point[4];
-            neighbourTiles[0] = Game.State.Level.Tiles[pathNode.Position.X, pathNode.Position.Y + 1];
-            neighbourTiles[1] = new Point(pathNode.Position.X + 1, pathNode.Position.Y);
-            neighbourTiles[2] = new Point(pathNode.Position.X, pathNode.Position.Y - 1);
-            neighbourTiles[3] = new Point(pathNode.Position.X - 1, pathNode.Position.Y);
+            Point[] neighbourPoints = new Point[4];
+            neighbourPoints[0] = new Point(pathNode.Position.X, pathNode.Position.Y + 1);
+            neighbourPoints[1] = new Point(pathNode.Position.X + 1, pathNode.Position.Y);
+            neighbourPoints[2] = new Point(pathNode.Position.X, pathNode.Position.Y - 1);
+            neighbourPoints[3] = new Point(pathNode.Position.X - 1, pathNode.Position.Y);
 
-<<<<<<< HEAD
             foreach (var point in neighbourPoints)
             {
-                  if (point == previousLocation)   //to prevent backtracking
-                      continue;
-=======
-            foreach (var tile in neighbourTiles)
-            {         
                 if (point == previousLocation)   //to prevent backtracking
                     continue;
-                if ((point.X < 0) || (point.X >= field.Length))
-                    continue;
-                if ((point.Y < 0) || (point.Y >= field[0].Length))
-                    continue;
->>>>>>> 2d0e88a425ac8ac90347e677acca60052a40a994
 
                 if (!_level.IsWalkablePoint(point))
                     continue;
