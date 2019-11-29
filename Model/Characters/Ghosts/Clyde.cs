@@ -14,8 +14,8 @@ namespace Pacman
             _level = level;
 
             SetSpeed(0.12f);
-            SetSprite(GameResources.Clyde);
             ChangeMode(ScatterMode);
+            _sprite._image = GameResources.Clyde;
             LocationF = _home = new PointF(15.5f, 17);
             _destination = _movingMode();
             _prevLocation = new Point(0, 0);

@@ -15,9 +15,9 @@ namespace Pacman
             _level = level;
 
             SetSpeed(0.12f);
-            SetSprite(GameResources.Inky);
             ChangeMode(ScatterMode);
-            LocationF = _home = new PointF(11.5f, 17); //как то обозначить что это конст
+            _sprite._image = GameResources.Inky;
+            LocationF = _home = new PointF(11.5f, 17);
             _destination = _movingMode();
             _prevLocation = new Point(0, 0);
             _corner = new Point(26, 32);

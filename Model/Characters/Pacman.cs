@@ -36,20 +36,15 @@ namespace Pacman
             Move(dx, dy);
         }
 
-        bool DirIsValid(Directions dir)
-        {
-            (int X, int Y) = LocationF.ToPoint();
-
-            switch (dir)
-            {
-                case Directions.up:    return _level.IsWalkablePoint(new Point(X, Y - 1));
-                case Directions.right: return _level.IsWalkablePoint(new Point(X + 1, Y));
-                case Directions.down:  return _level.IsWalkablePoint(new Point(X, Y + 1));
-                case Directions.left:  return _level.IsWalkablePoint(new Point(X - 1, Y));
-            }
-           
-            return false;
-        }
+        bool DirIsValid(Directions dir) =>
+            dir switch
+            {                
+                Directions.up    => _level.IsWalkablePoint(Location.Up),
+                Directions.right => _level.IsWalkablePoint(Location.Right),
+                Directions.down  => _level.IsWalkablePoint(Location.Down),
+                Directions.left  => _level.IsWalkablePoint(Location.Left),
+                _                => false,
+             };             
 
         Point GetNextLocation(Directions receivedDir)
         {
@@ -61,13 +56,13 @@ namespace Pacman
 
             switch (CurrentDir)
             {
-                case Directions.up:    return new Point(X, Y - 1);
-                case Directions.right: return new Point(X + 1, Y);
-                case Directions.down:  return new Point(X, Y + 1);
-                case Directions.left:  return new Point(X - 1, Y);
+                case Directions.up:    return Location.Up;
+                case Directions.right: return Location.Right;
+                case Directions.down:  return Location.Down;
+                case Directions.left:  return Location.Left;
             }
 
-            return new Point(X, Y);
+            return Location;
         }
 
         Directions UpdateDirIfNewer(Directions oldDirection)

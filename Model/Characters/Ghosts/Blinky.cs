@@ -10,8 +10,8 @@ namespace Pacman
             _level = level;
 
             SetSpeed(0.12f);
-            SetSprite(GameResources.Blinky);
             ChangeMode(ScatterMode);
+            _sprite._image = GameResources.Blinky;
             LocationF = _home = new PointF(13.5f, 14); //как то обозначить что это конст
             _destination = _movingMode();
             _prevLocation = new Point(0, 0);

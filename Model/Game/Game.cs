@@ -17,7 +17,7 @@ namespace Pacman
         {
             Tile.Size = new Size(StartForm.resolution.Height / 40, StartForm.resolution.Height / 40);
 
-            State        = new GameState();
+            State = new GameState();
 
             State.Level  = new Level();
 
@@ -28,18 +28,18 @@ namespace Pacman
             State.Clyde  = new Clyde(State.Pacman, State.Level);
 
             List<Ghost> ghosts = new List<Ghost>() { State.Blinky, State.Pinky, State.Inky, State.Clyde };
-            State.BehaviorChanger = new BehaviorChanger(LevelNum, ghosts, State.Pacman);
-      //    State.ItemsController = new ItemsController();
+            State.BehaviorChanger = new BehaviorController(LevelNum, ghosts, State.Pacman);
+            State.ItemsController = new ItemsController(State.Level, State.Pacman, ghosts);
         }
 
         public static void Update()
         {
-        //  State.ItemsController.Update();
+          State.ItemsController.Update();
             State.Pacman.Update();
 
-        //    State.Blinky.Update();
-        //     State.Pinky.Update();
-        //    State.Inky.Update();
+            State.Blinky.Update();
+            State.Pinky.Update();
+       //   State.Inky.Update();
             State.Clyde.Update();
         }
     }

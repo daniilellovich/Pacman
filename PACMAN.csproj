@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>Pacman</RootNamespace>
     <AssemblyName>Pacman</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -38,6 +38,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -47,6 +48,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>
@@ -54,7 +56,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Bass.Net">
-      <HintPath>..\..\v4.5\Bass.Net.dll</HintPath>
+      <HintPath>bin\Debug\Bass.Net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -79,14 +81,14 @@
     <Compile Include="Model\Characters\Ghosts\Clyde.cs" />
     <Compile Include="Model\Characters\Ghosts\Inky.cs" />
     <Compile Include="Model\Characters\Ghosts\Pinky.cs" />
-    <Compile Include="Model\READYCLASSES\Point.cs" />
+    <Compile Include="Model\Game\Point.cs" />
     <Compile Include="Model\Characters\GhostPathFinder.cs" />
-    <Compile Include="Model\Characters\BehaviorChanger.cs" />
+    <Compile Include="Model\Characters\BehaviorController.cs" />
     <Compile Include="Model\Characters\Character.cs" />
-    <Compile Include="Model\READYCLASSES\Keyboard.cs" />
+    <Compile Include="Model\Game\Keyboard.cs" />
     <Compile Include="Model\Characters\Ghosts\Ghost.cs" />
     <Compile Include="Model\Game\Game.cs" />
-    <Compile Include="Model\READYCLASSES\GameResources.cs" />
+    <Compile Include="Model\Game\GameResources.cs" />
     <Compile Include="Model\Game\GameState.cs" />
     <Compile Include="Model\Game\ItemsController.cs" />
     <Compile Include="Model\Game\Level.cs" />
@@ -101,7 +103,7 @@
     </Compile>
     <Compile Include="Model\Characters\Pacman.cs" />
     <Compile Include="Model\Game\SoundController.cs" />
-    <Compile Include="Model\READYCLASSES\Sprite.cs" />
+    <Compile Include="Model\Game\Sprite.cs" />
     <Compile Include="Forms\StartForm.cs">
       <SubType>Form</SubType>
     </Compile>

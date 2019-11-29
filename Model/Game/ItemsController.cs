@@ -10,35 +10,24 @@ namespace Pacman
 {
     public class ItemsController
     {
-        public bool youWon = false;
-        //  int lives = 3;
         List<Ghost> _ghosts;
+        Pacman _pacman;
+        Level _level;
 
-        public void GameOver()
+        bool youWon;
+
+        public ItemsController(Level level, Pacman pacman, List<Ghost> ghosts)
         {
-            //Game.State.Pacman.sprite = GameResources.PacmanDepth;
-            SoundController.StopLongSound();
-            StartForm.mf.gameoverLabelP.Show();
-            if (Game.scoreCounter > Convert.ToInt32(StartForm.mf.highScoreL.Text))
-                StartForm.mf.highScoreL.Text = Convert.ToString(Game.scoreCounter);
-            Game.scoreCounter = 0;
-            Game.State.Pacman.DotsEaten = 0;
-            Thread.Sleep(4000);
-
-            PauseForm pf = new PauseForm();
-            pf.resumeB.Hide();
-            pf.restartB.Text = "play again";
-            pf.ShowDialog();
-
-            Game.State = new GameState();
-            Game.Init();
+            _level = level;
+            _pacman = pacman;
+            _ghosts = ghosts;
         }
 
         public void Update()
         {
-            var i = (int)(Game.State.Pacman.LocationF.X + 0.5f);
-            var j = (int)(Game.State.Pacman.LocationF.Y + 0.5f);
-            Tile pacmanTile = Game.State.Level.Tiles[i, j];
+            int i = (int)(_pacman.LocationF.X + 0.5f);
+            int j = (int)(_pacman.LocationF.Y + 0.5f);
+            Tile pacmanTile = _level.Tiles[i, j];
 
             if ((Keyboard.IsKeyDown(Keys.Escape)))
             {
@@ -46,31 +35,35 @@ namespace Pacman
                 pf.Show();
             }
 
-            //if ((Keyboard.IsKeyToggled(Keys.C))) //добавить вниз жизни
-            //{
-            //    if (StartForm.mf.hiddenFeaturesVisible == false)
-            //        StartForm.mf.hiddenFeaturesVisible = true;
-            //    else
-            //        StartForm.mf.hiddenFeaturesVisible = false;
-            //}
-
             if (pacmanTile is Dot)
             {
-                Game.State.Level.Tiles[i, j] = new Floor(new Point(i, j));
+                _level.Tiles[i, j] = new Floor(new Point(i, j));
                 Game.scoreCounter += 10;
-                Game.State.Pacman.DotsEaten++;
+                _pacman.DotsEaten++;
                 SoundController.PlaySound("DotEaten");
                 Thread.Sleep(17);
             }
 
             if (pacmanTile is Energizer)
             {
-                Game.State.Level.Tiles[i, j] = new Floor(new Point(i, j));
+                _level.Tiles[i, j] = new Floor(new Point(i, j));
                 Game.scoreCounter += 50;
-                Game.State.Pacman.DotsEaten++;
+                _pacman.DotsEaten++;
                 SoundController.PlaySound("EnergizerEaten");
                 Thread.Sleep(51);
-        //        Game.State.BehaviorChanger.GhostAreFrightened();
+
+                foreach (var ghost in _ghosts)
+                    ghost.ChangeMode(ghost.FrightenedMode);
+            }
+
+            foreach (var ghost in _ghosts)
+            {
+                int m = (int)(ghost.LocationF.X + 0.5f);
+                int n = (int)(ghost.LocationF.Y + 0.5f);
+                Tile ghostTile = _level.Tiles[m, n];
+
+                if (ghostTile == pacmanTile && ghost.IsFrightened)
+                    ghost.ChangeMode(ghost.ReturningHome);
             }
 
             //if (Game.State.BehaviorChanger._ghostsAreFrightened)
@@ -79,7 +72,7 @@ namespace Pacman
             //    {
             //        var p = (int)(ghost.LocationF.X + 0.5f);
             //        var q = (int)(ghost.LocationF.Y + 0.5f);
-            //        Tile ghostTile = Game.State.Level.Tiles[p, q];
+            //        Tile ghostTile = _level.Tiles[p, q];
 
             //        if (pacmanTile == ghostTile)
             //        {
@@ -105,16 +98,16 @@ namespace Pacman
             //    //        GameOver();
             //    //        break;
             //    //    case 1:
-            //    //        Game.State.Level.Tiles[0, 34] = new Floor(new Point(4, 34));
+            //    //        _level.Tiles[0, 34] = new Floor(new Point(4, 34));
             //    //        break;
             //    //    case 2:
-            //    //        Game.State.Level.Tiles[2, 34] = new Floor(new Point(4, 34));
+            //    //        _level.Tiles[2, 34] = new Floor(new Point(4, 34));
             //    //        break;
             //    //}
 
-            //    //               if (Game.State.Pacman.dotsCounter == 70)
+            //    //               if (_pacman.dotsCounter == 70)
 
-            //    //       if (Game.State.Pacman.dotsCounter == 170)
+            //    //       if (_pacman.dotsCounter == 170)
 
             //    Thread.Sleep(1500);
             ////    Game.InitCharacters();
@@ -127,22 +120,6 @@ namespace Pacman
             //    //  StartForm.mf.readyLabelP.Hide();
             //}
 
-            if (Game.State.Pacman.DotsEaten == 244)
-            {
-                if (youWon == false)
-                {
-                    youWon = true;
-                    //    Game.State.Pacman.sprite = GameResources.PacmanWon;
-                    SoundController.StopLongSound();
-                    Game.LevelNum++;
-                    StartForm.mf.stageL.Text = "stage " + Convert.ToString(Game.LevelNum) + "/256";                   
-                    Game.State.Pacman.DotsEaten = 0;
-                    Game.State = new GameState();
-                    Game.Init();
-                    Thread.Sleep(2000); //сделать анимацию победы
-                    SoundController.PlayLongSound(Resources.Siren);
-                }
-            }
 
             //if (Game.State.Blinky._isEaten)
             //    Game.State.Behaviors.CheckIfBlinkyAtHome();
@@ -153,14 +130,31 @@ namespace Pacman
             //if (Game.State.Clyde._isEaten)
             //    Game.State.Behaviors.CheckIfClydeAtHome();
 
-            if (Game.State.Pacman.DotsEaten == 70)
-                Game.State.Level.Tiles[14, 20] = new Cherries(new Point(14, 20));
-            if (Game.State.Pacman.DotsEaten == 170)
-                Game.State.Level.Tiles[14, 20] = new Cherries(new Point(14, 20));
+            if (_pacman.DotsEaten == 244)
+            {
+                if (youWon == false)
+                {
+                    youWon = true;
+                    //    _pacman.sprite = GameResources.PacmanWon;
+                    SoundController.StopLongSound();
+                    Game.LevelNum++;
+                    StartForm.mf.stageL.Text = "stage " + Convert.ToString(Game.LevelNum) + "/256";                   
+                    _pacman.DotsEaten = 0;
+                    Game.State = new GameState();
+                    Game.Init();
+                    Thread.Sleep(2000); //сделать анимацию победы
+                    SoundController.PlayLongSound(Resources.Siren);
+                }
+            }
+
+            if (_pacman.DotsEaten == 70)
+                _level.Tiles[14, 20] = new Cherries(new Point(14, 20));
+            if (_pacman.DotsEaten == 170)
+                _level.Tiles[14, 20] = new Cherries(new Point(14, 20));
 
             if (pacmanTile is Cherries)
             {
-                Game.State.Level.Tiles[i, j] = new Floor(new Point(i, j));
+                _level.Tiles[i, j] = new Floor(new Point(i, j));
                 Game.scoreCounter += 200;
                 SoundController.PlaySound("FruitEaten");
                 Thread.Sleep(17);
@@ -168,9 +162,9 @@ namespace Pacman
 
             #region tunnel checker
             //if (pacmanTile is r)
-            //    Game.State.Pacman.Location = new Point(1, 17);
+            //    _pacman.Location = new Point(1, 17);
             //if (pacmanTile is l)
-            //    Game.State.Pacman.Location = new Point(26, 17);
+            //    _pacman.Location = new Point(26, 17);
 
             //if (blinkyTile is r)
             //    Game.State.Blinky.Location = new Point(1, 17);
@@ -192,7 +186,26 @@ namespace Pacman
             //if (blinkyTile is l)
             //    Game.State.Clyde.Location = new Point(26, 17);
             #endregion
+        }
 
+        public void GameOver()
+        {
+            //_pacman.sprite = GameResources.PacmanDepth;
+            SoundController.StopLongSound();
+            StartForm.mf.gameoverLabelP.Show();
+            if (Game.scoreCounter > Convert.ToInt32(StartForm.mf.highScoreL.Text))
+                StartForm.mf.highScoreL.Text = Convert.ToString(Game.scoreCounter);
+            Game.scoreCounter = 0;
+            _pacman.DotsEaten = 0;
+            Thread.Sleep(4000);
+
+            PauseForm pf = new PauseForm();
+            pf.resumeB.Hide();
+            pf.restartB.Text = "play again";
+            pf.ShowDialog();
+
+            Game.State = new GameState();
+            Game.Init();
         }
     }
 }

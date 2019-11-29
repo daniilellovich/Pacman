@@ -8,14 +8,12 @@ namespace Pacman
         public PointF LocationF { get; protected set; }
         public Point Location => LocationF.ToPoint();
         private float _speed;
-        private Sprite _sprite;
-
-        //  public bool _isEaten;
+        protected Sprite _sprite;
 
         public Character()
             => _sprite = new Sprite();
 
-        public void SetSprite(Bitmap image) 
+        protected void SetSprite(Image image) 
             => _sprite.SetSprite(image);
 
         public void SetSpeed(float speed) 

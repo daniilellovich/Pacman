@@ -15,8 +15,8 @@ namespace Pacman
             _level = level;
 
             SetSpeed(0.12f);
-            SetSprite(GameResources.Pinky);
             ChangeMode(ScatterMode);
+            _sprite._image = GameResources.Pinky;
             LocationF = _home = new PointF(13.5f, 17);
             _destination = _movingMode();
             _prevLocation = new Point();
@@ -51,12 +51,12 @@ namespace Pacman
             {
                 if (dx > 0) dx -= 1;
                 if (dx < 0) dx += 1;
-                                    
+
                 if (dy > 0) dy -= 1;
                 if (dy < 0) dy += 1;
-                
+
                 Point point = new Point(_pacman.Location.X + dx, _pacman.Location.Y + dy);
-                
+
                 Debug.WriteLine(_pacman.Location + " " + point);
 
                 if (_level.IsWalkablePoint(point))
@@ -69,5 +69,6 @@ namespace Pacman
             List<Point> path = _pathFinder.FindPath(_prevLocation, Location, _goal);
             return (path.Count == 1) ? Location : path[1];
         }
-    } 
+    }
+
 }

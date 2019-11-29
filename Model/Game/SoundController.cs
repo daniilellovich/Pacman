@@ -14,7 +14,7 @@ namespace Pacman
             => Bass.BASS_Init(-1, 44100, BASSInit.BASS_DEVICE_DEFAULT, IntPtr.Zero);
 
         public static void PlaySound(string fileName)
-        {
+        { 
             if (_soundON)
             {
                 fileName = "Sounds\\" + fileName + ".wav";
