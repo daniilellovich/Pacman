@@ -5,16 +5,16 @@ namespace Pacman
 {
     public class BehaviorController
     {
-        List<Ghost> _ghosts = new List<Ghost>();
-        enum _ghostModes { Scatter, Chase, Frightened};
-        Pacman _pacman;
+        Pacman _pacman = Game.State.Pacman;
+        List<Ghost> _ghosts = Game.State.Ghosts;
+
+
+        enum ghostModes { Scatter, Chase, Frightened};
+        ghostModes _globalCurrentMode = ghostModes.Scatter;
         int[] _events = new int[7];
 
-        public BehaviorController(int level, List<Ghost> ghosts, Pacman pacman)
+        public BehaviorController(int level)
         {
-            _ghosts = ghosts;
-            _pacman = pacman;
-
             switch (level)
             {
                 case 1:
@@ -36,17 +36,17 @@ namespace Pacman
             }
         }
 
-        void ChangeGhostsMode(_ghostModes movingMode)
+        void ChangeGhostsMode(ghostModes movingMode)
         {
             foreach (Ghost ghost in _ghosts)
             {
                 ghost.ResetPrevLoc();
 
-                if(movingMode == _ghostModes.Scatter)
+                if(movingMode == ghostModes.Scatter)
                     ghost.ChangeMode(ghost.ScatterMode);
-                if (movingMode == _ghostModes.Chase)
+                if (movingMode == ghostModes.Chase)
                     ghost.ChangeMode(ghost.ChaseMode);
-                if (movingMode == _ghostModes.Frightened)
+                if (movingMode == ghostModes.Frightened)
                     ghost.ChangeMode(ghost.FrightenedMode);                
             }
         }
@@ -57,14 +57,21 @@ namespace Pacman
                 ghost.SetSpeed(speed);
         }
 
-        public void BehaviorsController(int sec)
+        public void BehaviorEvents(int sec)
         {
             if (sec == _events[0] || sec == _events[2] ||
                 sec == _events[4] || sec == _events[6])
-                ChangeGhostsMode(_ghostModes.Chase);
+            {
+                ChangeGhostsMode(ghostModes.Chase);
+                _globalCurrentMode = ghostModes.Chase;
+            }
 
-            if (sec == _events[1] || sec == _events[3] || sec == _events[5])
-                ChangeGhostsMode(_ghostModes.Scatter);
+            if (sec == _events[1] || sec == _events[3] || 
+                sec == _events[5])
+            {
+                ChangeGhostsMode(ghostModes.Scatter);
+                _globalCurrentMode = ghostModes.Scatter;
+            }
         }
     }
 }

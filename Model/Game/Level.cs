@@ -15,6 +15,7 @@ namespace Pacman
         public Level()
         {
             _lines = Properties.Resources.PacmanMap.Split('\n');
+
             Width = _lines[0].Length - 1;
             Height = _lines.Length - 1;
             FillLevel();
@@ -94,13 +95,22 @@ namespace Pacman
                 return true;
         }
 
-        //public void ChangeTileTo(Tile tile)
-        //{
+        public bool IsWalkableForPacman(Point point)
+        {
+            if ((point.X < 0 || point.X >= Width) ||
+              (point.Y < 0 || point.Y >= Height))
+                return false;
 
-        //}
+            if ((_lines[point.Y][point.X] != '.') &&
+                (_lines[point.Y][point.X] != ' '))
+                return false;
+            else
+                return true;
+        }
 
-        //#region Ghosts corners
-        //public Point ClydeCorner { get; } = new Point(32, 1);     //12 Game.State.Level.ClydeCorner
-        //#endregion
+        public void ChangeTileTo(Point point)
+        {
+           // Tile tile = new 
+        }
     }
 }

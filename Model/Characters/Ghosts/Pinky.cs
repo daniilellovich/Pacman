@@ -9,17 +9,15 @@ namespace Pacman
 {
     public class Pinky : Ghost
     {
-        public Pinky(Pacman pacman, Level level) : base()
+        public Pinky() : base()
         {
-            _pacman = pacman;
-            _level = level;
-
             SetSpeed(0.12f);
             ChangeMode(ScatterMode);
             _sprite._image = GameResources.Pinky;
+            _color = System.Drawing.Color.Pink;
             LocationF = _home = new PointF(13.5f, 17);
             _destination = _movingMode();
-            _prevLocation = new Point();
+            _prevLoc = new Point();
             _corner = new Point(6, 4);
             _corner2 = new Point(1, 4);
         }
@@ -57,8 +55,6 @@ namespace Pacman
 
                 Point point = new Point(_pacman.Location.X + dx, _pacman.Location.Y + dy);
 
-                Debug.WriteLine(_pacman.Location + " " + point);
-
                 if (_level.IsWalkablePoint(point))
                 {
                     _goal = point;
@@ -66,8 +62,8 @@ namespace Pacman
                 }
             }
 
-            List<Point> path = _pathFinder.FindPath(_prevLocation, Location, _goal);
-            return (path.Count == 1) ? Location : path[1];
+            _path = _pathFinder.FindPath(_prevLoc, Location, _goal);
+            return (_path.Count == 1) ? Location : _path[1];
         }
     }
 

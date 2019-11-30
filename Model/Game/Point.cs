@@ -11,7 +11,10 @@ namespace Pacman
         public int X, Y;
 
         public Point(int X, int Y)
-        { this.X = X; this.Y = Y; }       
+        { this.X = X; this.Y = Y; }      
+        
+        public System.Drawing.Point ConvertToSDP()
+            => new System.Drawing.Point(X, Y);
 
         public void Deconstruct(out int X, out int Y)
         { X = this.X; Y = this.Y; }
@@ -26,9 +29,6 @@ namespace Pacman
 
         public List<Point> NeighbourPoints 
             => new List<Point> { Up, Down, Right, Left };
-
-        public bool IsEmpty
-            => (X == 0 || Y == 0);
 
         public override string ToString()
             => $"({X} ; {Y})";

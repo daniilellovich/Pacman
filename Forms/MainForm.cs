@@ -92,8 +92,17 @@ namespace Pacman
 
         int sec=0;
         private void BehaviorControllerTimer_Tick(object sender, EventArgs e)
-        {          
-            Game.State.BehaviorChanger.BehaviorsController(sec++);
+        {
+            if (Keyboard.IsKeyDown(Keys.B))
+                Game.State.Blinky.PathIsVisible = !Game.State.Blinky.PathIsVisible;
+            if (Keyboard.IsKeyDown(Keys.P))
+                Game.State.Pinky.PathIsVisible = !Game.State.Pinky.PathIsVisible;
+            if (Keyboard.IsKeyDown(Keys.I))
+                Game.State.Inky.PathIsVisible = !Game.State.Inky.PathIsVisible;
+            if (Keyboard.IsKeyDown(Keys.C))
+                Game.State.Clyde.PathIsVisible = !Game.State.Clyde.PathIsVisible;
+
+            Game.State.BehaviorChanger.BehaviorEvents(sec++);
         }
 
         private void scoreL_Click(object sender, EventArgs e) //убрать клик, сделать по клавиатуре

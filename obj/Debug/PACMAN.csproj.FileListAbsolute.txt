@@ -1,145 +1,3 @@
-C:\Users\Windows\source\repos\PACMAN\PACMAN\obj\Debug\PACMAN.csprojAssemblyReference.cache
-C:\Users\Windows\source\repos\PACMAN\PACMAN\obj\Debug\Pacman.PacmanMainForm.resources
-C:\Users\Windows\source\repos\PACMAN\PACMAN\obj\Debug\PACMAN.Properties.Resources.resources
-C:\Users\Windows\source\repos\PACMAN\PACMAN\obj\Debug\PACMAN.csproj.GenerateResource.cache
-C:\Users\Windows\source\repos\PACMAN\PACMAN\obj\Debug\PACMAN.csproj.CoreCompileInputs.cache
-C:\Users\Windows\source\repos\PACMAN\PACMAN\bin\Debug\PACMAN.exe.config
-C:\Users\Windows\source\repos\PACMAN\PACMAN\bin\Debug\PACMAN.exe
-C:\Users\Windows\source\repos\PACMAN\PACMAN\bin\Debug\PACMAN.pdb
-C:\Users\Windows\source\repos\PACMAN\PACMAN\obj\Debug\PACMAN.exe
-C:\Users\Windows\source\repos\PACMAN\PACMAN\obj\Debug\PACMAN.pdb
-C:\Users\Windows\source\repos\PACMAN\PACMAN\bin\Debug\Levels\Pacman.txt
-C:\Users\Windows\source\repos\PACMAN\PACMAN\obj\Debug\Pacman.Controls.LevelPanel.resources
-C:\Users\Windows\source\repos\PACMAN\PACMAN\bin\Debug\Levels\test.txt
-C:\Users\Windows\Desktop\PACMAN\PACMAN\bin\Debug\PACMAN.exe
-C:\Users\Windows\Desktop\PACMAN\PACMAN\bin\Debug\PACMAN.pdb
-C:\Users\Windows\Desktop\PACMAN\PACMAN\obj\Debug\Pacman.Controls.LevelPanel.resources
-C:\Users\Windows\Desktop\PACMAN\PACMAN\obj\Debug\PACMAN.Properties.Resources.resources
-C:\Users\Windows\Desktop\PACMAN\PACMAN\obj\Debug\PACMAN.csproj.GenerateResource.cache
-C:\Users\Windows\Desktop\PACMAN\PACMAN\obj\Debug\PACMAN.csproj.CoreCompileInputs.cache
-C:\Users\Windows\Desktop\PACMAN\PACMAN\obj\Debug\PACMAN.exe
-C:\Users\Windows\Desktop\PACMAN\PACMAN\obj\Debug\PACMAN.pdb
-C:\Users\Windows\Desktop\пробный пукмен\PACMAN\bin\Debug\Levels\Pacman.txt
-C:\Users\Windows\Desktop\пробный пукмен\PACMAN\bin\Debug\Levels\test.txt
-C:\Users\Windows\Desktop\пробный пукмен\PACMAN\bin\Debug\Pacman.exe.config
-C:\Users\Windows\Desktop\пробный пукмен\PACMAN\bin\Debug\Pacman.exe
-C:\Users\Windows\Desktop\пробный пукмен\PACMAN\bin\Debug\Pacman.pdb
-C:\Users\Windows\Desktop\пробный пукмен\PACMAN\obj\Debug\Pacman.Controls.LevelPanel.resources
-C:\Users\Windows\Desktop\пробный пукмен\PACMAN\obj\Debug\Pacman.PacmanMainForm.resources
-C:\Users\Windows\Desktop\пробный пукмен\PACMAN\obj\Debug\Pacman.Properties.Resources.resources
-C:\Users\Windows\Desktop\пробный пукмен\PACMAN\obj\Debug\PACMAN.csproj.GenerateResource.cache
-C:\Users\Windows\Desktop\пробный пукмен\PACMAN\obj\Debug\PACMAN.csproj.CoreCompileInputs.cache
-C:\Users\Windows\Desktop\пробный пукмен\PACMAN\obj\Debug\Pacman.exe
-C:\Users\Windows\Desktop\пробный пукмен\PACMAN\obj\Debug\Pacman.pdb
-C:\Users\Windows\Desktop\пробный пукмен\PACMAN\obj\Debug\PACMAN.csprojAssemblyReference.cache
-C:\Users\Windows\Desktop\gdfgdfgdfgd\PACMAN\obj\Debug\PACMAN.csprojAssemblyReference.cache
-C:\Users\Windows\Desktop\gdfgdfgdfgd\PACMAN\obj\Debug\Pacman.Controls.LevelPanel.resources
-C:\Users\Windows\Desktop\gdfgdfgdfgd\PACMAN\obj\Debug\Pacman.PacmanMainForm.resources
-C:\Users\Windows\Desktop\gdfgdfgdfgd\PACMAN\obj\Debug\Pacman.Properties.Resources.resources
-C:\Users\Windows\Desktop\gdfgdfgdfgd\PACMAN\obj\Debug\PACMAN.csproj.GenerateResource.cache
-C:\Users\Windows\Desktop\gdfgdfgdfgd\PACMAN\obj\Debug\PACMAN.csproj.CoreCompileInputs.cache
-C:\Users\Windows\Desktop\gdfgdfgdfgd\PACMAN\obj\Debug\Pacman.exe
-C:\Users\Windows\Desktop\gdfgdfgdfgd\PACMAN\obj\Debug\Pacman.pdb
-C:\Users\Windows\Desktop\gdfgdfgdfgd\PACMAN\bin\Debug\Fonts\atari full.ttf
-C:\Users\Windows\Desktop\gdfgdfgdfgd\PACMAN\bin\Debug\Levels\Pacman.txt
-C:\Users\Windows\Desktop\gdfgdfgdfgd\PACMAN\bin\Debug\Levels\test.txt
-C:\Users\Windows\Desktop\gdfgdfgdfgd\PACMAN\bin\Debug\Pacman.exe.config
-C:\Users\Windows\Desktop\gdfgdfgdfgd\PACMAN\bin\Debug\Pacman.exe
-C:\Users\Windows\Desktop\gdfgdfgdfgd\PACMAN\bin\Debug\Pacman.pdb
-C:\Users\Windows\Desktop\pacman\PACMAN\obj\Debug\Pacman.StartForm.resources
-C:\Users\Windows\Desktop\pacman\PACMAN\obj\Debug\Pacman.MainForm.resources
-C:\Users\Windows\Desktop\pacman\PACMAN\obj\Debug\PACMAN.csprojAssemblyReference.cache
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Levels\Pacman.txt
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Fonts\atari full.ttf
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Levels\test.txt
-C:\Users\Windows\Desktop\pacman\PACMAN\obj\Debug\PACMAN.csproj.CopyComplete
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\bass.dll
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Sounds\DotEaten.wav
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Sounds\EnergizerEaten.wav
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Sounds\FruitEaten.wav
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Sounds\Intermission.wav
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Sounds\Intro.wav
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Sounds\Invincible.wav
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Sounds\MonsterEaten.wav
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Sounds\PacmanEaten.wav
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Sounds\Siren.wav
-C:\Users\Windows\Desktop\pacman\PACMAN\obj\Debug\Pacman.PauseForm.resources
-C:\Users\Windows\Desktop\PACMAN\PACMAN\bin\Debug\Resources\volumeOff.png
-C:\Users\Windows\Desktop\PACMAN\PACMAN\bin\Debug\Resources\volumeOn.png
-C:\Users\Windows\Desktop\PACMAN\PACMAN\bin\Debug\Sounds\pacmanFever.wav
-C:\Users\Windows\Desktop\PACMAN\PACMAN\bin\Debug\Resources\pacmanWon.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\badge.ico
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\1.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\2.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\3.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\4.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\5.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\6.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\7.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\8.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\9.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\Apple.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\backgroundPacman.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\Bell.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\blinky.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\blinkyFinishPoint.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\Cherries.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\frightEnd.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\fright.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\Galaxian.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\gameoverL.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\ghostEyes.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\Grapes.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\inkyFinishPoint.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\clydeFinishPoint.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\Key.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\pacmanDepth.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\pacmanLives.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\Peach.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\pinkyFinishPoint.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\cell.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\clyde.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\dot.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\energizer.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\inky.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\pacman.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\PacmanFloor.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\pinky.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\wall.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\readyLabel.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\Strawberry.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\_a.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\_b.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\_c.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\_d.png
-C:\Users\Windows\Desktop\pacman\PACMAN\bin\Debug\Resources\ghostI.gif
-C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\obj\Debug\Pacman.PauseForm.resources
-C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\obj\Debug\Pacman.StartForm.resources
-C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\obj\Debug\Pacman.Controls.LevelPanel.resources
-C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\obj\Debug\Pacman.MainForm.resources
-C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\obj\Debug\Pacman.Properties.Resources.resources
-C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\obj\Debug\PACMAN.csproj.GenerateResource.cache
-C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\obj\Debug\Pacman.exe
-C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\obj\Debug\Pacman.pdb
-C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Sounds\pacmanFever.wav
-C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Sounds\DotEaten.wav
-C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Sounds\EnergizerEaten.wav
-C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Sounds\FruitEaten.wav
-C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Sounds\Intermission.wav
-C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Sounds\Intro.wav
-C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Sounds\Invincible.wav
-C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Sounds\MonsterEaten.wav
-C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Sounds\PacmanEaten.wav
-C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Sounds\Siren.wav
-C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\bass.dll
-C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Fonts\atari full.ttf
-C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Levels\Pacman.txt
-C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Levels\test.txt
-C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Pacman.exe
-C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Pacman.pdb
-C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\obj\Debug\PACMAN.csproj.CopyComplete
-C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Pacman.exe.config
-C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\obj\Debug\PACMAN.csprojAssemblyReference.cache
 C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Pictures\FormPics\volumeOn.png
 C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Pictures\FormPics\volumeOff.png
 C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Pictures\FormPics\backgroundPacman.png
@@ -155,7 +13,6 @@ C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Pictures\Level\9.png
 C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Pictures\Fruits\Apple.png
 C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Pictures\Fruits\Bell.png
 C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Pictures\Sprites\blinky.png
-C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Pictures\Cheats\blinkyFinishPoint.png
 C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Pictures\Fruits\Cherries.png
 C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Pictures\Sprites\frightEnd.png
 C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Pictures\Sprites\fright.png
@@ -163,15 +20,11 @@ C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Pictures\Fruits\Galax
 C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Pictures\Labels\gameoverL.png
 C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Pictures\Sprites\ghostEyes.png
 C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Pictures\Fruits\Grapes.png
-C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Pictures\Cheats\inkyFinishPoint.png
-C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Pictures\Cheats\clydeFinishPoint.png
 C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Pictures\Fruits\Key.png
 C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Pictures\Sprites\pacmanWon.png
 C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Pictures\Sprites\pacmanDepth.png
 C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Pictures\Labels\pacmanLife.png
 C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Pictures\Fruits\Peach.png
-C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Pictures\Cheats\pinkyFinishPoint.png
-C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Pictures\Cheats\cell.png
 C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Pictures\Sprites\clyde.png
 C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Pictures\Level\dot.png
 C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Pictures\Level\energizer.png
@@ -187,3 +40,30 @@ C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Pictures\Level\_c.png
 C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Pictures\Level\_d.png
 C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Pictures\FormPics\ghostGif.gif
 C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Pictures\FormPics\badge.ico
+C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Sounds\pacmanFever.wav
+C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Sounds\DotEaten.wav
+C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Sounds\EnergizerEaten.wav
+C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Sounds\FruitEaten.wav
+C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Sounds\Intermission.wav
+C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Sounds\Intro.wav
+C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Sounds\Invincible.wav
+C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Sounds\MonsterEaten.wav
+C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Sounds\PacmanEaten.wav
+C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Sounds\Siren.wav
+C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\bass.dll
+C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Fonts\atari full.ttf
+C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Levels\Pacman.txt
+C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Levels\test.txt
+C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Pacman.exe.config
+C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Pacman.exe
+C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\bin\Debug\Pacman.pdb
+C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\obj\Debug\Pacman.PauseForm.resources
+C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\obj\Debug\Pacman.StartForm.resources
+C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\obj\Debug\Pacman.Controls.LevelPanel.resources
+C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\obj\Debug\Pacman.MainForm.resources
+C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\obj\Debug\Pacman.Properties.Resources.resources
+C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\obj\Debug\PACMAN.csproj.GenerateResource.cache
+C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\obj\Debug\PACMAN.csproj.CopyComplete
+C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\obj\Debug\Pacman.exe
+C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\obj\Debug\Pacman.pdb
+C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\obj\Debug\PACMAN.csprojAssemblyReference.cache

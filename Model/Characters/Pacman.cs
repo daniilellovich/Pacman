@@ -6,7 +6,7 @@ namespace Pacman
 {
     public class Pacman : Character
     {
-        Level _level;
+        Level _level = Game.State.Level;
 
         public enum Directions { nowhere, up, right, down, left }
 
@@ -14,12 +14,17 @@ namespace Pacman
 
         public int Lifes { get; private set; }
 
-        public Pacman(float speed, Level level)
+        public Pacman(float speed)
         {
-            LocationF = new PointF(13.5f, 26); //pacmanHome;
+            LocationF = new PointF(13.5f, 26);
             SetSprite(GameResources.Pacman);
             SetSpeed(speed);
-            _level = level;
+        }
+
+        public Pacman()
+        {
+            LocationF = new PointF(13.5f, 26);
+            SetSprite(GameResources.Pacman);
         }
 
         public Directions CurrentDir { get; private set; }
@@ -27,7 +32,7 @@ namespace Pacman
 
         public override void Update()
         {
-            _nextDirection = UpdateDirIfNewer(_nextDirection);
+            _nextDirection = UpdateDirIfNewer();
             Point destination = GetNextLocation(_nextDirection);
 
             int dx = !LocationF.IsOnX(destination, 0.06f) ? ((LocationF.X < destination.X) ? 1 : -1) : 0;
@@ -39,10 +44,10 @@ namespace Pacman
         bool DirIsValid(Directions dir) =>
             dir switch
             {                
-                Directions.up    => _level.IsWalkablePoint(Location.Up),
-                Directions.right => _level.IsWalkablePoint(Location.Right),
-                Directions.down  => _level.IsWalkablePoint(Location.Down),
-                Directions.left  => _level.IsWalkablePoint(Location.Left),
+                Directions.up    => _level.IsWalkableForPacman(Location.Up),
+                Directions.right => _level.IsWalkableForPacman(Location.Right),
+                Directions.down  => _level.IsWalkableForPacman(Location.Down),
+                Directions.left  => _level.IsWalkableForPacman(Location.Left),
                 _                => false,
              };             
 
@@ -65,7 +70,7 @@ namespace Pacman
             return Location;
         }
 
-        Directions UpdateDirIfNewer(Directions oldDirection)
+        Directions UpdateDirIfNewer()
         {
             if (Keyboard.IsKeyDown(Keys.Up) || Keyboard.IsKeyDown(Keys.W))
                 return Directions.up;
@@ -76,7 +81,7 @@ namespace Pacman
             if (Keyboard.IsKeyDown(Keys.Left) || Keyboard.IsKeyDown(Keys.A))
                 return Directions.left;
 
-            return oldDirection;
+            return _nextDirection;
         }
     }
 }

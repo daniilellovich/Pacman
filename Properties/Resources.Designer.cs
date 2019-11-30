@@ -263,26 +263,6 @@ namespace Pacman.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap blinkyFinishPoint {
-            get {
-                object obj = ResourceManager.GetObject("blinkyFinishPoint", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap cell {
-            get {
-                object obj = ResourceManager.GetObject("cell", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap Cherries {
             get {
                 object obj = ResourceManager.GetObject("Cherries", resourceCulture);
@@ -296,16 +276,6 @@ namespace Pacman.Properties {
         internal static System.Drawing.Bitmap clyde {
             get {
                 object obj = ResourceManager.GetObject("clyde", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap clydeFinishPoint {
-            get {
-                object obj = ResourceManager.GetObject("clydeFinishPoint", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -443,16 +413,6 @@ namespace Pacman.Properties {
         internal static System.Drawing.Bitmap inky {
             get {
                 object obj = ResourceManager.GetObject("inky", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap inkyFinishPoint {
-            get {
-                object obj = ResourceManager.GetObject("inkyFinishPoint", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -603,16 +563,6 @@ namespace Pacman.Properties {
         internal static System.Drawing.Bitmap pinky {
             get {
                 object obj = ResourceManager.GetObject("pinky", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap pinkyFinishPoint {
-            get {
-                object obj = ResourceManager.GetObject("pinkyFinishPoint", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

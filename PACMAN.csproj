@@ -81,6 +81,8 @@
     <Compile Include="Model\Characters\Ghosts\Clyde.cs" />
     <Compile Include="Model\Characters\Ghosts\Inky.cs" />
     <Compile Include="Model\Characters\Ghosts\Pinky.cs" />
+    <Compile Include="Model\Game\Fruit.cs" />
+    <Compile Include="Model\Game\Fruits.cs" />
     <Compile Include="Model\Game\Point.cs" />
     <Compile Include="Model\Characters\GhostPathFinder.cs" />
     <Compile Include="Model\Characters\BehaviorController.cs" />
@@ -243,9 +245,6 @@
     <EmbeddedResource Include="Pictures\Sprites\blinky.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pictures\Cheats\blinkyFinishPoint.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
     <EmbeddedResource Include="Pictures\Fruits\Cherries.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -267,12 +266,6 @@
     <EmbeddedResource Include="Pictures\Fruits\Grapes.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pictures\Cheats\inkyFinishPoint.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Pictures\Cheats\clydeFinishPoint.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
     <EmbeddedResource Include="Pictures\Fruits\Key.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -286,12 +279,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Pictures\Fruits\Peach.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Pictures\Cheats\pinkyFinishPoint.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Pictures\Cheats\cell.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Pictures\Sprites\clyde.png">

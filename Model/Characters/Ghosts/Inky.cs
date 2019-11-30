@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,61 +9,90 @@ namespace Pacman
 {
     public class Inky : Ghost
     {
-        Point _blinkyLocation;
-        public Inky(Pacman pacman, Level level) : base()
-        {
-            _pacman = pacman;
-            _level = level;
+        Ghost _blinky = Game.State.Blinky;
 
+        public Inky() : base()
+        {
             SetSpeed(0.12f);
             ChangeMode(ScatterMode);
             _sprite._image = GameResources.Inky;
+            _color = System.Drawing.Color.Aqua;
             LocationF = _home = new PointF(11.5f, 17);
             _destination = _movingMode();
-            _prevLocation = new Point(0, 0);
+            _prevLoc = new Point(0, 0);
             _corner = new Point(26, 32);
             _corner2 = new Point(18, 32);
-
-            _blinkyLocation = Game.State.Blinky.Location; //переместить
         }
 
         public override Point ChaseMode()
         {
             (int X, int Y) = _pacman.Location;
-            Point pacmanLocForInky = new Point();
-
+            Point pacLocForInky = new Point(X, Y);
             switch (_pacman.CurrentDir)
             {
                 case Pacman.Directions.up:
-                    pacmanLocForInky = new Point(X - 2, Y);
+                    pacLocForInky = new Point(X, Y - 2);
                     break;
                 case Pacman.Directions.right:
-                    pacmanLocForInky = new Point(X, Y + 2);
+                    pacLocForInky = new Point(X + 2, Y);
                     break;
                 case Pacman.Directions.down:
-                    pacmanLocForInky = new Point(X + 2, Y);
+                    pacLocForInky = new Point(X, Y - 2);
                     break;
                 case Pacman.Directions.left:
-                    pacmanLocForInky = new Point(X, Y - 2);
-                    break;
-                case Pacman.Directions.nowhere:
-                    pacmanLocForInky = new Point(X, Y);
+                    pacLocForInky = new Point(X - 2, Y);
                     break;
             }
 
-            int xLine = pacmanLocForInky.X - _blinkyLocation.X;
-            int yLine = pacmanLocForInky.Y - _blinkyLocation.Y;
+            Point lastPoint = new Point(2 * pacLocForInky.X - _blinky.Location.X, 2 * pacLocForInky.Y - _blinky.Location.Y);
 
-            _goal = new Point(_blinkyLocation.X + 2 * xLine, _blinkyLocation.Y + 2 * yLine);
+            List<Point> possiblePoints = GetPoints(Location, lastPoint);
+            possiblePoints.Reverse();
 
-            if (!_level.IsWalkablePoint(_goal))
-                _goal = _pacman.Location;
+            for (int i = 0; i < possiblePoints.Count; i++)
+                if (_level.IsWalkablePoint(possiblePoints[i]))
+                {
+                    _goal = possiblePoints[i];
+                    break;
+                }
 
-            if (LocationF.IsOnXorY(_goal, 0.5f))
-                _goal = _pacman.Location;
+            _path = _pathFinder.FindPath(_prevLoc, Location, _goal);
+            return (_path.Count == 1) ? Location : _path[1];
+        }
 
-            List<Point> path = _pathFinder.FindPath(_prevLocation, Location, _goal);
-            return (path.Count == 1) ? Location : path[1];
+        List<Point> GetPoints(Point a, Point b)
+        {
+            (int x1, int y1) = a; (int x2, int y2) = b;
+
+            List<Point> pointsOnLine = new List<Point>();
+
+            int deltaX = Math.Abs(x2 - x1);
+            int deltaY = Math.Abs(y2 - y1);
+            int signX = x1 < x2 ? 1 : -1;
+            int signY = y1 < y2 ? 1 : -1;
+
+            int error = deltaX - deltaY;
+
+            pointsOnLine.Add(new Point(x2, y2));
+
+            while (x1 != x2 || y1 != y2)
+            {
+                pointsOnLine.Add(new Point(x1, y1));
+                int error2 = error * 2;
+
+                if (error2 > -deltaY)
+                {
+                    error -= deltaY;
+                    x1 += signX;
+                }
+                if (error2 < deltaX)
+                {
+                    error += deltaX;
+                    y1 += signY;
+                }
+            }
+
+            return pointsOnLine;
         }
     }
 }

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Pacman
 {
     public class GameState
@@ -10,6 +12,7 @@ namespace Pacman
         public Ghost Pinky { get; set; }
         public Ghost Inky { get; set; }
         public Ghost Clyde { get; set; }
+        public List<Ghost> Ghosts { get; set; }
         public ItemsController ItemsController { get; set; }
     }
 }

@@ -10,17 +10,14 @@ namespace Pacman
 {
     public class ItemsController
     {
-        List<Ghost> _ghosts;
-        Pacman _pacman;
-        Level _level;
+        List<Ghost> _ghosts = Game.State.Ghosts;
+        Pacman _pacman=Game.State.Pacman;
+        Level _level = Game.State.Level;
 
         bool youWon;
 
-        public ItemsController(Level level, Pacman pacman, List<Ghost> ghosts)
+        public ItemsController()
         {
-            _level = level;
-            _pacman = pacman;
-            _ghosts = ghosts;
         }
 
         public void Update()
@@ -64,7 +61,7 @@ namespace Pacman
 
                 if (ghostTile == pacmanTile && ghost.IsFrightened)
                     ghost.ChangeMode(ghost.ReturningHome);
-            }
+            }           
 
             //if (Game.State.BehaviorChanger._ghostsAreFrightened)
             //{

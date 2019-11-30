@@ -8961,20 +8961,11 @@
   <data name="blinky" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\pictures\sprites\blinky.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="blinkyFinishPoint" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\pictures\cheats\blinkyfinishpoint.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="cell" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\pictures\cheats\cell.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Cherries" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\pictures\fruits\cherries.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="clyde" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\pictures\sprites\clyde.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="clydeFinishPoint" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\pictures\cheats\clydefinishpoint.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="dot" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\pictures\level\dot.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -9006,9 +8997,6 @@
   <data name="inky" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\pictures\sprites\inky.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="inkyFinishPoint" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\pictures\cheats\inkyfinishpoint.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Key" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\pictures\fruits\key.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -9029,9 +9017,6 @@
   </data>
   <data name="pinky" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\pictures\sprites\pinky.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="pinkyFinishPoint" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\pictures\cheats\pinkyfinishpoint.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="readyLabel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\pictures\labels\readylabel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
