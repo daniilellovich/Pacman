@@ -11,7 +11,7 @@ namespace Pacman
             _sprite._image = GameResources.Clyde;
             _color = System.Drawing.Color.Goldenrod;
             LocationF = _home = new PointF(15.5f, 17);
-            _destination = _movingMode();
+            _destination = _curMovingMode();
             _prevLoc = new Point(0, 0);
             _corner = new Point(1, 32);
             _corner2 = new Point(8, 32);
@@ -21,6 +21,7 @@ namespace Pacman
         {
             _goal = PacmanIsFar() ? _pacman.Location :
                 (LocationF.IsOnXandY(_corner, 2f)) ? _corner2 : _corner;
+
             _path = _pathFinder.FindPath(_prevLoc, Location, _goal);
 
             return (_path.Count == 1) ? Location : _path[1];

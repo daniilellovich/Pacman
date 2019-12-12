@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pacman.Model.Game
+namespace Pacman
 {
     class Fruit : Tile
     {

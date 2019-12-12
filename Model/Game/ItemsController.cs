@@ -16,10 +16,6 @@ namespace Pacman
 
         bool youWon;
 
-        public ItemsController()
-        {
-        }
-
         public void Update()
         {
             int i = (int)(_pacman.LocationF.X + 0.5f);
@@ -32,10 +28,20 @@ namespace Pacman
                 pf.Show();
             }
 
+            if (Keyboard.IsKeyDown(Keys.B))
+                Game.State.Blinky.PathIsVisible = !Game.State.Blinky.PathIsVisible;
+            if (Keyboard.IsKeyDown(Keys.P))
+                Game.State.Pinky.PathIsVisible = !Game.State.Pinky.PathIsVisible;
+            if (Keyboard.IsKeyDown(Keys.I))
+                Game.State.Inky.PathIsVisible = !Game.State.Inky.PathIsVisible;
+            if (Keyboard.IsKeyDown(Keys.C))
+                Game.State.Clyde.PathIsVisible = !Game.State.Clyde.PathIsVisible;
+
+
             if (pacmanTile is Dot)
             {
                 _level.Tiles[i, j] = new Floor(new Point(i, j));
-                Game.scoreCounter += 10;
+                Game.score += 10;
                 _pacman.DotsEaten++;
                 SoundController.PlaySound("DotEaten");
                 Thread.Sleep(17);
@@ -44,7 +50,7 @@ namespace Pacman
             if (pacmanTile is Energizer)
             {
                 _level.Tiles[i, j] = new Floor(new Point(i, j));
-                Game.scoreCounter += 50;
+                Game.score += 50;
                 _pacman.DotsEaten++;
                 SoundController.PlaySound("EnergizerEaten");
                 Thread.Sleep(51);
@@ -53,89 +59,32 @@ namespace Pacman
                     ghost.ChangeMode(ghost.FrightenedMode);
             }
 
+
             foreach (var ghost in _ghosts)
             {
                 int m = (int)(ghost.LocationF.X + 0.5f);
                 int n = (int)(ghost.LocationF.Y + 0.5f);
                 Tile ghostTile = _level.Tiles[m, n];
 
-                if (ghostTile == pacmanTile && ghost.IsFrightened)
-                    ghost.ChangeMode(ghost.ReturningHome);
+                if (ghostTile == pacmanTile)
+                {
+                    if (!ghost.IsEaten)
+
+                    if (ghost.IsFrightened)
+                        ghost.Eaten();
+                    else
+                        _pacman.Eaten();
+                }
             }           
-
-            //if (Game.State.BehaviorChanger._ghostsAreFrightened)
-            //{
-            //    foreach(var ghost in _ghosts)
-            //    {
-            //        var p = (int)(ghost.LocationF.X + 0.5f);
-            //        var q = (int)(ghost.LocationF.Y + 0.5f);
-            //        Tile ghostTile = _level.Tiles[p, q];
-
-            //        if (pacmanTile == ghostTile)
-            //        {
-            //            ghost.SetSpeed(0.14f);
-            //            //  ghost.IsEaten();
-            //            ghost.ChangeMode(ghost.ReturningHome);
-            //        }
-            //    }
-
-            //    SoundController.PlaySound("MonsterEaten");
-            //}
-
-            //if (((pacmanTile == blinkyTile) || (pacmanTile == pinkyTile) ||
-            //    (pacmanTile == inkyTile) || (pacmanTile == clydeTile))
-            //    && (Game.State.BehaviorChanger._isFrightened == false))
-            //{
-            //    SoundController.StopLongSound();
-            //    SoundController.PlaySound("PacmanEaten");
-            ////    lives--;
-            ////    switch (lives)
-            //    //{
-            //    //    case 0:
-            //    //        GameOver();
-            //    //        break;
-            //    //    case 1:
-            //    //        _level.Tiles[0, 34] = new Floor(new Point(4, 34));
-            //    //        break;
-            //    //    case 2:
-            //    //        _level.Tiles[2, 34] = new Floor(new Point(4, 34));
-            //    //        break;
-            //    //}
-
-            //    //               if (_pacman.dotsCounter == 70)
-
-            //    //       if (_pacman.dotsCounter == 170)
-
-            //    Thread.Sleep(1500);
-            ////    Game.InitCharacters();
-            ////    Game.InitCharactersControllers();
-            //    SoundController.PlayLongSound(Resources.Siren);
-            //    Game.State.BehaviorChanger._currentTime = 0;
-            //    Game.State.BehaviorChanger._frightenedTime = 0;
-            //    //  StartForm.mf.readyLabelP.Show();
-            //    //  Thread.Sleep(1000);
-            //    //  StartForm.mf.readyLabelP.Hide();
-            //}
-
-
-            //if (Game.State.Blinky._isEaten)
-            //    Game.State.Behaviors.CheckIfBlinkyAtHome();
-            //if (Game.State.Pinky._isEaten)
-            //    Game.State.Behaviors.CheckIfPinkyAtHome();
-            //if (Game.State.Inky._isEaten)
-            //    Game.State.Behaviors.CheckIfInkyAtHome();
-            //if (Game.State.Clyde._isEaten)
-            //    Game.State.Behaviors.CheckIfClydeAtHome();
 
             if (_pacman.DotsEaten == 244)
             {
                 if (youWon == false)
                 {
                     youWon = true;
-                    //    _pacman.sprite = GameResources.PacmanWon;
                     SoundController.StopLongSound();
-                    Game.LevelNum++;
-                    StartForm.mf.stageL.Text = "stage " + Convert.ToString(Game.LevelNum) + "/256";                   
+                    Game.levelNum++;
+                    StartForm.mf.stageL.Text = "stage " + Convert.ToString(Game.levelNum) + "/256";                   
                     _pacman.DotsEaten = 0;
                     Game.State = new GameState();
                     Game.Init();
@@ -149,10 +98,10 @@ namespace Pacman
             if (_pacman.DotsEaten == 170)
                 _level.Tiles[14, 20] = new Cherries(new Point(14, 20));
 
-            if (pacmanTile is Cherries)
+            if (pacmanTile is Fruit)
             {
                 _level.Tiles[i, j] = new Floor(new Point(i, j));
-                Game.scoreCounter += 200;
+           //     Game.scoreCounter += Fruit.цена;
                 SoundController.PlaySound("FruitEaten");
                 Thread.Sleep(17);
             }
@@ -190,9 +139,9 @@ namespace Pacman
             //_pacman.sprite = GameResources.PacmanDepth;
             SoundController.StopLongSound();
             StartForm.mf.gameoverLabelP.Show();
-            if (Game.scoreCounter > Convert.ToInt32(StartForm.mf.highScoreL.Text))
-                StartForm.mf.highScoreL.Text = Convert.ToString(Game.scoreCounter);
-            Game.scoreCounter = 0;
+            if (Game.score > Convert.ToInt32(StartForm.mf.highScoreL.Text))
+                StartForm.mf.highScoreL.Text = Convert.ToString(Game.score);
+            Game.score = 0;
             _pacman.DotsEaten = 0;
             Thread.Sleep(4000);
 

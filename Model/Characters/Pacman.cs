@@ -12,7 +12,7 @@ namespace Pacman
 
         public int DotsEaten { get; set; }
 
-        public int Lifes { get; private set; }
+        public int Lifes { get; private set; } = 3;
 
         public Pacman(float speed)
         {
@@ -29,6 +29,26 @@ namespace Pacman
 
         public Directions CurrentDir { get; private set; }
         Directions _nextDirection;
+
+        public override void Eaten()
+        {
+            SoundController.StopLongSound();
+            SoundController.PlaySound("PacmanEaten");
+            Lifes--;
+
+            switch (Lifes)
+            {
+                case 0:
+                    Game.GameOver();
+                    break;
+                case 1:
+                    _level.Tiles[0, 34] = new Floor(new Point(4, 34));
+                    break;
+                case 2:
+                    _level.Tiles[2, 34] = new Floor(new Point(4, 34));
+                    break;
+            }
+        }
 
         public override void Update()
         {
@@ -53,8 +73,6 @@ namespace Pacman
 
         Point GetNextLocation(Directions receivedDir)
         {
-            (int X, int Y) = Location;
-
             CurrentDir = (DirIsValid(receivedDir)) ? 
                 receivedDir : !DirIsValid(CurrentDir) ? 
                 Directions.nowhere : CurrentDir;

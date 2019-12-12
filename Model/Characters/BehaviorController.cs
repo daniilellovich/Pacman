@@ -3,18 +3,15 @@ using System.Diagnostics;
 
 namespace Pacman
 {
-    public class BehaviorController
+    public class GhostsController
     {
         Pacman _pacman = Game.State.Pacman;
         List<Ghost> _ghosts = Game.State.Ghosts;
 
-
-        enum ghostModes { Scatter, Chase, Frightened};
-        ghostModes _globalCurrentMode = ghostModes.Scatter;
         int[] _events = new int[7];
 
-        public BehaviorController(int level)
-        {
+        public GhostsController(int level)
+        {            
             switch (level)
             {
                 case 1:
@@ -36,21 +33,6 @@ namespace Pacman
             }
         }
 
-        void ChangeGhostsMode(ghostModes movingMode)
-        {
-            foreach (Ghost ghost in _ghosts)
-            {
-                ghost.ResetPrevLoc();
-
-                if(movingMode == ghostModes.Scatter)
-                    ghost.ChangeMode(ghost.ScatterMode);
-                if (movingMode == ghostModes.Chase)
-                    ghost.ChangeMode(ghost.ChaseMode);
-                if (movingMode == ghostModes.Frightened)
-                    ghost.ChangeMode(ghost.FrightenedMode);                
-            }
-        }
-
         void SetGhotstsSpeed(float speed)
         {
             foreach (var ghost in _ghosts)
@@ -62,15 +44,15 @@ namespace Pacman
             if (sec == _events[0] || sec == _events[2] ||
                 sec == _events[4] || sec == _events[6])
             {
-                ChangeGhostsMode(ghostModes.Chase);
-                _globalCurrentMode = ghostModes.Chase;
+                foreach (var ghost in _ghosts)
+                    ghost.ChangeMode(ghost.ChaseMode);
             }
 
             if (sec == _events[1] || sec == _events[3] || 
                 sec == _events[5])
             {
-                ChangeGhostsMode(ghostModes.Scatter);
-                _globalCurrentMode = ghostModes.Scatter;
+                foreach (var ghost in _ghosts)
+                    ghost.ChangeMode(ghost.ScatterMode);
             }
         }
     }

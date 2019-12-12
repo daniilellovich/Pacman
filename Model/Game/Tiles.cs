@@ -32,17 +32,6 @@ namespace Pacman
         }
     }
 
-    public class PacmanLife : Tile
-    {
-        public PacmanLife(Point location) : base(location) { }
-
-        public override void Draw(Graphics gr)
-        {
-            gr.DrawImageUnscaledAndClipped(GameResources.Floor, Rect);
-            gr.DrawImageUnscaledAndClipped(GameResources.PacmanLife, Rect);
-        }
-    }
-
     public class l : Tile
     {
         public l(Point location) : base(location) { }
@@ -59,8 +48,6 @@ namespace Pacman
             => gr.DrawImageUnscaledAndClipped(GameResources.Floor, Rect);
     }
 
-    #region Walls
-
     public class Door : Tile
     {
         public Door(Point location) : base(location) { }
@@ -70,6 +57,19 @@ namespace Pacman
         public override void Draw(Graphics gr)
             => gr.DrawImageUnscaledAndClipped(GameResources.Floor, Rect);
     }
+
+    public class PacmanLife : Tile
+    {
+        public PacmanLife(Point location) : base(location) { }
+
+        public override void Draw(Graphics gr)
+        {
+            gr.DrawImageUnscaledAndClipped(GameResources.Floor, Rect);
+            gr.DrawImageUnscaledAndClipped(GameResources.PacmanLife, Rect);
+        }
+    }
+
+    #region Walls
 
     public class _a : Tile
     {

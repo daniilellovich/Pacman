@@ -9,7 +9,7 @@ namespace Pacman
 {
     public class Inky : Ghost
     {
-        Ghost _blinky = Game.State.Blinky;
+        readonly Ghost _blinky = Game.State.Blinky;
 
         public Inky() : base()
         {
@@ -18,7 +18,7 @@ namespace Pacman
             _sprite._image = GameResources.Inky;
             _color = System.Drawing.Color.Aqua;
             LocationF = _home = new PointF(11.5f, 17);
-            _destination = _movingMode();
+            _destination = _curMovingMode();
             _prevLoc = new Point(0, 0);
             _corner = new Point(26, 32);
             _corner2 = new Point(18, 32);
@@ -27,24 +27,25 @@ namespace Pacman
         public override Point ChaseMode()
         {
             (int X, int Y) = _pacman.Location;
-            Point pacLocForInky = new Point(X, Y);
+            Point pacLocForBlinky = new Point(X, Y);
             switch (_pacman.CurrentDir)
             {
                 case Pacman.Directions.up:
-                    pacLocForInky = new Point(X, Y - 2);
+                    pacLocForBlinky = new Point(X, Y - 2);
                     break;
                 case Pacman.Directions.right:
-                    pacLocForInky = new Point(X + 2, Y);
+                    pacLocForBlinky = new Point(X + 2, Y);
                     break;
                 case Pacman.Directions.down:
-                    pacLocForInky = new Point(X, Y - 2);
+                    pacLocForBlinky = new Point(X, Y - 2);
                     break;
                 case Pacman.Directions.left:
-                    pacLocForInky = new Point(X - 2, Y);
+                    pacLocForBlinky = new Point(X - 2, Y);
                     break;
             }
 
-            Point lastPoint = new Point(2 * pacLocForInky.X - _blinky.Location.X, 2 * pacLocForInky.Y - _blinky.Location.Y);
+            Point lastPoint = new Point(2 * pacLocForBlinky.X - _blinky.Location.X,
+                                        2 * pacLocForBlinky.Y - _blinky.Location.Y);
 
             List<Point> possiblePoints = GetPoints(Location, lastPoint);
             possiblePoints.Reverse();
@@ -57,7 +58,7 @@ namespace Pacman
                 }
 
             _path = _pathFinder.FindPath(_prevLoc, Location, _goal);
-            return (_path.Count == 1) ? Location : _path[1];
+            return (_path.Count == 1) ? GetRandomNeighbourWalkablePoint() : _path[1];
         }
 
         List<Point> GetPoints(Point a, Point b)
@@ -68,8 +69,8 @@ namespace Pacman
 
             int deltaX = Math.Abs(x2 - x1);
             int deltaY = Math.Abs(y2 - y1);
-            int signX = x1 < x2 ? 1 : -1;
-            int signY = y1 < y2 ? 1 : -1;
+            int signX  = x1 < x2 ? 1 : -1;
+            int signY  = y1 < y2 ? 1 : -1;
 
             int error = deltaX - deltaY;
 

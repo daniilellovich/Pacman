@@ -12,7 +12,7 @@ namespace Pacman
             _sprite._image = GameResources.Blinky;
             _color = System.Drawing.Color.Red;
             LocationF = _home = new PointF(13.5f, 14); //как то обозначить что это конст
-            _destination = _movingMode();
+            _destination = _curMovingMode();
             _prevLoc = new Point(0, 0);
             _corner = new Point(21, 4);
             _corner2 = new Point(26, 4);
@@ -22,7 +22,7 @@ namespace Pacman
         {           
             _goal = _pacman.Location;
             _path = _pathFinder.FindPath(_prevLoc, Location, _goal);
-            return (_path.Count == 1) ? Location : _path[1];
+            return (_path.Count == 1) ? GetRandomNeighbourWalkablePoint() : _path[1];
         }
     }
 }

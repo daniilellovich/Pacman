@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Pacman
+﻿namespace Pacman
 {
     public class Pinky : Ghost
     {
@@ -16,7 +9,7 @@ namespace Pacman
             _sprite._image = GameResources.Pinky;
             _color = System.Drawing.Color.Pink;
             LocationF = _home = new PointF(13.5f, 17);
-            _destination = _movingMode();
+            _destination = _curMovingMode();
             _prevLoc = new Point();
             _corner = new Point(6, 4);
             _corner2 = new Point(1, 4);
@@ -28,21 +21,10 @@ namespace Pacman
 
             switch (_pacman.CurrentDir)
             {
-                case Pacman.Directions.up:
-                    dx = 0; dy = -5;
-                    break;
-                case Pacman.Directions.right:
-                    dx = 5; dy = 0;
-                    break;
-                case Pacman.Directions.down:
-                    dx = 0; dy = 5;
-                    break;
-                case Pacman.Directions.left:
-                    dx = -5; dy = 0;
-                    break;
-                case Pacman.Directions.nowhere:
-                    dx = 0; dy = 0;
-                    break;
+                case Pacman.Directions.up:    dy = -5; break;
+                case Pacman.Directions.right: dx =  5; break;
+                case Pacman.Directions.down:  dy =  5; break;
+                case Pacman.Directions.left:  dx = -5;  break;
             }
 
             for (int i = 0; i < 6; i++)

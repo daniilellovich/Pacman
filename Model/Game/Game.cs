@@ -1,18 +1,14 @@
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
-using System.IO;
-using System.Threading;
 
 namespace Pacman
 {
     public static class Game
     {
         public static GameState State { get; set; }
-        public static int LevelNum = 1;
-        public static int highScore;
-        public static int scoreCounter;
+        public static int levelNum = 1;
+        public static int highScore; //сделать сохранение
+        public static int score;
 
         public static void Init()
         {
@@ -20,16 +16,16 @@ namespace Pacman
 
             State = new GameState();
 
-            State.Level  = new Level();
+            State.Level = new Level();
 
             State.Pacman = new Pacman();
             State.Blinky = new Blinky();
-            State.Pinky  = new Pinky();
-            State.Inky   = new Inky();
-            State.Clyde  = new Clyde();
+            State.Pinky = new Pinky();
+            State.Inky = new Inky();
+            State.Clyde = new Clyde();
 
             State.Ghosts = new List<Ghost>() { State.Blinky, State.Pinky, State.Inky, State.Clyde };
-            State.BehaviorChanger = new BehaviorController(LevelNum);
+            State.GhostsController = new GhostsController(levelNum);
             State.ItemsController = new ItemsController();
         }
 
@@ -42,6 +38,11 @@ namespace Pacman
             State.Pinky.Update();
             State.Inky.Update();
             State.Clyde.Update();
+        }
+
+        public static void GameOver()
+        {
+
         }
     }
 }

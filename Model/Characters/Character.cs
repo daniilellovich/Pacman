@@ -21,6 +21,8 @@ namespace Pacman
 
         public abstract void Update();
 
+        public abstract void Eaten();
+
         protected void Move(int dx, int dy)
         {
             float newX = LocationF.X + dx * _speed;

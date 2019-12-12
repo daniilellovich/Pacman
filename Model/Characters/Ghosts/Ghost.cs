@@ -7,35 +7,28 @@ namespace Pacman
 {
     public abstract class Ghost : Character //исправить Pinky чтобы проходил мимо цели
     {
+        #region vars
         public delegate Point MovingMode();
-        protected MovingMode _movingMode;
+        protected MovingMode _curMovingMode;
+        public MovingMode _globalMovingMode;
+        public float _globalGhostsSpeed;
 
         protected GhostPathFinder _pathFinder = Game.State.GhostPathFinder;
         protected Level _level = Game.State.Level;
         protected Pacman _pacman = Game.State.Pacman;
 
         protected Color _color;
-        protected List<Point> _path;
         protected PointF _home;
         protected Point _destination, _prevLoc, _corner, _corner2, _goal;
+        protected List<Point> _path;
 
         public bool PathIsVisible { get; set; }
         public bool IsFrightened { get; set; }
         public bool IsEaten { get; set; }
+        #endregion
 
-        Random _rand = new Random();
-
-        public int[] time= new int[4];
-        public delegate void ChangeMode(MovingMode mode);
-        public event MovingMode ChangeMode;
-
-        public Ghost() : base() 
-        { 
-            _pathFinder = new GhostPathFinder(Game.State.Level);
-            modeChanged += FrightenedMode;
-            modeChanged += ChaseMode;
-            modeChanged += ScatterMode;
-        }
+        public Ghost()
+            => _pathFinder = new GhostPathFinder(Game.State.Level);
 
         public override void Update()
         {
@@ -44,31 +37,13 @@ namespace Pacman
             int dx = !LocationF.IsOnX(_destination, 0.06f) ? ((LocationF.X < _destination.X) ? 1 : -1) : 0;
             int dy = !LocationF.IsOnY(_destination, 0.06f) ? ((LocationF.Y < _destination.Y) ? 1 : -1) : 0;
 
-            int walkablePointsCounter = 0;
-            foreach (var point in Location.NeighbourPoints)
-                if (_level.IsWalkablePoint(point))
-                    walkablePointsCounter++;
-
-            if (walkablePointsCounter > 1)
-                if (LocationF.IsOnXandY(_destination, 0.06f))
-                    _destination = _movingMode();
+            if (LocationF.IsOnXandY(_destination, 0.06f))
+                _destination = _curMovingMode();
 
             Move(dx, dy);
 
             if (LocationF.IsFarFrom(savedLoc, 0.5f))
                 _prevLoc = savedLoc;
-        }
-
-        public  void ChangeMode(MovingMode movingMode)
-        {
-            _movingMode = movingMode;
-
-            if (movingMode == ScatterMode || movingMode == ChaseMode)
-                SetSprite(_sprite._image);
-            if (movingMode == FrightenedMode)
-                SetSprite(GameResources.Fright);
-            if (movingMode == ReturningHome)
-                SetSprite(GameResources.GhostEyes);
         }
 
         public Point ScatterMode()
@@ -77,42 +52,103 @@ namespace Pacman
             _path = _pathFinder.FindPath(_prevLoc, Location, _goal);
             return (_path.Count == 1) ? Location : _path[1];
         }
+
+        public abstract Point ChaseMode();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public void ChangeMode(MovingMode newMode)
+        {
+            _globalMovingMode = _curMovingMode = newMode;
+            SetSpeed(_globalGhostsSpeed);
+
+            if (newMode == ScatterMode || newMode == ChaseMode)
+            {
+                SetSprite(_sprite._image);
+            }
+            else if (newMode == FrightenedMode)
+            {
+                SetSprite(GameResources.Fright);
+                IsFrightened = true;
+            }
+            else if (newMode == ReturningHome)
+            {
+                SetSprite(GameResources.GhostEyes);
+                IsEaten = true;
+            }
+        }
+
         public Point FrightenedMode()
         {
-            //изменять скорость
-
-            List<Point> validNeighbourPoints = new List<Point>();
-
-            if (Location.NeighbourPoints.Count > 2)
-                foreach (Point point in Location.NeighbourPoints)
-                    if (_level.IsWalkablePoint(point) && point != _prevLoc)
-                        validNeighbourPoints.Add(point);
-
-            int randNum = _rand.Next(validNeighbourPoints.Count);
-        //    Debug.WriteLine(randNum);
-
-            Point randomPoint = validNeighbourPoints[randNum];
-            _path = new List<Point>() { randomPoint };
-            return randomPoint;
-        }
-        public Point ReturningHome()
-        {
-            if (Location == _home)
+            if (!IsFrightened)
             {
-         //       ChangeMode(_movingMode);
+                ChangeMode(_globalMovingMode);
                 IsFrightened = false;
-                IsEaten = false;
             }
 
-            //SetSpeed(2f);
-
-            _path = _pathFinder.FindPath(_prevLoc, Location, _home.ToPoint());
+            _goal = GetRandomNeighbourWalkablePoint();
+            _path = _pathFinder.FindPath(_prevLoc, Location, _goal);
             return (_path.Count == 1) ? Location : _path[1];
         }
-        public abstract Point ChaseMode();
-      
-        public void ResetPrevLoc()
-            => _prevLoc = new Point();
+
+        public override void Eaten()
+        {
+            IsEaten = true;
+            _globalMovingMode = _curMovingMode;
+            // SetSpeed(3f);
+            SoundController.PlaySound("MonsterEaten");
+            //      SoundController.PlayLongSound("");
+
+            ChangeMode(ReturningHome);
+        }
+
+        public Point ReturningHome()
+        {
+            if (LocationF.IsOnXandY(_home, 0.8f))
+            {
+                _prevLoc = new Point();
+                IsFrightened = false;
+                IsEaten = false;
+                ChangeMode(_globalMovingMode);
+            }
+            else
+                _goal = _home.ToPoint();
+
+            _path = _pathFinder.FindPath(_prevLoc, Location, _goal);
+            return (_path.Count == 1) ? Location : _path[1];
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         public void DisplayPathAndGoal(Graphics gr)
         {
@@ -133,6 +169,18 @@ namespace Pacman
             float y = (_goal.Y + 0.4f) * Tile.Size.Height;
             gr.DrawEllipse(pen, x, y, 10f, 10f);
             gr.DrawEllipse(pen, x, y, 6, 6f);
+        }
+
+        public Point GetRandomNeighbourWalkablePoint()
+        {
+            Random _rand = new Random();
+            List<Point> validNeighbourPoints = new List<Point>();
+
+            foreach (Point point in Location.NeighbourPoints)
+                if (_level.IsWalkablePoint(point) && point != _prevLoc)
+                    validNeighbourPoints.Add(point);
+
+            return validNeighbourPoints[_rand.Next(validNeighbourPoints.Count)];
         }
     }
 }
