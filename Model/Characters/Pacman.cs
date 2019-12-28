@@ -1,29 +1,23 @@
-using System;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace Pacman
 {
     public class Pacman : Character
     {
-        Level _level = Game.State.Level;
-
         public enum Directions { nowhere, up, right, down, left }
-
         public int DotsEaten { get; set; }
-
         public int Lifes { get; private set; } = 3;
 
-        public Pacman(float speed)
-        {
-            LocationF = new PointF(13.5f, 26);
-            SetSprite(GameResources.Pacman);
-            SetSpeed(speed);
-        }
+        //public Pacman(float speed)
+        //{
+        //    LocationF = new PointF(13.5f, 26);
+        //    SetSprite(GameResources.Pacman);
+        //    SetSpeed(speed);
+        //}
 
-        public Pacman()
+        public Pacman(Mediator mediator) : base(mediator)
         {
-            LocationF = new PointF(13.5f, 26);
+            _locationF = new PointF(13.5f, 26);
             SetSprite(GameResources.Pacman);
         }
 
@@ -32,22 +26,22 @@ namespace Pacman
 
         public override void Eaten()
         {
-            SoundController.StopLongSound();
-            SoundController.PlaySound("PacmanEaten");
-            Lifes--;
+            //SoundController.StopLongSound();
+            //SoundController.PlaySound("PacmanEaten");
+            //Lifes--;
 
-            switch (Lifes)
-            {
-                case 0:
-                    Game.GameOver();
-                    break;
-                case 1:
-                    _level.Tiles[0, 34] = new Floor(new Point(4, 34));
-                    break;
-                case 2:
-                    _level.Tiles[2, 34] = new Floor(new Point(4, 34));
-                    break;
-            }
+            //switch (Lifes)
+            //{
+            //    case 0:
+            //        Game.GameOver();
+            //        break;
+            //    case 1:
+            //        _gameState.Level.Tiles[0, 34] = new Floor(new Point(4, 34));
+            //        break;
+            //    case 2:
+            //        _gameState.Level.Tiles[2, 34] = new Floor(new Point(4, 34));
+            //        break;
+            //}
         }
 
         public override void Update()
@@ -55,8 +49,8 @@ namespace Pacman
             _nextDirection = UpdateDirIfNewer();
             Point destination = GetNextLocation(_nextDirection);
 
-            int dx = !LocationF.IsOnX(destination, 0.06f) ? ((LocationF.X < destination.X) ? 1 : -1) : 0;
-            int dy = !LocationF.IsOnY(destination, 0.06f) ? ((LocationF.Y < destination.Y) ? 1 : -1) : 0;
+            int dx = !GetLocF().IsOnX(destination, 0.06f) ? ((GetLocF().X < destination.X) ? 1 : -1) : 0;
+            int dy = !GetLocF().IsOnY(destination, 0.06f) ? ((GetLocF().Y < destination.Y) ? 1 : -1) : 0;
 
             Move(dx, dy);
         }
@@ -64,10 +58,10 @@ namespace Pacman
         bool DirIsValid(Directions dir) =>
             dir switch
             {                
-                Directions.up    => _level.IsWalkableForPacman(Location.Up),
-                Directions.right => _level.IsWalkableForPacman(Location.Right),
-                Directions.down  => _level.IsWalkableForPacman(Location.Down),
-                Directions.left  => _level.IsWalkableForPacman(Location.Left),
+                Directions.up    => _gameState.Level.IsWalkableForPacman(GetLoc().Up),
+                Directions.right => _gameState.Level.IsWalkableForPacman(GetLoc().Right),
+                Directions.down  => _gameState.Level.IsWalkableForPacman(GetLoc().Down),
+                Directions.left  => _gameState.Level.IsWalkableForPacman(GetLoc().Left),
                 _                => false,
              };             
 
@@ -79,13 +73,13 @@ namespace Pacman
 
             switch (CurrentDir)
             {
-                case Directions.up:    return Location.Up;
-                case Directions.right: return Location.Right;
-                case Directions.down:  return Location.Down;
-                case Directions.left:  return Location.Left;
+                case Directions.up:    return GetLoc().Up;
+                case Directions.right: return GetLoc().Right;
+                case Directions.down:  return GetLoc().Down;
+                case Directions.left:  return GetLoc().Left;
             }
 
-            return Location;
+            return GetLoc();
         }
 
         Directions UpdateDirIfNewer()

@@ -20,18 +20,18 @@ namespace Pacman
         [DllImport("gdi32.dll")]
         private static extern IntPtr AddFontMemResourceEx(IntPtr pbFont, uint cbFont, IntPtr pdv, [In] ref uint pcFonts);
 
-        public static PrivateFontCollection private_fonts = new PrivateFontCollection();
+        public static PrivateFontCollection fonts = new PrivateFontCollection();
 
         public static void LoadFont()
         {
             Stream fontStream = new MemoryStream(Resources.atari_full);
             IntPtr data = Marshal.AllocCoTaskMem(Convert.ToInt32(fontStream.Length));
-            Byte[] fontData = new Byte[fontStream.Length];
+            byte[] fontData = new byte[fontStream.Length];
             fontStream.Read(fontData, 0, Convert.ToInt32(fontStream.Length));
             Marshal.Copy(fontData, 0, data, Convert.ToInt32(fontStream.Length));
             uint cFonts = 0;
             AddFontMemResourceEx(data, (uint)fontData.Length, IntPtr.Zero, ref cFonts);
-            private_fonts.AddMemoryFont(data, Convert.ToInt32(fontStream.Length));
+            fonts.AddMemoryFont(data, Convert.ToInt32(fontStream.Length));
             fontStream.Close();
             Marshal.FreeCoTaskMem(data);
 
@@ -41,7 +41,8 @@ namespace Pacman
 
         public StartForm()
         {
-            Game.Init();
+            Game game = new Game();
+            game.Init();
             InitializeComponent();
             Designer();
             SoundController.PlayLongSound(Resources.pacmanFever);      
@@ -61,7 +62,7 @@ namespace Pacman
         private void ExitB_Click(object sender, EventArgs e)
             => Application.Exit();
 
-        void Designer()
+        void Designer() //масштабирование GUI
         {
             r = resolution.Height / 40;
             Icon = Resources.badge;
@@ -79,7 +80,7 @@ namespace Pacman
             LoadFont();
             startGameB.Location = new System.Drawing.Point(r * 7, r * 10);
             startGameB.Size = new Size(r * 15, r * 2);
-            startGameB.Font = new Font(private_fonts.Families[0], r / 3 * 2, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
+            startGameB.Font = new Font(fonts.Families[0], r / 3 * 2, FontStyle.Regular, GraphicsUnit.Point, 0);
 
             recordsB.Location = new System.Drawing.Point(r * 7, r * 13);
             recordsB.Size = startGameB.Size; recordsB.Font = startGameB.Font;

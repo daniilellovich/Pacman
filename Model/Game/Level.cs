@@ -1,29 +1,20 @@
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-
 namespace Pacman
 {
     public class Level
     {
         public Tile[,] Tiles { get; private set; }
-        public int Width     { get; private set; }
-        public int Height    { get; private set; }
+        public int Width { get; private set; }
+        public int Height { get; private set; }
 
-        string[] _lines;
+        public Level() => ReadLevelFromFile();
 
-        public Level()
+        Level ReadLevelFromFile()
         {
-            _lines = Properties.Resources.PacmanMap.Split('\n');
+            string[] _lines = Properties.Resources.PacmanMap.Split('\n');
 
-            Width = _lines[0].Length - 1;
+            Width  = _lines[0].Length - 1;
             Height = _lines.Length - 1;
-            FillLevel();
-            InitItems();
-        }
 
-        Level FillLevel()
-        {
             Tiles = new Tile[Width, Height];
 
             for (int j = 0; j < Height; j++)
@@ -32,10 +23,13 @@ namespace Pacman
                     Point point = new Point(i, j);
                     switch (_lines[j][i])
                     {
-                        case '.':
+                        case '.': Tiles[i, j] = new Dot(point); break;
+                        case '@': Tiles[i, j] = new Energizer(point); break;
+                        case '*': Tiles[i, j] = new PacmanLife(point); break;
+
                         case '=':
-                        case 'p': Tiles[i, j] = new Door(point); break;
                         case ' ': Tiles[i, j] = new Floor(point); break;
+                        case 'p': Tiles[i, j] = new Door(point); break;
                         case '1': Tiles[i, j] = new _1(point); break;
                         case '2': Tiles[i, j] = new _2(point); break;
                         case '3': Tiles[i, j] = new _3(point); break;
@@ -51,7 +45,8 @@ namespace Pacman
                         case 'c': Tiles[i, j] = new _c(point); break;
                         case 'd': Tiles[i, j] = new _d(point); break;
 
-                        case 'e': Tiles[i, j] = new Dot(point); break;
+                        case 'l': Tiles[i, j] = new l(point); break;
+                        case 'r': Tiles[i, j] = new r(point); break;
 
                         default: throw new System.Exception($"Unknown tile! ({i};{j})");
                     }
@@ -60,36 +55,14 @@ namespace Pacman
             return this;
         }
 
-        void InitItems()
-        {
-            for (int l = 0; l < Height; l++)
-                for (int k = 0; k < Width; k++)
-                    if (_lines[l][k] == '.')
-                        Tiles[k, l] = new Dot(new Point(k, l));
-
-
-            Tiles[1, 6] = new Energizer(new Point(1, 6));
-            Tiles[26, 6] = new Energizer(new Point(26, 6));
-            Tiles[1, 26] = new Energizer(new Point(1, 26));
-            Tiles[26, 26] = new Energizer(new Point(26, 26));
-
-            Tiles[0, 34] = new PacmanLife(new Point(0, 34));// убрать отсюда
-            Tiles[2, 34] = new PacmanLife(new Point(2, 34));
-            Tiles[4, 34] = new PacmanLife(new Point(4, 34));
-
-            Tiles[0, 17] = new l(new Point(0, 17)); //порталы
-            Tiles[27, 17] = new r(new Point(27, 17));
-        }
-
         public bool IsWalkablePoint(Point point)
         {
             if ((point.X < 0 || point.X >= Width) ||
               (point.Y < 0 || point.Y >= Height))
                 return false;
 
-            if ((_lines[point.Y][point.X] != '.') &&
-                (_lines[point.Y][point.X] != ' ') &&
-                (_lines[point.Y][point.X] != 'p'))
+            if (Tiles[point.X, point.Y].IsWalkable &&
+                _lines[point.Y][point.X] != 'p')
                 return false;
             else
                 return true;
@@ -101,11 +74,7 @@ namespace Pacman
               (point.Y < 0 || point.Y >= Height))
                 return false;
 
-            if ((_lines[point.Y][point.X] != '.') &&
-                (_lines[point.Y][point.X] != ' '))
-                return false;
-            else
-                return true;
+            return (Tiles[point.X, point.Y].IsWalkable);
         }
 
         public void ChangeTileTo(Point point)

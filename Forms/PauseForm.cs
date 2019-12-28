@@ -1,16 +1,7 @@
 ﻿using Pacman.Properties;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Drawing.Text;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Pacman
@@ -33,19 +24,19 @@ namespace Pacman
             this.ClientSize = new Size(r * 20, r * 16);
 
             resumeB.Size = new Size(r * 16, r * 2);
-            resumeB.Font = new Font(StartForm.private_fonts.Families[0], r / 2, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
+            resumeB.Font = new Font(StartForm.fonts.Families[0], r / 2, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
             resumeB.Location = new System.Drawing.Point(r * 2, r * 2);
 
             resumeB.Size = new Size(r * 15, r * 2);
-            resumeB.Font = new Font(StartForm.private_fonts.Families[0], r / 2, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
+            resumeB.Font = new Font(StartForm.fonts.Families[0], r / 2, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
 
             restartB.Location = new System.Drawing.Point(r * 2, r * 5);
             restartB.Size = new Size(r * 15, r * 2);
-            restartB.Font = new Font(StartForm.private_fonts.Families[0], r / 2, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
+            restartB.Font = new Font(StartForm.fonts.Families[0], r / 2, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
 
             exitB.Location = new System.Drawing.Point(r * 2, r * 8);
             exitB.Size = new Size(r * 15, r * 2);
-            exitB.Font = new Font(StartForm.private_fonts.Families[0], r / 2, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
+            exitB.Font = new Font(StartForm.fonts.Families[0], r / 2, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
 
             soundB.Location = new System.Drawing.Point(r * 16, r * 12);
             soundB.BackgroundImage = Resources.volumeOn;

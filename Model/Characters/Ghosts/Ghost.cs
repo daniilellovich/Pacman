@@ -11,14 +11,11 @@ namespace Pacman
         public delegate Point MovingMode();
         protected MovingMode _curMovingMode;
         public MovingMode _globalMovingMode;
+        private GhostPathFinder _pathFinder;
+
         public float _globalGhostsSpeed;
 
-        protected GhostPathFinder _pathFinder = Game.State.GhostPathFinder;
-        protected Level _level = Game.State.Level;
-        protected Pacman _pacman = Game.State.Pacman;
-
-        protected Color _color;
-        protected PointF _home;
+        protected Color _color; //для подсветки пути
         protected Point _destination, _prevLoc, _corner, _corner2, _goal;
         protected List<Point> _path;
 
@@ -27,55 +24,35 @@ namespace Pacman
         public bool IsEaten { get; set; }
         #endregion
 
-        public Ghost()
-            => _pathFinder = new GhostPathFinder(Game.State.Level);
+        public Ghost(Mediator gameState) : base(gameState)
+            => _pathFinder = new GhostPathFinder(_gameState.Level);
 
         public override void Update()
         {
-            Point savedLoc = Location;
+            Point savedLoc = GetLoc();
 
-            int dx = !LocationF.IsOnX(_destination, 0.06f) ? ((LocationF.X < _destination.X) ? 1 : -1) : 0;
-            int dy = !LocationF.IsOnY(_destination, 0.06f) ? ((LocationF.Y < _destination.Y) ? 1 : -1) : 0;
+            int dx = !GetLocF().IsOnX(_destination, 0.06f) ? ((GetLocF().X < _destination.X) ? 1 : -1) : 0;
+            int dy = !GetLocF().IsOnY(_destination, 0.06f) ? ((GetLocF().Y < _destination.Y) ? 1 : -1) : 0;
 
-            if (LocationF.IsOnXandY(_destination, 0.06f))
+            if (GetLocF().IsOnXandY(_destination, 0.06f))
                 _destination = _curMovingMode();
 
             Move(dx, dy);
 
-            if (LocationF.IsFarFrom(savedLoc, 0.5f))
+            if (GetLocF().IsFarFrom(savedLoc, 0.5f))
                 _prevLoc = savedLoc;
         }
 
         public Point ScatterMode()
         {
-            _goal = (LocationF.IsOnXandY(_corner, 2f)) ? _corner2 : _corner;
-            _path = _pathFinder.FindPath(_prevLoc, Location, _goal);
-            return (_path.Count == 1) ? Location : _path[1];
+            _goal = (GetLocF().IsOnXandY(_corner, 2f)) ? _corner2 : _corner;
+            _path = _gameState.GhostPathFinder.FindPath(_prevLoc, GetLoc(), _goal);
+            return (_path.Count == 1) ? GetRandomNeighbourWalkablePoint() : _path[1];
         }
 
         public abstract Point ChaseMode();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        public void ChangeMode(MovingMode newMode)
+        public void SetMode(MovingMode newMode)
         {
             _globalMovingMode = _curMovingMode = newMode;
             SetSpeed(_globalGhostsSpeed);
@@ -100,55 +77,41 @@ namespace Pacman
         {
             if (!IsFrightened)
             {
-                ChangeMode(_globalMovingMode);
+                SetMode(_globalMovingMode);
                 IsFrightened = false;
             }
 
             _goal = GetRandomNeighbourWalkablePoint();
-            _path = _pathFinder.FindPath(_prevLoc, Location, _goal);
-            return (_path.Count == 1) ? Location : _path[1];
+            _path = _gameState.GhostPathFinder.FindPath(_prevLoc, GetLoc(), _goal);
+            return (_path.Count == 1) ? GetLoc() : _path[1];
         }
 
         public override void Eaten()
         {
-            IsEaten = true;
-            _globalMovingMode = _curMovingMode;
-            // SetSpeed(3f);
-            SoundController.PlaySound("MonsterEaten");
-            //      SoundController.PlayLongSound("");
+            //IsEaten = true;
+            //_globalMovingMode = _curMovingMode;
+            //// SetSpeed(3f);
+            //SoundController.PlaySound("MonsterEaten");
+            ////      SoundController.PlayLongSound("");
 
-            ChangeMode(ReturningHome);
+            //SetMode(ReturningHome);
         }
 
         public Point ReturningHome()
         {
-            if (LocationF.IsOnXandY(_home, 0.8f))
+            if (GetLocF().IsOnXandY(_home, 0.8f))
             {
                 _prevLoc = new Point();
                 IsFrightened = false;
                 IsEaten = false;
-                ChangeMode(_globalMovingMode);
+                SetMode(_globalMovingMode);
             }
             else
                 _goal = _home.ToPoint();
 
-            _path = _pathFinder.FindPath(_prevLoc, Location, _goal);
-            return (_path.Count == 1) ? Location : _path[1];
+            _path = _gameState.GhostPathFinder.FindPath(_prevLoc, GetLoc(), _goal);
+            return (_path.Count == 1) ? GetLoc() : _path[1];
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         public void DisplayPathAndGoal(Graphics gr)
         {
@@ -176,8 +139,8 @@ namespace Pacman
             Random _rand = new Random();
             List<Point> validNeighbourPoints = new List<Point>();
 
-            foreach (Point point in Location.NeighbourPoints)
-                if (_level.IsWalkablePoint(point) && point != _prevLoc)
+            foreach (Point point in GetLoc().NeighbourPoints)
+                if (_gameState.Level.IsWalkablePoint(point) && point != _prevLoc)
                     validNeighbourPoints.Add(point);
 
             return validNeighbourPoints[_rand.Next(validNeighbourPoints.Count)];

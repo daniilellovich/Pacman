@@ -1,23 +1,27 @@
-using System;
-using System.Drawing;
-
 namespace Pacman
 {
     public abstract class Character
     {
-        public PointF LocationF { get; protected set; }
-        public Point Location => LocationF.ToPoint();
+        protected Mediator _gameState;
+
+        protected Sprite _sprite = new Sprite();
+        protected PointF _locationF, _home;
         private float _speed;
-        protected Sprite _sprite;
 
-        public Character()
-            => _sprite = new Sprite();
+        public Character(Mediator gameState)
+            => _gameState = gameState;
 
-        protected void SetSprite(Image image) 
-            => _sprite.SetSprite(image);
+        public PointF GetLocF() 
+            => _locationF;
+
+        public Point GetLoc()
+            => _locationF.ToPoint();
 
         public void SetSpeed(float speed) 
             => _speed = speed;
+
+        protected void SetSprite(System.Drawing.Image image) 
+            => _sprite.ChangeImage(image);
 
         public abstract void Update();
 
@@ -25,17 +29,17 @@ namespace Pacman
 
         protected void Move(int dx, int dy)
         {
-            float newX = LocationF.X + dx * _speed;
-            float newY = LocationF.Y + dy * _speed;
-            LocationF = new PointF(newX, newY);
+            float newX = _locationF.X + dx * _speed;
+            float newY = _locationF.Y + dy * _speed;
+            _locationF = new PointF(newX, newY);
 
             _sprite.MoveSprite(dx, dy, _speed);
         }
 
-        public void Draw(Graphics gr)
+        public void Draw(System.Drawing.Graphics gr)
         {
-            var x = (int)(LocationF.X * Tile.Size.Width  - 6);
-            var y = (int)(LocationF.Y * Tile.Size.Height - 6);
+            var x = (int)(_locationF.X * Tile.Size.Width  - 6);
+            var y = (int)(_locationF.Y * Tile.Size.Height - 6);
             _sprite.Draw(gr, new System.Drawing.Point(x, y));
         }
     }

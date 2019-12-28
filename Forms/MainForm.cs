@@ -44,10 +44,10 @@ namespace Pacman
             gameoverLabelP.Hide();
 
             path.Hide();
-            path.Font = new Font(StartForm.private_fonts.Families[0], r / 128, FontStyle.Regular, GraphicsUnit.Point, 0);
+            path.Font = new Font(StartForm.fonts.Families[0], r / 128, FontStyle.Regular, GraphicsUnit.Point, 0);
 
-            highScoreTextL.Font = new Font(StartForm.private_fonts.Families[0], r / 60, FontStyle.Regular, GraphicsUnit.Point, 0);
-            stageL.Font = new Font(StartForm.private_fonts.Families[0], r / 110, FontStyle.Regular, GraphicsUnit.Point, 0);
+            highScoreTextL.Font = new Font(StartForm.fonts.Families[0], r / 60, FontStyle.Regular, GraphicsUnit.Point, 0);
+            stageL.Font = new Font(StartForm.fonts.Families[0], r / 110, FontStyle.Regular, GraphicsUnit.Point, 0);
             scoreL.Font = highScoreTextL.Font;
             highScoreL.Font = highScoreTextL.Font;
             SetClientSizeCore(Game.State.Level.Width * Tile.Size.Width, Game.State.Level.Height * Tile.Size.Height);
@@ -93,8 +93,6 @@ namespace Pacman
         int sec=0;
         private void BehaviorControllerTimer_Tick(object sender, EventArgs e)
         {
-            
-
             Game.State.GhostsController.BehaviorEvents(sec++);
         }
 
@@ -105,9 +103,5 @@ namespace Pacman
             else
                 hiddenFeaturesVisible = false;
         }
-
-        #region elements
-
-        #endregion
     }
 }

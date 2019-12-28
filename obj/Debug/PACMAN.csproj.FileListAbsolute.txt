@@ -67,3 +67,12 @@ C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\obj\Debug\PACMAN.csproj.CopyCom
 C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\obj\Debug\Pacman.exe
 C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\obj\Debug\Pacman.pdb
 C:\Users\Ellovich\Desktop\Projects\pacman\PACMAN\obj\Debug\PACMAN.csprojAssemblyReference.cache
+C:\Users\Ellovich\Desktop\pacman\obj\Debug\PACMAN.csprojAssemblyReference.cache
+C:\Users\Ellovich\Desktop\pacman\obj\Debug\Pacman.PauseForm.resources
+C:\Users\Ellovich\Desktop\pacman\obj\Debug\Pacman.StartForm.resources
+C:\Users\Ellovich\Desktop\pacman\obj\Debug\Pacman.Controls.LevelPanel.resources
+C:\Users\Ellovich\Desktop\pacman\obj\Debug\Pacman.MainForm.resources
+C:\Users\Ellovich\Desktop\pacman\obj\Debug\Pacman.Properties.Resources.resources
+C:\Users\Ellovich\Desktop\pacman\obj\Debug\PACMAN.csproj.GenerateResource.cache
+C:\Users\Ellovich\Desktop\pacman\obj\Debug\Pacman.exe
+C:\Users\Ellovich\Desktop\pacman\obj\Debug\Pacman.pdb

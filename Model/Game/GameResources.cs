@@ -19,10 +19,10 @@ namespace Pacman
         #endregion
 
         #region items
-        public static Bitmap Floor              = LoadTile(Resources.floor);
-        public static Bitmap Dot                = LoadTile(Resources.dot);
-        public static Bitmap Energizer          = LoadTile(Resources.energizer);
-        public static Bitmap PacmanLife         = LoadTile(Resources.pacmanLife);
+        public static Bitmap Floor      = LoadTile(Resources.floor);
+        public static Bitmap Dot        = LoadTile(Resources.dot);
+        public static Bitmap Energizer  = LoadTile(Resources.energizer);
+        public static Bitmap PacmanLife = LoadTile(Resources.pacmanLife);
         #endregion
 
         #region fruits

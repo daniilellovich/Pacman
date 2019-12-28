@@ -17,7 +17,7 @@ namespace Pacman
 
         public Sprite() { }
 
-        public void SetSprite(Image image) => _image = image;
+        public void ChangeImage(Image image) => _image = image;
 
         public void Draw(Graphics gr, System.Drawing.Point location)
         {

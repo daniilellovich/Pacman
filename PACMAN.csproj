@@ -85,7 +85,7 @@
     <Compile Include="Model\Game\Fruits.cs" />
     <Compile Include="Model\Game\Point.cs" />
     <Compile Include="Model\Characters\GhostPathFinder.cs" />
-    <Compile Include="Model\Characters\BehaviorController.cs" />
+    <Compile Include="Model\Characters\GhostsController.cs" />
     <Compile Include="Model\Characters\Character.cs" />
     <Compile Include="Model\Game\Keyboard.cs" />
     <Compile Include="Model\Characters\Ghosts\Ghost.cs" />
