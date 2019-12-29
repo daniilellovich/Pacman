@@ -21,9 +21,7 @@ namespace Pacman
         {
             _goal = PacmanIsFar() ? _gameState.Pacman.GetLoc() :
                 (GetLocF().IsOnXandY(_corner, 2f)) ? _corner2 : _corner;
-
             _path = _gameState.GhostPathFinder.FindPath(_prevLoc, GetLoc(), _goal);
-
             return (_path.Count == 1) ? GetLoc() : _path[1];
         }
 

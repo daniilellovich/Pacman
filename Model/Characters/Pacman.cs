@@ -58,10 +58,10 @@ namespace Pacman
         bool DirIsValid(Directions dir) =>
             dir switch
             {                
-                Directions.up    => _gameState.Level.IsWalkableForPacman(GetLoc().Up),
-                Directions.right => _gameState.Level.IsWalkableForPacman(GetLoc().Right),
-                Directions.down  => _gameState.Level.IsWalkableForPacman(GetLoc().Down),
-                Directions.left  => _gameState.Level.IsWalkableForPacman(GetLoc().Left),
+                Directions.up    => _gameState.Level.IsWalkable(GetLoc().Up),
+                Directions.right => _gameState.Level.IsWalkable(GetLoc().Right),
+                Directions.down  => _gameState.Level.IsWalkable(GetLoc().Down),
+                Directions.left  => _gameState.Level.IsWalkable(GetLoc().Left),
                 _                => false,
              };             
 

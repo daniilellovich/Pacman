@@ -14,7 +14,6 @@ namespace Pacman
         public float EstimateFullPathLength 
             => PathLengthFromStart + HeuristicEstimatePathLength; // expected distance to goal (F)
     }
-
     public class GhostPathFinder
     {
         Level _level;
@@ -90,7 +89,7 @@ namespace Pacman
                 if (point == previousLocation)   //to prevent backtracking
                     continue;
 
-                if (!_level.IsWalkablePoint(point))
+                if (!_level.IsWalkableForGhost(point))
                     continue;
 
                 PathNode neighbourNode = new PathNode()

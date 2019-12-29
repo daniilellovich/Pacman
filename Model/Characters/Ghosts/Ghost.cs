@@ -140,7 +140,7 @@ namespace Pacman
             List<Point> validNeighbourPoints = new List<Point>();
 
             foreach (Point point in GetLoc().NeighbourPoints)
-                if (_gameState.Level.IsWalkablePoint(point) && point != _prevLoc)
+                if (_gameState.Level.IsWalkableForGhost(point) && point != _prevLoc)
                     validNeighbourPoints.Add(point);
 
             return validNeighbourPoints[_rand.Next(validNeighbourPoints.Count)];

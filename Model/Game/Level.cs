@@ -14,7 +14,6 @@ namespace Pacman
 
             Width  = _lines[0].Length - 1;
             Height = _lines.Length - 1;
-
             Tiles = new Tile[Width, Height];
 
             for (int j = 0; j < Height; j++)
@@ -55,20 +54,13 @@ namespace Pacman
             return this;
         }
 
-        public bool IsWalkablePoint(Point point)
+        public bool IsWalkableForGhost(Point point)
         {
-            if ((point.X < 0 || point.X >= Width) ||
-              (point.Y < 0 || point.Y >= Height))
-                return false;
+            return (IsWalkable(point) && _lines[point.Y][point.X] != 'p');
 
-            if (Tiles[point.X, point.Y].IsWalkable &&
-                _lines[point.Y][point.X] != 'p')
-                return false;
-            else
-                return true;
         }
 
-        public bool IsWalkableForPacman(Point point)
+        public bool IsWalkable(Point point)
         {
             if ((point.X < 0 || point.X >= Width) ||
               (point.Y < 0 || point.Y >= Height))
@@ -77,9 +69,7 @@ namespace Pacman
             return (Tiles[point.X, point.Y].IsWalkable);
         }
 
-        public void ChangeTileTo(Point point)
-        {
-           // Tile tile = new 
-        }
+        public void ChangeToFloor(Point point)
+            => Tiles[point.X, point.Y] = new Floor(point);
     }
 }
