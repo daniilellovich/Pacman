@@ -1,4 +1,4 @@
-namespace Pacman
+﻿namespace Pacman
 {
     public class Level
     {
@@ -12,7 +12,7 @@ namespace Pacman
         {
             string[] _lines = Properties.Resources.PacmanMap.Split('\n');
 
-            Width  = _lines[0].Length - 1;
+            Width = _lines[0].Length - 1;
             Height = _lines.Length - 1;
             Tiles = new Tile[Width, Height];
 
@@ -54,11 +54,14 @@ namespace Pacman
             return this;
         }
 
-        public bool IsWalkableForGhost(Point point)
-        {
-            return (IsWalkable(point) && _lines[point.Y][point.X] != 'p');
+        //PUT NEW FRUIT
+         //if (_gameState.Pacman.DotsEaten == 70)
+         //       _gameState.Level.Tiles[14, 20] = new Cherries(new Point(14, 20));
+         //   if (_gameState.Pacman.DotsEaten == 170)
+         //       _gameState.Level.Tiles[14, 20] = new Cherries(new Point(14, 20));
 
-        }
+        public bool IsWalkableForGhost(Point point)
+            => (IsWalkable(point) || Tiles[point.X, point.Y].IsWalkableForGhost);
 
         public bool IsWalkable(Point point)
         {
@@ -69,7 +72,7 @@ namespace Pacman
             return (Tiles[point.X, point.Y].IsWalkable);
         }
 
-        public void ChangeToFloor(Point point)
+        public void ChangeTileToFloor(Point point)
             => Tiles[point.X, point.Y] = new Floor(point);
     }
 }

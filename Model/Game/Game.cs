@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace Pacman
 {
     public class Game
@@ -9,11 +7,8 @@ namespace Pacman
         public static int highScore;    //сделать сохранение
         public int score;
 
-        public void Init()
-        {
-            State = new Mediator();
-            Controls.LevelPanel.SetState(State);
-        }
+        public Game()
+            => State = new Mediator();
 
         public void Update()
         {
@@ -28,7 +23,6 @@ namespace Pacman
 
         public void GameOver()
         {
-
         }
     }
 }

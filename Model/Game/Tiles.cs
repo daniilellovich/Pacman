@@ -53,6 +53,7 @@ namespace Pacman
         public Door(Point location) : base(location) { }
 
         public override bool IsWalkable => false;
+
         public override bool IsWalkableForGhost => true;
 
         public override void Draw(Graphics gr)
@@ -204,4 +205,3 @@ namespace Pacman
 
     #endregion
 }
-

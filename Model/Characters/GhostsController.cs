@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Windows.Forms;
 
 namespace Pacman
 {
@@ -7,15 +6,14 @@ namespace Pacman
     {
         Mediator _gameState;
 
-        public GhostsController(Mediator gamestate)
-        {
-            _gameState = gamestate;
-        }
-
         int[] _events = new int[7];
+        int seconds = 0;
+
+        public GhostsController(Mediator gamestate)
+            => _gameState = gamestate;
 
         public GhostsController(int level)
-        {            
+        {
             switch (level)
             {
                 case 1:
@@ -43,20 +41,33 @@ namespace Pacman
                 ghost.SetSpeed(speed);
         }
 
-        public void BehaviorEvents(int sec)
+        public void BehaviorEvents()
         {
-            if (sec == _events[0] || sec == _events[2] ||
-                sec == _events[4] || sec == _events[6])
+            seconds++;
+
+            if (seconds == _events[0] || seconds == _events[2] ||
+                seconds == _events[4] || seconds == _events[6])
             {
                 foreach (var ghost in _gameState.Ghosts)
                     ghost.SetMode(ghost.ChaseMode);
             }
 
-            if (sec == _events[1] || sec == _events[3] || 
-                sec == _events[5])
+            if (seconds == _events[1] || seconds == _events[3] ||
+                seconds == _events[5])
             {
                 foreach (var ghost in _gameState.Ghosts)
                     ghost.SetMode(ghost.ScatterMode);
+            }
+        }
+
+        public void SwitchPathDrawing(Keys pressedKey)
+        {
+            switch (pressedKey)
+            {
+                case Keys.B: _gameState.Blinky.SwitchPathVisibility(); break;
+                case Keys.P: _gameState.Pinky.SwitchPathVisibility();  break;
+                case Keys.I: _gameState.Inky.SwitchPathVisibility();   break;
+                case Keys.C: _gameState.Clyde.SwitchPathVisibility();  break;
             }
         }
     }

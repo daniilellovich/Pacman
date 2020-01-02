@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pacman
 {
@@ -11,10 +8,7 @@ namespace Pacman
         public int X, Y;
 
         public Point(int X, int Y)
-        { this.X = X; this.Y = Y; }      
-        
-        public System.Drawing.Point ConvertToSDP()
-            => new System.Drawing.Point(X, Y);
+        { this.X = X; this.Y = Y; }            
 
         public void Deconstruct(out int X, out int Y)
         { X = this.X; Y = this.Y; }

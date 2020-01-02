@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pacman
 {
@@ -13,23 +9,22 @@ namespace Pacman
         {
             SetSpeed(0.12f);
             SetMode(ScatterMode);
-            _sprite._image = GameResources.Inky;
+            SetSprite(GameResources.Inky);
             _color = System.Drawing.Color.Aqua;
             _locationF = _home = new PointF(11.5f, 17);
-            _destination = _curMovingMode();
-            _prevLoc = new Point(0, 0);
+            _destination = _curMode();
             _corner = new Point(26, 32);
             _corner2 = new Point(18, 32);
         }
 
         public override Point ChaseMode()
-        {        
-            Point lastPoint = CalcLastPoint(GetPacLocForBlinky());
-            List<Point> possiblePoints = RasterizePath(GetLoc(), lastPoint);          
-            _goal = GetGoal(possiblePoints);     
+        {   
+            Point finishPoint = GetFinishPoint(GetPointForBlinky());
+            List<Point> possiblePoints = RasterizePath(GetLoc(), finishPoint);          
+            _goal = GetGoal(possiblePoints);
 
-            _path = _gameState.GhostPathFinder.FindPath(_prevLoc, GetLoc(), _goal);
-            return (_path.Count == 1) ? GetLoc() : _path[1];
+            _path = _pathFinder.FindPath(_prevLoc, GetLoc(), _goal);
+            return (_path.Count == 1) ? GetRandomNeighboringPoint() : _path[1];
         }
 
         Point GetGoal(List<Point> possiblePoints)
@@ -41,25 +36,25 @@ namespace Pacman
             return GetLoc();
         }
 
-        Point GetPacLocForBlinky()
-        {
+        Point GetPointForBlinky()
+        {   
             (int X, int Y) = _gameState.Pacman.GetLoc();
             switch (_gameState.Pacman.CurrentDir)
             {
                 case Pacman.Directions.up:    return new Point(X, Y - 2);
-                case Pacman.Directions.right: return  new Point(X + 2, Y);
-                case Pacman.Directions.down:  return  new Point(X, Y - 2);
-                case Pacman.Directions.left:  return  new Point(X - 2, Y);
+                case Pacman.Directions.right: return new Point(X + 2, Y);
+                case Pacman.Directions.down:  return new Point(X, Y - 2);
+                case Pacman.Directions.left:  return new Point(X - 2, Y);
                 default:                      return new Point(X, Y);
             }
         }
 
-        Point CalcLastPoint(Point pacLocForBlinky)
+        Point GetFinishPoint(Point pacLocForBlinky)
             => new Point(2 * pacLocForBlinky.X - _gameState.Blinky.GetLoc().X,
                          2 * pacLocForBlinky.Y - _gameState.Blinky.GetLoc().Y);
 
-        List<Point> RasterizePath(Point a, Point b) //Алгоритм Брезенхема
-        {
+        List<Point> RasterizePath(Point a, Point b)
+        {   
             (int x1, int y1) = a; (int x2, int y2) = b;
 
             List<Point> pointsOnLine = new List<Point>();

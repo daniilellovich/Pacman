@@ -87,7 +87,6 @@
     <Compile Include="Model\Characters\GhostPathFinder.cs" />
     <Compile Include="Model\Characters\GhostsController.cs" />
     <Compile Include="Model\Characters\Character.cs" />
-    <Compile Include="Model\Game\Keyboard.cs" />
     <Compile Include="Model\Characters\Ghosts\Ghost.cs" />
     <Compile Include="Model\Game\Game.cs" />
     <Compile Include="Model\Game\GameResources.cs" />
@@ -97,11 +96,11 @@
     <Compile Include="Controls\LevelPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\MainForm.cs">
+    <Compile Include="Forms\GameForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
+    <Compile Include="Forms\GameForm.Designer.cs">
+      <DependentUpon>GameForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Characters\Pacman.cs" />
     <Compile Include="Model\Game\SoundController.cs" />
@@ -144,8 +143,8 @@
       <DependentUpon>LevelPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\GameForm.resx">
+      <DependentUpon>GameForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

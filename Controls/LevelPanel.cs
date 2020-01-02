@@ -1,18 +1,18 @@
 using System.Windows.Forms;
 using System.Drawing;
 
-namespace Pacman.Controls
+namespace Pacman
 {
     public class LevelPanel : UserControl
     {
-        static Mediator _gameState;
+        Mediator _gameState;
 
         public LevelPanel()
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint, true);
         }
 
-        public static void SetState(Mediator gameState)
+        public void SetObjsToDraw(Mediator gameState)
         {
             _gameState = gameState;
         }
@@ -35,13 +35,13 @@ namespace Pacman.Controls
             _gameState.Clyde.Draw(e.Graphics);
 
             if (_gameState.Blinky.PathIsVisible)
-                _gameState.Blinky.DisplayPathAndGoal(e.Graphics);
+                _gameState.Blinky.DrawPath(e.Graphics);
             if (_gameState.Pinky.PathIsVisible)
-                _gameState.Pinky.DisplayPathAndGoal(e.Graphics);
+                _gameState.Pinky.DrawPath(e.Graphics);
             if (_gameState.Inky.PathIsVisible)
-                _gameState.Inky.DisplayPathAndGoal(e.Graphics);
+                _gameState.Inky.DrawPath(e.Graphics);
             if (_gameState.Clyde.PathIsVisible)
-                _gameState.Clyde.DisplayPathAndGoal(e.Graphics);
+                _gameState.Clyde.DrawPath(e.Graphics);
         }
 
         private void InitializeComponent()

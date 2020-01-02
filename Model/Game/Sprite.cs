@@ -25,12 +25,15 @@ namespace Pacman
             var x = (int)_currentFrame % framesPerRow;
             var y = _row >= 0 ? _row :  (int)_currentFrame / framesPerRow;
 
-            if ((_row >= 0 && _currentFrame >= framesPerRow) || (_frameCount > 0 && _currentFrame >= _frameCount))
+            if ((_row >= 0 && _currentFrame >= framesPerRow) ||
+               (_frameCount > 0 && _currentFrame >= _frameCount))
                 _currentFrame = 0;
 
             Size sizeOfSprite = new Size (Tile.Size.Height + 15, Tile.Size.Width + 15);
-            var p = new System.Drawing.Point(x * _frameSize.Width + 3, y * _frameSize.Height + 3);
-            gr.DrawImage(_image, new Rectangle(location, sizeOfSprite), new Rectangle(p, _frameSize), GraphicsUnit.Pixel);
+            var p = new System.Drawing.Point(x * _frameSize.Width + 3,
+                                             y * _frameSize.Height + 3);
+            gr.DrawImage(_image, new Rectangle(location, sizeOfSprite),
+                                 new Rectangle(p, _frameSize), GraphicsUnit.Pixel);
         }
 
         public void MoveSprite(int dx, int dy, float speed)

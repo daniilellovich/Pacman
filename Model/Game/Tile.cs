@@ -13,7 +13,8 @@ namespace Pacman
         public Tile(Point location) => Location = location;
 
         public virtual bool IsWalkable => true;
-        public virtual bool IsWalkableForGhost => true;
+
+        public virtual bool IsWalkableForGhost => false;
 
         public Rectangle Rect
             => new Rectangle(Size.Width * Location.X,

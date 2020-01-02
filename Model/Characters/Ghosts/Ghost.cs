@@ -1,27 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 
 namespace Pacman
 {
-    public abstract class Ghost : Character //исправить Pinky чтобы проходил мимо цели
+    public abstract class Ghost : Character
     {
         #region vars
         public delegate Point MovingMode();
-        protected MovingMode _curMovingMode;
-        public MovingMode _globalMovingMode;
-        private GhostPathFinder _pathFinder;
-
+        public MovingMode _globalMode;
         public float _globalGhostsSpeed;
 
-        protected Color _color; //для подсветки пути
+        protected MovingMode _curMode;
+        protected GhostPathFinder _pathFinder;
+        protected Color _color; //для отрисовки пути
         protected Point _destination, _prevLoc, _corner, _corner2, _goal;
         protected List<Point> _path;
 
-        public bool PathIsVisible { get; set; }
-        public bool IsFrightened { get; set; }
-        public bool IsEaten { get; set; }
+        public bool PathIsVisible { get; private set; }
+        public bool IsFrightened { get; private set; }
+        public bool IsEaten { get; private set; }
         #endregion
 
         public Ghost(Mediator gameState) : base(gameState)
@@ -29,33 +27,30 @@ namespace Pacman
 
         public override void Update()
         {
-            Point savedLoc = GetLoc();
-
-            int dx = !GetLocF().IsOnX(_destination, 0.06f) ? ((GetLocF().X < _destination.X) ? 1 : -1) : 0;
-            int dy = !GetLocF().IsOnY(_destination, 0.06f) ? ((GetLocF().Y < _destination.Y) ? 1 : -1) : 0;
+            (int dx, int dy) = CalcOffset(_destination);
 
             if (GetLocF().IsOnXandY(_destination, 0.06f))
-                _destination = _curMovingMode();
+                _destination = _curMode();
 
+            Point savedLoc = GetLoc(); 
             Move(dx, dy);
-
             if (GetLocF().IsFarFrom(savedLoc, 0.5f))
                 _prevLoc = savedLoc;
         }
 
         public Point ScatterMode()
         {
-            _goal = (GetLocF().IsOnXandY(_corner, 2f)) ? _corner2 : _corner;
-            _path = _gameState.GhostPathFinder.FindPath(_prevLoc, GetLoc(), _goal);
-            return (_path.Count == 1) ? GetRandomNeighbourWalkablePoint() : _path[1];
+            _goal = (_locationF.IsOnXandY(_corner, 2f)) ? _corner2 : _corner;
+            _path = _pathFinder.FindPath(_prevLoc, GetLoc(), _goal);
+            return (_path.Count == 1) ? GetLoc() : _path[1];
         }
 
         public abstract Point ChaseMode();
 
         public void SetMode(MovingMode newMode)
         {
-            _globalMovingMode = _curMovingMode = newMode;
-            SetSpeed(_globalGhostsSpeed);
+            _globalMode = _curMode = newMode;
+          //  SetSpeed(_globalGhostsSpeed);
 
             if (newMode == ScatterMode || newMode == ChaseMode)
             {
@@ -73,16 +68,19 @@ namespace Pacman
             }
         }
 
+        public void SwitchPathVisibility()
+            => PathIsVisible = !PathIsVisible;
+
         public Point FrightenedMode()
         {
             if (!IsFrightened)
             {
-                SetMode(_globalMovingMode);
+                SetMode(_globalMode);
                 IsFrightened = false;
             }
 
-            _goal = GetRandomNeighbourWalkablePoint();
-            _path = _gameState.GhostPathFinder.FindPath(_prevLoc, GetLoc(), _goal);
+            _goal = GetRandomNeighboringPoint();
+            _path = _pathFinder.FindPath(_prevLoc, GetLoc(), _goal);
             return (_path.Count == 1) ? GetLoc() : _path[1];
         }
 
@@ -104,16 +102,16 @@ namespace Pacman
                 _prevLoc = new Point();
                 IsFrightened = false;
                 IsEaten = false;
-                SetMode(_globalMovingMode);
+         //       SetMode(_globalMode);
             }
             else
                 _goal = _home.ToPoint();
 
-            _path = _gameState.GhostPathFinder.FindPath(_prevLoc, GetLoc(), _goal);
+            _path = _pathFinder.FindPath(_prevLoc, GetLoc(), _goal);
             return (_path.Count == 1) ? GetLoc() : _path[1];
         }
 
-        public void DisplayPathAndGoal(Graphics gr)
+        public void DrawPath(Graphics gr)
         {
             Pen pen = new Pen(_color, 8f);
             System.Drawing.PointF[] path = new System.Drawing.PointF[_path.Count];
@@ -134,7 +132,7 @@ namespace Pacman
             gr.DrawEllipse(pen, x, y, 6, 6f);
         }
 
-        public Point GetRandomNeighbourWalkablePoint()
+        protected Point GetRandomNeighboringPoint()
         {
             Random _rand = new Random();
             List<Point> validNeighbourPoints = new List<Point>();

@@ -2,8 +2,6 @@
 using System.Drawing;
 using System.Drawing.Text;
 using System.IO;
-using System.Media;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Pacman.Properties;
@@ -12,10 +10,6 @@ namespace Pacman
 {
     public partial class StartForm : Form
     {
-        public static Size resolution = Screen.PrimaryScreen.Bounds.Size;
-        public static MainForm mf;
-        public static int r;
-
         #region Font Loader
         [DllImport("gdi32.dll")]
         private static extern IntPtr AddFontMemResourceEx(IntPtr pbFont, uint cbFont, IntPtr pdv, [In] ref uint pcFonts);
@@ -41,20 +35,17 @@ namespace Pacman
 
         public StartForm()
         {
-            Game game = new Game();
-            game.Init();
             InitializeComponent();
-            Designer();
+            ScaleGUI();
             SoundController.PlayLongSound(Resources.pacmanFever);      
         }
 
         private void StartGameB_Click(object sender, EventArgs e)
         {
-            Hide();
-            mf = new MainForm();
-            mf.Show();
             SoundController.StopLongSound();
-            SoundController.PlaySound("Intro");
+            GameForm gameForm = new GameForm();
+            gameForm.Show();
+            Hide();
         }
 
         private void RecordsB_Click(object sender, EventArgs e) { }
@@ -62,9 +53,13 @@ namespace Pacman
         private void ExitB_Click(object sender, EventArgs e)
             => Application.Exit();
 
-        void Designer() //масштабирование GUI
+        void ScaleGUI()
         {
-            r = resolution.Height / 40;
+            LoadFont();
+
+            Size resolution = Screen.PrimaryScreen.Bounds.Size;
+            int r = resolution.Height / 40;
+
             Icon = Resources.badge;
             ClientSize = new Size(r * 28, r * 36);
 
@@ -77,7 +72,6 @@ namespace Pacman
             ghostI.Location = new System.Drawing.Point(Convert.ToInt32(r * -1.4), r * 19);
             ghostI.SizeMode = PictureBoxSizeMode.StretchImage;
 
-            LoadFont();
             startGameB.Location = new System.Drawing.Point(r * 7, r * 10);
             startGameB.Size = new Size(r * 15, r * 2);
             startGameB.Font = new Font(fonts.Families[0], r / 3 * 2, FontStyle.Regular, GraphicsUnit.Point, 0);
