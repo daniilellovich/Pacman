@@ -1,17 +1,12 @@
-	Controls/LevelPanel.resx
-        Fonts/
-        Forms/MainForm.Designer.cs
-        Forms/MainForm.resx
-        Forms/PauseForm.Designer.cs
-        Forms/PauseForm.resx
-        Forms/StartForm.Designer.cs
-        Forms/StartForm.resx
-        PACMAN.csproj
-        PACMAN.csproj.user
-        Pictures/
-        Properties/
-        Sounds/
-        app.config
-        bass.dll
-        bin/
-        obj/
+.vs
+bin/
+obj/
+Controls/LevelPanel.resx
+Forms/GameForm.resx 
+Forms/PauseForm.resx     
+Forms/StartForm.resx
+test.txt
+PACMAN.csproj
+PACMAN.sln
+Properties/
+.config

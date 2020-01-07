@@ -17,8 +17,6 @@ public class Pacman : Character
     //    SetSpeed(speed);
     //}
 
-
-
     public Pacman(Mediator mediator) : base(mediator)
     {
         _locationF = new PointF(13.5f, 26);

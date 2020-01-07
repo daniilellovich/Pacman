@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Collections.ObjectModel;
-
-namespace Pacman
+﻿namespace Pacman
 { 
     public class PathNode
     {
