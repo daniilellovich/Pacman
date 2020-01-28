@@ -3,76 +3,79 @@
     public class Level
     {
         public Tile[,] Tiles { get; private set; }
-        public int Width { get; private set; }
-        public int Height { get; private set; }
+        private int _width;
+        private int _height;
 
-        public Level() => ReadLevelFromFile();
+        public Level()     
+            => ReadLevelFromFile();
 
-        Level ReadLevelFromFile()
+        void ReadLevelFromFile()
         {
             string[] _lines = Properties.Resources.PacmanMap.Split('\n');
 
-            Width = _lines[0].Length - 1;
-            Height = _lines.Length - 1;
-            Tiles = new Tile[Width, Height];
+            _width = _lines[0].Length - 1;
+            _height = _lines.Length - 1;
+            Tiles = new Tile[_width, _height];
 
-            for (int j = 0; j < Height; j++)
-                for (int i = 0; i < Width; i++)
+            for (int j = 0; j < _height; j++)
+                for (int i = 0; i < _width; i++)
                 {
                     Point point = new Point(i, j);
-                    switch (_lines[j][i])
+                    Tiles[i, j] = (_lines[j][i]) switch
                     {
-                        case '.': Tiles[i, j] = new Dot(point); break;
-                        case '@': Tiles[i, j] = new Energizer(point); break;
-                        case '*': Tiles[i, j] = new PacmanLife(point); break;
-
-                        case '=':
-                        case ' ': Tiles[i, j] = new Floor(point); break;
-                        case 'p': Tiles[i, j] = new Door(point); break;
-                        case '1': Tiles[i, j] = new _1(point); break;
-                        case '2': Tiles[i, j] = new _2(point); break;
-                        case '3': Tiles[i, j] = new _3(point); break;
-                        case '4': Tiles[i, j] = new _4(point); break;
-                        case '5': Tiles[i, j] = new _5(point); break;
-                        case '6': Tiles[i, j] = new _6(point); break;
-                        case '7': Tiles[i, j] = new _7(point); break;
-                        case '8': Tiles[i, j] = new _8(point); break;
-                        case '9': Tiles[i, j] = new _9(point); break;
-
-                        case 'a': Tiles[i, j] = new _a(point); break;
-                        case 'b': Tiles[i, j] = new _b(point); break;
-                        case 'c': Tiles[i, j] = new _c(point); break;
-                        case 'd': Tiles[i, j] = new _d(point); break;
-
-                        case 'l': Tiles[i, j] = new l(point); break;
-                        case 'r': Tiles[i, j] = new r(point); break;
-
-                        default: throw new System.Exception($"Unknown tile! ({i};{j})");
-                    }
+                        '.' => new Dot(point),
+                        '@' => new Energizer(point),
+                        '*' => new PacmanLife(point),
+                        ' ' => new Floor(point),
+                        'p' => new Door(point),
+                        '=' => new Wall(point, GameResources.Floor),
+                        '1' => new Wall(point, GameResources._1),
+                        '2' => new Wall(point, GameResources._2),
+                        '3' => new Wall(point, GameResources._3),
+                        '4' => new Wall(point, GameResources._4),
+                        '5' => new Wall(point, GameResources._5),
+                        '6' => new Wall(point, GameResources._6),
+                        '7' => new Wall(point, GameResources._7),
+                        '8' => new Wall(point, GameResources._8),
+                        '9' => new Wall(point, GameResources._9),
+                        'a' => new Wall(point, GameResources._a),
+                        'b' => new Wall(point, GameResources._b),
+                        'c' => new Wall(point, GameResources._c),
+                        'd' => new Wall(point, GameResources._d),
+                        'l' => new LeftAisle(point),
+                        'r' => new RightAisle(point),
+                        _ => throw new System.Exception($"Unknown tile! ({i};{j})"),
+                    };
                 }
-
-            return this;
         }
 
-        //PUT NEW FRUIT
-         //if (_gameState.Pacman.DotsEaten == 70)
-         //       _gameState.Level.Tiles[14, 20] = new Cherries(new Point(14, 20));
-         //   if (_gameState.Pacman.DotsEaten == 170)
-         //       _gameState.Level.Tiles[14, 20] = new Cherries(new Point(14, 20));
+        public Tile GetTile(Point point) 
+            => Tiles[point.X, point.Y];
+
+        private bool IsValidPoint(Point point)
+            => !((point.X < 0 || point.X >= _width) ||
+               (point.Y < 0 || point.Y >= _height));
 
         public bool IsWalkableForGhost(Point point)
-            => (IsWalkable(point) || Tiles[point.X, point.Y].IsWalkableForGhost);
+            => IsValidPoint(point) && (Tiles[point.X, point.Y].IsWalkableForGhost);
 
-        public bool IsWalkable(Point point)
-        {
-            if ((point.X < 0 || point.X >= Width) ||
-              (point.Y < 0 || point.Y >= Height))
-                return false;
-
-            return (Tiles[point.X, point.Y].IsWalkable);
-        }
+        public bool IsWalkableForPacman(Point point)
+            => IsValidPoint(point) && (Tiles[point.X, point.Y].IsWalkableForPacman);
 
         public void ChangeTileToFloor(Point point)
             => Tiles[point.X, point.Y] = new Floor(point);
+
+        public void PutNewFruit(Fruit fruit)
+            => Tiles[14, 20] = fruit;
+
+        public void RemoveOnePacmanLife(int livesLeft)
+        {
+            switch (livesLeft)
+            {
+                case 2: Tiles[2, 34] = new Wall(new Point(2, 34), GameResources.Floor); break;
+                case 1: Tiles[0, 34] = new Wall(new Point(0, 34), GameResources.Floor); break;
+                case 0: Game.GameOver(); break;
+            }
+        }
     }
 }

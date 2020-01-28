@@ -77,6 +77,7 @@ namespace Pacman
             Close();
             Thread.Sleep(1000);
          //   _gameForm.readyLabelP.Hide();
+            
             _gameForm.ResumeUpdateAndSound();
         }
 

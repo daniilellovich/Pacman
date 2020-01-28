@@ -20,10 +20,10 @@ namespace Pacman
         void StartGame()
         {
             _game = new Game();
-            pnPacmanLevel.SetObjsToDraw(_game.State);
+            pnPacmanLevel.InitObjsToDraw(_game.State);
             UpdateTimer.Start();
             BehaviorControllerTimer.Start();
-            SoundController.PlayLongSound(Resources.Siren);
+            SoundController.PlayLongSound("Siren");
         }
 
         public void PauseUpdateAndSound()
@@ -35,7 +35,7 @@ namespace Pacman
 
         public void ResumeUpdateAndSound()
         {
-            SoundController.PlayLongSound(Resources.Siren);
+            SoundController.PlayLongSound("Siren");
             UpdateTimer.Start();
             BehaviorControllerTimer.Start();
         }
@@ -48,7 +48,21 @@ namespace Pacman
         }
 
         void BehaviorControllerTimer_Tick(object sender, EventArgs e)
-            => _game.State.GhostsController.BehaviorEvents();
+            => _game.State.GameController.BehaviorEvents();
+
+        private void pnPacmanLevel_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape) //make the same to PauseForm
+            {
+                PauseUpdateAndSound();
+                PauseForm pf = new PauseForm();
+                pf.Show();
+            }
+
+            _game.State.Pacman.GetNextDirFromKeyboard(e.KeyData);
+
+            _game.State.GameController.SwitchPathDrawing(e.KeyCode);      
+        }
 
         void ScaleGUI()
         {
@@ -82,22 +96,7 @@ namespace Pacman
             stageL.Font = new Font(StartForm.fonts.Families[0], r / 110, FontStyle.Regular, GraphicsUnit.Point, 0);
             scoreL.Font = highScoreTextL.Font;
             highScoreL.Font = highScoreTextL.Font;
-        //  SetClientSizeCore(game.State.Level.Width * Tile.Size.Width, game.State.Level.Height * Tile.Size.Height);
             SetClientSizeCore(28 * Tile.Size.Width, 36 * Tile.Size.Height);
-        }
-
-        private void pnPacmanLevel_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Escape) //сделать тоже самое для формыпауза
-            {
-                PauseUpdateAndSound();
-                PauseForm pf = new PauseForm();
-                pf.Show();
-            }
-
-            _game.State.Pacman.UpdateDirFromKeyboard(e.KeyData);
-
-            _game.State.GhostsController.SwitchPathDrawing(e.KeyCode);      
         }
     }
 }

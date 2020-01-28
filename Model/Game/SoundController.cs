@@ -8,7 +8,7 @@ namespace Pacman
     {
         public static bool _soundON = true;
         static int _stream;
-        static System.Media.SoundPlayer sound;
+        static System.Media.SoundPlayer _sound;
 
         static SoundController()
             => Bass.BASS_Init(-1, 44100, BASSInit.BASS_DEVICE_DEFAULT, IntPtr.Zero);
@@ -23,19 +23,20 @@ namespace Pacman
             }
         }
 
-        public static void PlayLongSound(Stream _soundFile)
+        public static void PlayLongSound(string fileName)
         {
             if (_soundON)
             {
-                sound = new System.Media.SoundPlayer(_soundFile);
-                sound.PlayLooping();
+                fileName = "Sounds\\" + fileName + ".wav";
+                _sound = new System.Media.SoundPlayer(fileName);
+                _sound.PlayLooping();
             }
         }
 
         public static void StopLongSound()
         {
             if (_soundON)
-                sound.Stop();
+                _sound.Stop();
         }
     }
 }

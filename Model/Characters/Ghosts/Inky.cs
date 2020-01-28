@@ -9,12 +9,11 @@ namespace Pacman
         {
             SetSpeed(0.12f);
             SetMode(ScatterMode);
-            SetSprite(GameResources.Inky);
+            SetSpriteImage(_spriteImage = GameResources.Inky);
             _color = System.Drawing.Color.Aqua;
             _locationF = _home = new PointF(11.5f, 17);
             _destination = _curMode();
             _corner = new Point(26, 32);
-            _corner2 = new Point(18, 32);
         }
 
         public override Point ChaseMode()
@@ -24,22 +23,21 @@ namespace Pacman
             _goal = GetGoal(possiblePoints);
 
             _path = _pathFinder.FindPath(_prevLoc, GetLoc(), _goal);
-            return (_path.Count == 1) ? GetRandomNeighboringPoint() : _path[1];
+            return PathExists ? _path[1] : GetWalkableNeighbourPoint();
         }
 
-        Point GetGoal(List<Point> possiblePoints)
+        private Point GetGoal(List<Point> possiblePoints)
         {
-            possiblePoints.Reverse();
             for (int i = 0; i < possiblePoints.Count; i++)
                 if (_gameState.Level.IsWalkableForGhost(possiblePoints[i]))
-                    return possiblePoints[i];
+                    return possiblePoints[i];               
             return GetLoc();
         }
 
-        Point GetPointForBlinky()
+        private Point GetPointForBlinky()
         {   
             (int X, int Y) = _gameState.Pacman.GetLoc();
-            switch (_gameState.Pacman.CurrentDir)
+            switch (_gameState.Pacman.GetCurDir())
             {
                 case Pacman.Directions.up:    return new Point(X, Y - 2);
                 case Pacman.Directions.right: return new Point(X + 2, Y);
@@ -49,12 +47,13 @@ namespace Pacman
             }
         }
 
-        Point GetFinishPoint(Point pacLocForBlinky)
+        private Point GetFinishPoint(Point pacLocForBlinky)
             => new Point(2 * pacLocForBlinky.X - _gameState.Blinky.GetLoc().X,
                          2 * pacLocForBlinky.Y - _gameState.Blinky.GetLoc().Y);
 
-        List<Point> RasterizePath(Point a, Point b)
-        {   
+        private List<Point> RasterizePath(Point a, Point b)
+        {   //Bresenham's line algorithm
+            //to get farthest walkable point
             (int x1, int y1) = a; (int x2, int y2) = b;
 
             List<Point> pointsOnLine = new List<Point>();
@@ -85,6 +84,7 @@ namespace Pacman
                 }
             }
 
+            pointsOnLine.Reverse();
             return pointsOnLine;
         }
     }

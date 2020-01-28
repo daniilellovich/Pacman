@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -6,21 +5,22 @@ namespace Pacman
 {
     public class Tile
     {
+        public Tile(Point location)
+            => _location = location;
+
+        public virtual bool IsWalkableForPacman => true;
+
+        public virtual bool IsWalkableForGhost => true;
+
         public static Size Size = new Size(Screen.PrimaryScreen.Bounds.Size.Height / 40,
                                            Screen.PrimaryScreen.Bounds.Size.Height / 40);
-        public Point Location { get; private set; }
+        protected Point _location;
 
-        public Tile(Point location) => Location = location;
+        protected Bitmap _image;
 
-        public virtual bool IsWalkable => true;
-
-        public virtual bool IsWalkableForGhost => false;
-
-        public Rectangle Rect
-            => new Rectangle(Size.Width * Location.X,
-                             Size.Height * Location.Y,
-                             Size.Width,
-                             Size.Height);
+        protected Rectangle Rect
+            => new Rectangle(Size.Width * _location.X, Size.Height * _location.Y, 
+                Size.Width, Size.Height);
 
         public virtual void Draw(Graphics gr) { }
     }

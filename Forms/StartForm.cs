@@ -37,7 +37,7 @@ namespace Pacman
         {
             InitializeComponent();
             ScaleGUI();
-            SoundController.PlayLongSound(Resources.pacmanFever);      
+            SoundController.PlayLongSound("PacmanFever");      
         }
 
         private void StartGameB_Click(object sender, EventArgs e)

@@ -6,16 +6,16 @@ namespace Pacman
     public static class GameResources
     {
         #region characters
-        public static Bitmap Pacman        = LoadSpritePic(Resources.pacman);
-        public static Bitmap Blinky        = LoadSpritePic(Resources.blinky);
-        public static Bitmap Pinky         = LoadSpritePic(Resources.pinky);
-        public static Bitmap Inky          = LoadSpritePic(Resources.inky);
-        public static Bitmap Clyde         = LoadSpritePic(Resources.clyde);
-        public static Bitmap Fright        = LoadSpritePic(Resources.fright);
-        public static Bitmap FrightEnd     = LoadSpritePic(Resources.frightEnd);
-        public static Bitmap GhostEyes     = LoadSpritePic(Resources.ghostEyes);
-        public static Bitmap PacmanDeath   = LoadSpritePic(Resources.pacmanDepth);
-        public static Bitmap PacmanVictory = LoadSpritePic(Resources.pacmanWon);
+        public static Bitmap Pacman        = LoadSprite(Resources.pacman);
+        public static Bitmap Blinky        = LoadSprite(Resources.blinky);
+        public static Bitmap Pinky         = LoadSprite(Resources.pinky);
+        public static Bitmap Inky          = LoadSprite(Resources.inky);
+        public static Bitmap Clyde         = LoadSprite(Resources.clyde);
+        public static Bitmap Fright        = LoadSprite(Resources.fright);
+        public static Bitmap FrightEnd     = LoadSprite(Resources.frightEnd);
+        public static Bitmap GhostEyes     = LoadSprite(Resources.ghostEyes);
+        public static Bitmap PacmanDeath   = LoadSprite(Resources.pacmanDepth);
+        public static Bitmap PacmanVictory = LoadSprite(Resources.pacmanWon);
         #endregion
 
         #region items
@@ -58,7 +58,7 @@ namespace Pacman
             return new Bitmap(img, Tile.Size);
         }
 
-        static Bitmap LoadSpritePic(Bitmap img)
+        static Bitmap LoadSprite(Bitmap img)
         {
             img.SetResolution(64, 64);
             return img;

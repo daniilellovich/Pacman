@@ -11,7 +11,7 @@ namespace Pacman
         public Inky Inky;
         public Clyde Clyde;
         public List<Ghost> Ghosts;
-        public GhostsController GhostsController;
+        public GameController GameController;
         public ItemsController ItemsController;
 
         public Mediator()
@@ -25,7 +25,7 @@ namespace Pacman
             Clyde  = new Clyde(this);
             Ghosts = new List<Ghost>() { Blinky, Pinky, Inky, Clyde };
 
-            GhostsController = new GhostsController(this);
+            GameController = new GameController(this);
             ItemsController = new ItemsController(this);
         }
     }

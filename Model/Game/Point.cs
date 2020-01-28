@@ -27,10 +27,10 @@ namespace Pacman
         public override string ToString()
             => $"({X} ; {Y})";
 
-        public static bool operator ==(Point left, Point right)
+        public static bool operator == (Point left, Point right)
             => (left.X == right.X && left.Y == right.Y);
 
-        public static bool operator !=(Point left, Point right)
+        public static bool operator != (Point left, Point right)
             => !(left == right);
 
         public override bool Equals(object obj)
@@ -71,9 +71,6 @@ namespace Pacman
 
         public bool IsOnXandY(PointF point, float ebsilon)
             => IsOnX(point, ebsilon) && IsOnY(point, ebsilon);
-
-        public bool IsOnXorY(PointF point, float ebsilon)
-            => IsOnX(point, ebsilon) || IsOnY(point, ebsilon);
 
         public bool IsFarFrom(Point point, float ebsilon)
             => (Math.Abs(X - point.X) > ebsilon || Math.Abs(Y - point.Y) > ebsilon);

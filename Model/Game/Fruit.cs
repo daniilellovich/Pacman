@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Pacman
+﻿namespace Pacman
 {
-    class Fruit : Tile
+    public class Fruit : Tile
     {
-        public int Time { get; protected set; }
-        public int Level { get; protected set; }
+        protected int _score;
+
+        public int GetScore() => _score;
 
         public Fruit(Point location) : base(location) { }
     }

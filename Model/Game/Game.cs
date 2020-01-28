@@ -3,8 +3,8 @@ namespace Pacman
     public class Game
     {
         public Mediator State;
-        public static int levelNum = 1;
-        public static int highScore;    //сделать сохранение
+        public static int level = 1;
+        public static int highScore;
         public int score;
 
         public Game()
@@ -12,17 +12,19 @@ namespace Pacman
 
         public void Update()
         {
-            State.ItemsController.Update();
             State.Pacman.Update();
 
             State.Blinky.Update();
             State.Pinky.Update();
             State.Inky.Update();
             State.Clyde.Update();
+
+            State.ItemsController.Update();
         }
 
         public void GameOver()
         {
+
         }
     }
 }

@@ -2,11 +2,10 @@
 
 namespace Pacman
 {
-    public class Apple : Tile
+    public class Apple : Fruit
     {
-        public Apple(Point location) : base(location) { }
-
-        public Apple(Point location, int time) : base(location) { }
+        public Apple(Point location) : base(location) 
+            => _score = 700; 
 
         public override void Draw(Graphics gr)
         {
@@ -15,9 +14,10 @@ namespace Pacman
         }
     }
 
-    public class Key : Tile
+    public class Key : Fruit
     {
-        public Key(Point location) : base(location) { }
+        public Key(Point location) : base(location) 
+            => _score = 5000; 
 
         public override void Draw(Graphics gr)
         {
@@ -26,9 +26,10 @@ namespace Pacman
         }
     }
 
-    public class Cherries : Tile
+    public class Cherries : Fruit
     {
-        public Cherries(Point location) : base(location) { }
+        public Cherries(Point location) : base(location) 
+            => _score = 100; 
 
         public override void Draw(Graphics gr)
         {
@@ -37,9 +38,10 @@ namespace Pacman
         }
     }
 
-    public class Bell : Tile
+    public class Bell : Fruit
     {
-        public Bell(Point location) : base(location) { }
+        public Bell(Point location) : base(location)
+             => _score = 3000; 
 
         public override void Draw(Graphics gr)
         {
@@ -48,9 +50,10 @@ namespace Pacman
         }
     }
 
-    public class Peach : Tile
+    public class Peach : Fruit
     {
-        public Peach(Point location) : base(location) { }
+        public Peach(Point location) : base(location)
+             => _score = 500; 
 
         public override void Draw(Graphics gr)
         {
@@ -59,9 +62,10 @@ namespace Pacman
         }
     }
 
-    public class Strawberry : Tile
+    public class Strawberry : Fruit
     {
-        public Strawberry(Point location) : base(location) { }
+        public Strawberry(Point location) : base(location)
+             => _score = 300; 
 
         public override void Draw(Graphics gr)
         {
@@ -70,9 +74,10 @@ namespace Pacman
         }
     }
 
-    public class Grapes : Tile
+    public class Grapes : Fruit
     {
-        public Grapes(Point location) : base(location) { }
+        public Grapes(Point location) : base(location)
+             => _score = 1000; 
 
         public override void Draw(Graphics gr)
         {
@@ -81,9 +86,10 @@ namespace Pacman
         }
     }
 
-    public class Galaxian : Tile
+    public class Galaxian : Fruit
     {
-        public Galaxian(Point location) : base(location) { }
+        public Galaxian(Point location) : base(location) 
+            => _score = 2000; 
 
         public override void Draw(Graphics gr)
         {

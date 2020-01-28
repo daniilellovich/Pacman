@@ -12,6 +12,7 @@ namespace Pacman
         public GhostPathFinder(Level level)
             => _level = level;
 
+        // A* algorithm from https://lsreg.ru/realizaciya-algoritma-poiska-a-na-c/
         public List<Point> FindPath(Point previousLocation, Point start, Point goal)
         {
             // step 1
@@ -112,5 +113,3 @@ namespace Pacman
         }
     }
 }
-
-// A* algorithm from https://lsreg.ru/realizaciya-algoritma-poiska-a-na-c/

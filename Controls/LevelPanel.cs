@@ -12,10 +12,8 @@ namespace Pacman
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint, true);
         }
 
-        public void SetObjsToDraw(Mediator gameState)
-        {
-            _gameState = gameState;
-        }
+        public void InitObjsToDraw(Mediator gameState)
+            => _gameState = gameState;
 
         protected override void OnPaintBackground(PaintEventArgs e) { }
 
