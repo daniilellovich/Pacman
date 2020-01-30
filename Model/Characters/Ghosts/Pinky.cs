@@ -4,7 +4,6 @@
     {
         public Pinky(Mediator gameState) : base(gameState)
         {
-            SetSpeed(0.12f);
             SetMode(ScatterMode);         
             SetSpriteImage(_spriteImage = GameResources.Pinky);
             _color = System.Drawing.Color.Pink;
@@ -15,12 +14,12 @@
 
         public override Point ChaseMode()
         {   //his goal is the cell that is in front of Pac-Man through four tiles
-            _goal = FindWalkablePoint(GetPacmanFront4Point());
+            _goal = FindWalkablePoint(GetPacmanFront5Point());
             _path = _pathFinder.FindPath(_prevLoc, GetLoc(), _goal);
             return PathExists ? _path[1] : GetWalkableNeighbourPoint();
         }
 
-        private Point GetPacmanFront4Point()
+        private Point GetPacmanFront5Point()
         {
             int dx = 0, dy = 0;
             switch (_gameState.Pacman.GetCurDir())

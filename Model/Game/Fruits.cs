@@ -4,8 +4,7 @@ namespace Pacman
 {
     public class Apple : Fruit
     {
-        public Apple(Point location) : base(location) 
-            => _score = 700; 
+        public Apple() :base() => _score = 700; 
 
         public override void Draw(Graphics gr)
         {
@@ -16,8 +15,7 @@ namespace Pacman
 
     public class Key : Fruit
     {
-        public Key(Point location) : base(location) 
-            => _score = 5000; 
+        public Key() : base() => _score = 5000; 
 
         public override void Draw(Graphics gr)
         {
@@ -28,8 +26,7 @@ namespace Pacman
 
     public class Cherries : Fruit
     {
-        public Cherries(Point location) : base(location) 
-            => _score = 100; 
+        public Cherries() : base() => _score = 100; 
 
         public override void Draw(Graphics gr)
         {
@@ -40,8 +37,7 @@ namespace Pacman
 
     public class Bell : Fruit
     {
-        public Bell(Point location) : base(location)
-             => _score = 3000; 
+        public Bell() : base() => _score = 3000; 
 
         public override void Draw(Graphics gr)
         {
@@ -52,8 +48,7 @@ namespace Pacman
 
     public class Peach : Fruit
     {
-        public Peach(Point location) : base(location)
-             => _score = 500; 
+        public Peach() : base() => _score = 500; 
 
         public override void Draw(Graphics gr)
         {
@@ -64,8 +59,7 @@ namespace Pacman
 
     public class Strawberry : Fruit
     {
-        public Strawberry(Point location) : base(location)
-             => _score = 300; 
+        public Strawberry() : base() => _score = 300; 
 
         public override void Draw(Graphics gr)
         {
@@ -76,8 +70,7 @@ namespace Pacman
 
     public class Grapes : Fruit
     {
-        public Grapes(Point location) : base(location)
-             => _score = 1000; 
+        public Grapes() : base() => _score = 1000; 
 
         public override void Draw(Graphics gr)
         {
@@ -88,8 +81,7 @@ namespace Pacman
 
     public class Galaxian : Fruit
     {
-        public Galaxian(Point location) : base(location) 
-            => _score = 2000; 
+        public Galaxian() : base() => _score = 2000; 
 
         public override void Draw(Graphics gr)
         {

@@ -7,14 +7,11 @@ namespace Pacman
     public abstract class Ghost : Character
     {
         #region vars
-        public enum State { ChaseOrScatter, Fright, Returning };
-        private State _currentState;
-
         public delegate Point MovingMode();
         protected MovingMode _curMode;
 
-        public MovingMode GlobalMovingMode;
-        public float GlobalSpeed = 0.11f;
+        public enum State { ChaseOrScatter, Fright, Returning };
+        private State _curState;
 
         protected GhostPathFinder _pathFinder;
         protected Image _spriteImage;
@@ -24,17 +21,15 @@ namespace Pacman
         public bool PathIsVisible { get; private set; }
 
         public State GetState()
-            => _currentState;
+            => _curState;
 
         public void SetState(State state)
-            => _currentState = state;
+            => _curState = state;
         #endregion
 
         public Ghost(Mediator gameState) : base(gameState)
         {
-            GlobalMovingMode = ScatterMode;
-            _curMode = ScatterMode;
-            _currentState = State.ChaseOrScatter;
+            _curState = State.ChaseOrScatter;
             _pathFinder = new GhostPathFinder(_gameState.Level);
         }
 
@@ -54,7 +49,7 @@ namespace Pacman
 
         public Point ScatterMode()
         {
-            _goal = (_locationF.IsOnXandY(_corner, 1.5f)) ?
+            _goal = (_locationF.IsOnXandY(_corner, 2f)) ?
                 GetWalkableNeighbourPoint() : _corner;
             _path = _pathFinder.FindPath(_prevLoc, GetLoc(), _goal);
             return PathExists ? _path[1] : GetLoc();
@@ -73,8 +68,8 @@ namespace Pacman
         {
             if (GetLocF().IsOnXandY(_home, 0.8f))
             {
-                _currentState = State.ChaseOrScatter;
-                SetMode(GlobalMovingMode);
+                _curState = State.ChaseOrScatter;
+                SetMode(_gameState.GameController.GetGlobalMovingMode());
                 return GetLoc();
             }
             else
@@ -90,41 +85,32 @@ namespace Pacman
 
         public void SetMode(MovingMode newMode)
         {
-            if (newMode == ScatterMode || newMode == ChaseMode)
+            if ((newMode == ScatterMode || newMode == ChaseMode)
+                && (_curState == State.ChaseOrScatter))
             {
-                if (_currentState != State.ChaseOrScatter)
-                {
-                    _curMode = newMode;
-                    _currentState = State.ChaseOrScatter;
-                    SetSpriteImage(_spriteImage);
-                    SetSpeed(GlobalSpeed);
-                }
+                _curMode = newMode;
+                SetSpriteImage(_spriteImage);
+                SetCurSpeed(_normalSpeed);
             }
-            else if (newMode == FrightenedMode)
+            else if ((newMode == FrightenedMode))
             {
-                if (_currentState != State.Returning)
-                {
-                    _currentState = State.Fright;
-                    _curMode = FrightenedMode;
-                    SetSpriteImage(GameResources.Fright);
-                    SetSpeed(0.6f * GlobalSpeed);
-                }
+                _curState = State.Fright;
+                _curMode = FrightenedMode;
+                SetSpriteImage(GameResources.Fright);
+                SetCurSpeed(0.6f * _normalSpeed);
             }
             else if (newMode == ReturningHome)
             {
-           //     if (_currentState != State.Returning)
-           //     {
-                    _currentState = State.Returning;
-                    _curMode = ReturningHome;
-                    SetSpriteImage(GameResources.GhostEyes);
-                    SetSpeed(GlobalSpeed);
-           //     }
+                _curState = State.Returning;
+                _curMode = ReturningHome;
+                SetSpriteImage(GameResources.GhostEyes);
+                SetCurSpeed(_normalSpeed);
             }
         }
 
         public void StartBlinking()
         { 
-            if (_currentState == State.Fright)
+            if (_curState == State.Fright)
                 _sprite.ChangeImage(GameResources.FrightEnd);
         }
 

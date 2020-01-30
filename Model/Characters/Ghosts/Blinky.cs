@@ -4,7 +4,6 @@
     {
         public Blinky(Mediator gameState) : base(gameState)
         {
-            SetSpeed(0.12f);
             SetMode(ScatterMode);
             SetSpriteImage(_spriteImage = GameResources.Blinky);
             _color = System.Drawing.Color.Red;

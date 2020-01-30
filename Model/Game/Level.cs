@@ -6,7 +6,7 @@
         private int _width;
         private int _height;
 
-        public Level()     
+        public Level()
             => ReadLevelFromFile();
 
         void ReadLevelFromFile()
@@ -68,13 +68,24 @@
         public void PutNewFruit(Fruit fruit)
             => Tiles[14, 20] = fruit;
 
-        public void RemoveOnePacmanLife(int livesLeft)
+        public void PutPacmanLivesDownside(int lives)
+        {
+            if (lives-- == 3)
+                  Tiles[4, 34] = new PacmanLife(new Point(4, 34));
+            if (lives-- == 2)
+                 Tiles[2, 34] = new PacmanLife(new Point(2, 34));
+            if (lives-- == 1)
+                Tiles[0, 34] = new PacmanLife(new Point(0, 34));
+        }
+
+        public void RemoveOnePacmanLifeDownside(int livesLeft)
         {
             switch (livesLeft)
             {
-                case 2: Tiles[2, 34] = new Wall(new Point(2, 34), GameResources.Floor); break;
-                case 1: Tiles[0, 34] = new Wall(new Point(0, 34), GameResources.Floor); break;
-                case 0: Game.GameOver(); break;
+                case 2: Tiles[4, 34] = new Wall(new Point(4, 34), GameResources.Floor); break;
+                case 1: Tiles[2, 34] = new Wall(new Point(2, 34), GameResources.Floor); break;
+                case 0: Tiles[0, 34] = new Wall(new Point(0, 34), GameResources.Floor);
+                        Game.GameOver(); break;
             }
         }
     }

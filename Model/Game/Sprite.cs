@@ -28,7 +28,7 @@ namespace Pacman
 
         public void ChoosePicByDir(int dx, int dy, float speed)
         {
-            if (dy > 0) 
+            if (dy > 0)
                 _row = 0;
             else if (dy < 0)
                 _row = 3;

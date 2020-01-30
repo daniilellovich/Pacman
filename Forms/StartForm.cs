@@ -43,8 +43,7 @@ namespace Pacman
         private void StartGameB_Click(object sender, EventArgs e)
         {
             SoundController.StopLongSound();
-            GameForm gameForm = new GameForm();
-            gameForm.Show();
+            new GameForm().Show();
             Hide();
         }
 
@@ -53,7 +52,7 @@ namespace Pacman
         private void ExitB_Click(object sender, EventArgs e)
             => Application.Exit();
 
-        void ScaleGUI()
+        private void ScaleGUI()
         {
             LoadFont();
 

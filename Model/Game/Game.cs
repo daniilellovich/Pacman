@@ -1,28 +1,27 @@
+using System.Collections.Generic;
+
 namespace Pacman
 {
     public class Game
     {
         public Mediator State;
-        public static int level = 1;
-        public static int highScore;
-        public int score;
+        public int score, levelNumber = 1;
+        public int highScore;
 
         public Game()
-            => State = new Mediator();
+        {
+            Level level = new Level();
+            State = new Mediator(this, level, levelNumber);
+            State.Level.PutPacmanLivesDownside(State.Pacman.GetLives());
+        }
 
         public void Update()
         {
-            State.Pacman.Update();
-
-            State.Blinky.Update();
-            State.Pinky.Update();
-            State.Inky.Update();
-            State.Clyde.Update();
-
-            State.ItemsController.Update();
+            State.Characters.ForEach(ch => ch.Update());
+            State.ColissionDetector.Update();
         }
 
-        public void GameOver()
+        public static void GameOver()
         {
 
         }

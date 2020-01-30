@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.UpdateTimer = new System.Windows.Forms.Timer(this.components);
+            this.GameLoopTimer = new System.Windows.Forms.Timer(this.components);
             this.scoreL = new System.Windows.Forms.Label();
             this.highScoreTextL = new System.Windows.Forms.Label();
             this.highScoreL = new System.Windows.Forms.Label();
-            this.BehaviorControllerTimer = new System.Windows.Forms.Timer(this.components);
+            this.GameControllerTimer = new System.Windows.Forms.Timer(this.components);
             this.readyLabelP = new System.Windows.Forms.PictureBox();
             this.gameoverLabelP = new System.Windows.Forms.PictureBox();
             this.pnPacmanLevel = new LevelPanel();
@@ -42,10 +42,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.gameoverLabelP)).BeginInit();
             this.SuspendLayout();
             // 
-            // UpdateTimer
+            // GameLoopTimer
             // 
-            this.UpdateTimer.Interval = 10;
-            this.UpdateTimer.Tick += new System.EventHandler(this.UpdateTimer_Tick);
+            this.GameLoopTimer.Interval = 10;
+            this.GameLoopTimer.Tick += new System.EventHandler(this.UpdateTimer_Tick);
             // 
             // scoreL
             // 
@@ -88,10 +88,10 @@
             this.highScoreL.Text = "0";
             this.highScoreL.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // BehaviorControllerTimer
+            // GameControllerTimer
             // 
-            this.BehaviorControllerTimer.Interval = 1000;
-            this.BehaviorControllerTimer.Tick += new System.EventHandler(this.BehaviorControllerTimer_Tick);
+            this.GameControllerTimer.Interval = 1000;
+            this.GameControllerTimer.Tick += new System.EventHandler(this.BehaviorControllerTimer_Tick);
             // 
             // readyLabelP
             // 
@@ -100,6 +100,7 @@
             this.readyLabelP.Size = new System.Drawing.Size(100, 19);
             this.readyLabelP.TabIndex = 8;
             this.readyLabelP.TabStop = false;
+            this.readyLabelP.Visible = false;
             // 
             // gameoverLabelP
             // 
@@ -109,6 +110,7 @@
             this.gameoverLabelP.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.gameoverLabelP.TabIndex = 8;
             this.gameoverLabelP.TabStop = false;
+            this.gameoverLabelP.Visible = false;
             // 
             // pnPacmanLevel
             // 
@@ -122,6 +124,7 @@
             this.pnPacmanLevel.Size = new System.Drawing.Size(256, 256);
             this.pnPacmanLevel.TabIndex = 6;
             this.pnPacmanLevel.KeyDown += new System.Windows.Forms.KeyEventHandler(this.pnPacmanLevel_KeyDown);
+            this.pnPacmanLevel.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.pnPacmanLevel_PreviewKeyDown);
             // 
             // stageL
             // 
@@ -133,15 +136,16 @@
             this.stageL.Size = new System.Drawing.Size(65, 13);
             this.stageL.TabIndex = 9;
             this.stageL.Text = "stage 1/256";
+            this.stageL.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // GameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(256, 256);
-            this.Controls.Add(this.stageL);
             this.Controls.Add(this.gameoverLabelP);
             this.Controls.Add(this.readyLabelP);
+            this.Controls.Add(this.stageL);
             this.Controls.Add(this.highScoreTextL);
             this.Controls.Add(this.highScoreL);
             this.Controls.Add(this.scoreL);
@@ -158,14 +162,14 @@
 
         #endregion
         public LevelPanel pnPacmanLevel;
-        public System.Windows.Forms.Timer UpdateTimer;
+        public System.Windows.Forms.Timer GameLoopTimer;
         public System.Windows.Forms.Label scoreL;
         public System.Windows.Forms.Label highScoreTextL;
         public System.Windows.Forms.Label highScoreL;
-        public System.Windows.Forms.Timer BehaviorControllerTimer;
-        public System.Windows.Forms.PictureBox readyLabelP;
+        public System.Windows.Forms.Timer GameControllerTimer;
         public System.Windows.Forms.PictureBox gameoverLabelP;
         public System.Windows.Forms.Label stageL;
+        private System.Windows.Forms.PictureBox readyLabelP;
     }
 }
 

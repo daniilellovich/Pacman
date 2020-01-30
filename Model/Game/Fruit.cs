@@ -4,8 +4,8 @@
     {
         protected int _score;
 
-        public int GetScore() => _score;
+        public Fruit() : base(new Point(14, 20)) { }
 
-        public Fruit(Point location) : base(location) { }
+        public int GetScore() => _score;
     }
 }

@@ -4,6 +4,7 @@ namespace Pacman
 {
     public class Mediator
     {
+        public Game Game;
         public Level Level;
         public Pacman Pacman;
         public Blinky Blinky;
@@ -11,12 +12,14 @@ namespace Pacman
         public Inky Inky;
         public Clyde Clyde;
         public List<Ghost> Ghosts;
+        public List<Character> Characters;
         public GameController GameController;
-        public ItemsController ItemsController;
+        public ColissionDetector ColissionDetector;
 
-        public Mediator()
+        public Mediator(Game game, Level level, int levelNumber)
         {
-            Level = new Level();
+            Game = game;
+            Level = level;
 
             Pacman = new Pacman(this);
             Blinky = new Blinky(this);
@@ -24,9 +27,10 @@ namespace Pacman
             Inky   = new Inky(this);
             Clyde  = new Clyde(this);
             Ghosts = new List<Ghost>() { Blinky, Pinky, Inky, Clyde };
+            Characters = new List<Character>() { Pacman, Blinky };
 
-            GameController = new GameController(this);
-            ItemsController = new ItemsController(this);
+            GameController = new GameController(game, this, levelNumber);
+            ColissionDetector = new ColissionDetector(this);
         }
     }
 }

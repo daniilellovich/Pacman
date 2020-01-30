@@ -6,7 +6,6 @@ namespace Pacman
     {
         public Clyde(Mediator gameState) : base(gameState)
         {
-            SetSpeed(0.12f);
             SetMode(ScatterMode);
             SetSpriteImage(_spriteImage = GameResources.Clyde);
             _color = System.Drawing.Color.Goldenrod;

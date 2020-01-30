@@ -4,10 +4,10 @@ namespace Pacman
 {
     public class Pacman : Character
     {
+        #region vars
         public enum Directions { nowhere, up, right, down, left }
         private Directions _currentDir, _nextDir;
-        private int _dotsEaten, _lives = 3;
-        public bool IsEaten = false;
+        private int _dotsEaten, _eatenGhostsCounter, _lives = 3;
 
         public Directions GetCurDir()
             => _currentDir;
@@ -18,25 +18,31 @@ namespace Pacman
         public int GetDots()
             => _dotsEaten;
 
+        public int GetEatenGhostsCounter()
+            => _eatenGhostsCounter;
+        #endregion
+
         public Pacman(Mediator gameState) : base(gameState)
         {
             _locationF = new PointF(13.5f, 26);
             SetSpriteImage(GameResources.Pacman);
-            SetSpeed(0.1f);
+            SetCurSpeed(_normalSpeed);
         }
 
         public override void Update()
             => MoveTo(GetNextLocation());
 
         public override void Eaten()
-        {
-            IsEaten = true;
-            _lives--;
-         //   new Pacman(_gameState);
-        }
-
+            => _lives--;
+        
         public void EatDot()
             => _dotsEaten++;
+
+        public void EatGhost()
+            => _eatenGhostsCounter++;
+
+        public void ResetGhostCounter()
+            => _eatenGhostsCounter = 0;
 
         private Point GetNextLocation()
         {
@@ -51,16 +57,14 @@ namespace Pacman
             => _gameState.Level.IsWalkableForPacman(GetPointByDir(dir));
 
         private Point GetPointByDir(Directions dir)
-        {
-            switch (dir)
+            => dir switch
             {
-                case Directions.up:    return GetLoc().Up;
-                case Directions.right: return GetLoc().Right;
-                case Directions.down:  return GetLoc().Down;
-                case Directions.left:  return GetLoc().Left;
-                default:               return GetLoc();
-            }
-        }
+                Directions.up    => GetLoc().Up,
+                Directions.right => GetLoc().Right,
+                Directions.down  => GetLoc().Down,
+                Directions.left  => GetLoc().Left,
+                _                => GetLoc(),
+            };
 
         public void GetNextDirFromKeyboard(Keys pressedKey)
         {

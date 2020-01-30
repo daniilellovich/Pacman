@@ -6,7 +6,7 @@ namespace Pacman
         protected Mediator _gameState;
         protected Sprite _sprite = new Sprite();
         protected PointF _locationF, _home;
-        protected float _speed;
+        protected float _normalSpeed, _curSpeed;
 
         public PointF GetLocF()
             => _locationF;
@@ -14,16 +14,23 @@ namespace Pacman
         public Point GetLoc()
             => _locationF.ToPoint();
 
+        public void SetCurSpeed(float speed)
+            => _curSpeed = speed;
+
+        public void SetNormalSpeed(float speed)
+            => _normalSpeed = speed;
+
         public void SetSpeed(float speed)
-            => _speed = speed;
+            => _normalSpeed = _curSpeed = speed;
 
         protected void SetSpriteImage(System.Drawing.Image image)
             => _sprite.ChangeImage(image);
         #endregion
 
-        public Character(Mediator gameState)
+        public Character(Mediator gameState)      
             => _gameState = gameState;
-
+       
+        
         public abstract void Update();
 
         public abstract void Eaten();
@@ -31,10 +38,10 @@ namespace Pacman
         protected void MoveTo(Point destination)
         {
             (int dx, int dy) = CalcOffset(destination);
-            _sprite.ChoosePicByDir(dx, dy, _speed);
+            _sprite.ChoosePicByDir(dx, dy, _curSpeed);
 
-            float newX = _locationF.X + dx * _speed;
-            float newY = _locationF.Y + dy * _speed;
+            float newX = _locationF.X + dx * _curSpeed;
+            float newY = _locationF.Y + dy * _curSpeed;
             _locationF = new PointF(newX, newY);
         }
 

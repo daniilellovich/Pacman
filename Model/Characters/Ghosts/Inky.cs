@@ -7,7 +7,6 @@ namespace Pacman
     {
         public Inky(Mediator gameState) : base(gameState)
         {
-            SetSpeed(0.12f);
             SetMode(ScatterMode);
             SetSpriteImage(_spriteImage = GameResources.Inky);
             _color = System.Drawing.Color.Aqua;
@@ -26,6 +25,23 @@ namespace Pacman
             return PathExists ? _path[1] : GetWalkableNeighbourPoint();
         }
 
+        private Point GetPointForBlinky()
+        {   
+            (int X, int Y) = _gameState.Pacman.GetLoc();
+            return (_gameState.Pacman.GetCurDir()) switch
+            {
+                Pacman.Directions.up =>    new Point(X, Y - 2),
+                Pacman.Directions.right => new Point(X + 2, Y),
+                Pacman.Directions.down =>  new Point(X, Y - 2),
+                Pacman.Directions.left =>  new Point(X - 2, Y),
+                _ => new Point(X, Y),
+            };
+        }
+
+        private Point GetFinishPoint(Point pacLocForBlinky)
+            => new Point(2 * pacLocForBlinky.X - _gameState.Blinky.GetLoc().X,
+                         2 * pacLocForBlinky.Y - _gameState.Blinky.GetLoc().Y);
+
         private Point GetGoal(List<Point> possiblePoints)
         {
             for (int i = 0; i < possiblePoints.Count; i++)
@@ -33,23 +49,6 @@ namespace Pacman
                     return possiblePoints[i];               
             return GetLoc();
         }
-
-        private Point GetPointForBlinky()
-        {   
-            (int X, int Y) = _gameState.Pacman.GetLoc();
-            switch (_gameState.Pacman.GetCurDir())
-            {
-                case Pacman.Directions.up:    return new Point(X, Y - 2);
-                case Pacman.Directions.right: return new Point(X + 2, Y);
-                case Pacman.Directions.down:  return new Point(X, Y - 2);
-                case Pacman.Directions.left:  return new Point(X - 2, Y);
-                default:                      return new Point(X, Y);
-            }
-        }
-
-        private Point GetFinishPoint(Point pacLocForBlinky)
-            => new Point(2 * pacLocForBlinky.X - _gameState.Blinky.GetLoc().X,
-                         2 * pacLocForBlinky.Y - _gameState.Blinky.GetLoc().Y);
 
         private List<Point> RasterizePath(Point a, Point b)
         {   //Bresenham's line algorithm

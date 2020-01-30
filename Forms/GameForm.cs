@@ -2,69 +2,100 @@
 using System.Windows.Forms;
 using Pacman.Properties;
 using System.Drawing;
+using System.Timers;
 
 namespace Pacman
 {
     public partial class GameForm : Form
     {
-        Game _game;
+        private Game _game;
 
         public GameForm()
         {
             InitializeComponent();        
             ScaleGUI();
-            SoundController.PlaySound("Intro");
             StartGame();
+            stageL.Text = $"stage {_game.levelNumber} / 256";
+            highScoreL.Text = Convert.ToString(_game.highScore);
+            GetReady();
         }
 
-        void StartGame()
+        private void StartGame()
         {
             _game = new Game();
+            ResumeGameLoopAndSound();
             pnPacmanLevel.InitObjsToDraw(_game.State);
-            UpdateTimer.Start();
-            BehaviorControllerTimer.Start();
-            SoundController.PlayLongSound("Siren");
         }
 
-        public void PauseUpdateAndSound()
+        public void PauseGameLoopAndSound()
         {
             SoundController.StopLongSound();
-            UpdateTimer.Stop();
-            BehaviorControllerTimer.Stop();
+            GameLoopTimer.Stop();
+            GameControllerTimer.Stop();
         }
 
-        public void ResumeUpdateAndSound()
+        public void ResumeGameLoopAndSound()
         {
             SoundController.PlayLongSound("Siren");
-            UpdateTimer.Start();
-            BehaviorControllerTimer.Start();
+            GameLoopTimer.Start();
+            GameControllerTimer.Start();
         }
 
-        void UpdateTimer_Tick(object sender, EventArgs e)
+        private void UpdateTimer_Tick(object sender, EventArgs e)
         {
             _game.Update();
             pnPacmanLevel.Invalidate();
             scoreL.Text = Convert.ToString(_game.score);
         }
 
-        void BehaviorControllerTimer_Tick(object sender, EventArgs e)
+        private void BehaviorControllerTimer_Tick(object sender, EventArgs e)
             => _game.State.GameController.BehaviorEvents();
 
         private void pnPacmanLevel_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape) //make the same to PauseForm
-            {
-                PauseUpdateAndSound();
-                PauseForm pf = new PauseForm();
-                pf.Show();
-            }
+                new PauseForm(this).Show();
 
             _game.State.Pacman.GetNextDirFromKeyboard(e.KeyData);
 
             _game.State.GameController.SwitchPathDrawing(e.KeyCode);      
         }
 
-        void ScaleGUI()
+        private void pnPacmanLevel_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Down: e.IsInputKey = true; break;
+                case Keys.Up:   e.IsInputKey = true; break;
+                case Keys.Left: e.IsInputKey = true; break;
+                case Keys.Right: e.IsInputKey = true; break;
+            }
+        }
+
+        public void GetReady()
+        {
+        //    PauseGameLoopAndSound();
+        //    SoundController.PlaySound("Intro");
+        //    readyLabelP.Show();
+        //    SetTimerForGettingReady();
+        }
+
+        private void SetTimerForGettingReady()
+        {
+            var readyTimer = new System.Timers.Timer(4100);
+            readyTimer.Elapsed += OnGettingReadyTimeEnded;
+            readyTimer.Enabled = true;
+            readyTimer.AutoReset = false;
+        }
+
+        private void OnGettingReadyTimeEnded(object source, ElapsedEventArgs e)
+        {
+            Invoke(new Action(() => ResumeGameLoopAndSound()));
+            Invoke(new Action(() => readyLabelP.Hide()));
+            Invoke(new Action(() => _game.State.Level.RemoveOnePacmanLifeDownside(_game.State.Pacman.GetLives() - 1)));
+        }
+
+        private void ScaleGUI()
         {
             Size resolution = Screen.PrimaryScreen.Bounds.Size;
             int r = resolution.Height;
