@@ -6,12 +6,8 @@ namespace Pacman
 {
     public abstract class Ghost : Character
     {
-        #region vars
         public delegate Point MovingMode();
         protected MovingMode _curMode;
-
-        public enum State { ChaseOrScatter, Fright, Returning };
-        private State _curState;
 
         protected GhostPathFinder _pathFinder;
         protected Image _spriteImage;
@@ -20,18 +16,10 @@ namespace Pacman
         protected List<Point> _path;
         public bool PathIsVisible { get; private set; }
 
-        public State GetState()
-            => _curState;
 
-        public void SetState(State state)
-            => _curState = state;
-        #endregion
 
         public Ghost(Mediator gameState) : base(gameState)
-        {
-            _curState = State.ChaseOrScatter;
-            _pathFinder = new GhostPathFinder(_gameState.Level);
-        }
+            => _pathFinder = new GhostPathFinder(_gameState.Level);
 
         public override void Update()
         {
@@ -68,7 +56,6 @@ namespace Pacman
         {
             if (GetLocF().IsOnXandY(_home, 0.8f))
             {
-                _curState = State.ChaseOrScatter;
                 SetMode(_gameState.GameController.GetGlobalMovingMode());
                 return GetLoc();
             }
@@ -85,34 +72,33 @@ namespace Pacman
 
         public void SetMode(MovingMode newMode)
         {
-            if ((newMode == ScatterMode || newMode == ChaseMode)
-                && (_curState == State.ChaseOrScatter))
+            Console.WriteLine($"{(newMode == ScatterMode || newMode == ChaseMode)} {this} \t currentMode is {_curMode?.Method.Name} \t newMode is {newMode.Method.Name}");
+
+            if ((newMode == ScatterMode || newMode == ChaseMode))
             {
                 _curMode = newMode;
                 SetSpriteImage(_spriteImage);
                 SetCurSpeed(_normalSpeed);
             }
-            else if ((newMode == FrightenedMode))
+            else if (newMode == FrightenedMode)
             {
-                _curState = State.Fright;
                 _curMode = FrightenedMode;
                 SetSpriteImage(GameResources.Fright);
                 SetCurSpeed(0.6f * _normalSpeed);
             }
             else if (newMode == ReturningHome)
             {
-                _curState = State.Returning;
                 _curMode = ReturningHome;
                 SetSpriteImage(GameResources.GhostEyes);
                 SetCurSpeed(_normalSpeed);
             }
         }
 
+        public MovingMode GetMode()
+            => _curMode;
+        
         public void StartBlinking()
-        { 
-            if (_curState == State.Fright)
-                _sprite.ChangeImage(GameResources.FrightEnd);
-        }
+            => _sprite.ChangeImage(GameResources.FrightEnd);
 
         protected Point GetWalkableNeighbourPoint()
         {   //move to other class

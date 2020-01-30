@@ -22,9 +22,9 @@ namespace Pacman
         {
             foreach (var ghost in _gameState.Ghosts)
                 if (_gameState.Pacman.IntersectsWith(ghost))
-                    if (ghost.GetState() != Ghost.State.Returning)
+                    if (ghost.GetMode() != ghost.ReturningHome)
                     {
-                        if (ghost.GetState() == Ghost.State.Fright)
+                        if (ghost.GetMode() == ghost.FrightenedMode)
                         {
                             ghost.Eaten();
                             _gameState.Pacman.EatGhost();
@@ -32,7 +32,7 @@ namespace Pacman
                             SoundController.PlaySound("MonsterEaten");
                             Thread.Sleep(51);
                         }
-                        else if (ghost.GetState() == Ghost.State.ChaseOrScatter)
+                        else
                         {
                             _gameState.Pacman.Eaten();
                             _gameState.GameController.ResetCharacters();

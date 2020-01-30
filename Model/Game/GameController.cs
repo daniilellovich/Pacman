@@ -1,5 +1,6 @@
 ﻿using System.Timers;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace Pacman
 {
@@ -11,6 +12,7 @@ namespace Pacman
         private int[] _events = new int[7];
         private int _seconds = 0, _frightTime;
         private Ghost.MovingMode _globalMovingMode;
+        private bool _ghostsAreFrightened;
 
         public Ghost.MovingMode GetGlobalMovingMode()
             => _globalMovingMode;
@@ -100,11 +102,13 @@ namespace Pacman
         {
            SetFrightendTimer();
             _gameState.Ghosts.ForEach(g => g.SetMode(g.FrightenedMode));
+            _ghostsAreFrightened = true;
         }
 
         public void BehaviorEvents()
         {
-            _seconds++;
+            if(!_ghostsAreFrightened)
+                _seconds++;
 
             if (_seconds == _events[0] || _seconds == _events[2] ||
                 _seconds == _events[4] || _seconds == _events[6])
@@ -142,15 +146,13 @@ namespace Pacman
 
         private void OnFrightTimeEnded(object source, ElapsedEventArgs e)
         {
-            foreach (Ghost ghost in _gameState.Ghosts)
+            foreach (var ghost in _game.State.Ghosts)
             {
-                if (ghost.GetState() != Ghost.State.Returning)
-                {
-                    ghost.SetState(Ghost.State.ChaseOrScatter);
+                if (ghost.GetMode() != ghost.ReturningHome)
                     ghost.SetMode(_globalMovingMode);
-                }
             }
 
+            _ghostsAreFrightened = false;
             _gameState.Pacman.ResetGhostCounter();
         }
 

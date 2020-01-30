@@ -26,7 +26,7 @@ namespace Pacman
             Pinky  = new Pinky(this);
             Inky   = new Inky(this);
             Clyde  = new Clyde(this);
-            Ghosts = new List<Ghost>() { Blinky, Pinky, Inky, Clyde };
+            Ghosts = new List<Ghost> { Blinky, Pinky, Inky, Clyde };
             Characters = new List<Character>() { Pacman, Blinky };
 
             GameController = new GameController(game, this, levelNumber);
