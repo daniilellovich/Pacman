@@ -4,7 +4,7 @@ namespace Pacman
 {
     public class Apple : Fruit
     {
-        public Apple() :base() => _score = 700; 
+        public Apple() : base() => _score = 700; 
 
         public override void Draw(Graphics gr)
         {

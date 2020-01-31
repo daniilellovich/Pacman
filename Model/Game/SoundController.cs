@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using Un4seen.Bass;
 
 namespace Pacman

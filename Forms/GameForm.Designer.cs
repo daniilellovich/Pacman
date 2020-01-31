@@ -45,7 +45,7 @@
             // GameLoopTimer
             // 
             this.GameLoopTimer.Interval = 10;
-            this.GameLoopTimer.Tick += new System.EventHandler(this.UpdateTimer_Tick);
+            this.GameLoopTimer.Tick += new System.EventHandler(this.GameLoopTimer_Tick);
             // 
             // scoreL
             // 
@@ -91,7 +91,7 @@
             // GameControllerTimer
             // 
             this.GameControllerTimer.Interval = 1000;
-            this.GameControllerTimer.Tick += new System.EventHandler(this.BehaviorControllerTimer_Tick);
+            this.GameControllerTimer.Tick += new System.EventHandler(this.GameControllerTimer_Tick);
             // 
             // readyLabelP
             // 

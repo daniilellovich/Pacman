@@ -17,9 +17,6 @@ namespace Pacman
         public void SetCurSpeed(float speed)
             => _curSpeed = speed;
 
-        public void SetNormalSpeed(float speed)
-            => _normalSpeed = speed;
-
         public void SetSpeed(float speed)
             => _normalSpeed = _curSpeed = speed;
 
@@ -28,8 +25,7 @@ namespace Pacman
         #endregion
 
         public Character(Mediator gameState)      
-            => _gameState = gameState;
-       
+            => _gameState = gameState;    
         
         public abstract void Update();
 

@@ -1,30 +1,26 @@
 ﻿using System.Timers;
 using System.Windows.Forms;
-using System.Linq;
 
 namespace Pacman
 {
     public class GameController
     {
-        private Mediator _gameState;
-        private Fruit _fruit;
         private Game _game;
+        private Mediator _gameState;
+
+        private Fruit _fruit;
         private int[] _events = new int[7];
-        private int _seconds = 0, _frightTime;
-        private Ghost.MovingMode _globalMovingMode;
+        private int _seconds, _frightTime;
         private bool _ghostsAreFrightened;
 
-        public Ghost.MovingMode GetGlobalMovingMode()
-            => _globalMovingMode;
-
-        public GameController(Game game, Mediator gamestate, int level)
+        public GameController(Game game, Mediator gamestate)
         {
             _game = game;
             _gameState = gamestate;
-            _frightTime = SetFrightTime(level);
-            _fruit = ChooseFruit(level);
+            _frightTime = SetFrightTime(game.LevelNumber);
+            _fruit = ChooseFruit(game.LevelNumber);
 
-            switch (level)
+            switch (game.LevelNumber)
             {
                 case 1:
                     _events = new int[7] { 7, 27, 34, 54, 59, 79, 84 };
@@ -47,37 +43,15 @@ namespace Pacman
 
         public void CheckEatenDots(int dotsEaten)
         {
-            //   if (dotsEaten == 10)
-            if (dotsEaten == 3)
-                _gameState.Characters.Add(_gameState.Pinky);
-
-            //    if (dotsEaten == 30)
-            if (dotsEaten == 3)
-
-                _gameState.Characters.Add(_gameState.Inky);
-
-            //    if (dotsEaten == 60)
-            if (dotsEaten == 3)
-
-                _gameState.Characters.Add(_gameState.Clyde);
-
-                if (dotsEaten == 70 || dotsEaten == 170)
+            if (dotsEaten == 70 || dotsEaten == 170)
                 _gameState.Level.PutNewFruit(_fruit);
 
             if (dotsEaten == 240)
             {
-                _game.levelNumber++;
-                _game = new Game();
+                _game.LevelNumber++;
+                _game = new Game(_game.LevelNumber);
             }
         }
-
-        public void ResetCharacters()
-        {
-            _gameState = new Mediator(_game, _gameState.Level, _game.levelNumber);
-        }
-
-        public Fruit GetFruit()
-            => _fruit;
 
         public int SetFrightTime(int level) => level switch
             {
@@ -85,6 +59,9 @@ namespace Pacman
                 8 => 2, 9 => 1, 10 => 5, 11 => 2, 12 => 1, 13 => 1,
                 14 => 3, 15 => 1, _ => 1,
             };
+
+        public Fruit GetFruit()
+            => _fruit;
 
         public Fruit ChooseFruit(int level) => level switch
             { 
@@ -100,7 +77,8 @@ namespace Pacman
 
         public void SetGhostsFrightenedMode()
         {
-           SetFrightendTimer();
+            SetFrightendTimer();
+            SoundController.PlayLongSound("TurnsBlue");
             _gameState.Ghosts.ForEach(g => g.SetMode(g.FrightenedMode));
             _ghostsAreFrightened = true;
         }
@@ -112,11 +90,11 @@ namespace Pacman
 
             if (_seconds == _events[0] || _seconds == _events[2] ||
                 _seconds == _events[4] || _seconds == _events[6])
-                _gameState.Ghosts.ForEach(g => g.SetMode(_globalMovingMode = g.ChaseMode));
+                _gameState.Ghosts.ForEach(g => g.SetMode(g.ChaseMode));
 
             if (_seconds == _events[1] || _seconds == _events[3] ||
                 _seconds == _events[5])
-                _gameState.Ghosts.ForEach(g => g.SetMode(_globalMovingMode = g.ScatterMode));
+                _gameState.Ghosts.ForEach(g => g.SetMode(g.ScatterMode));
         }
 
         public void SwitchPathDrawing(Keys pressedKey)
@@ -130,7 +108,7 @@ namespace Pacman
             }
         }
 
-        #region timers
+        #region timers for end of frightened mode
         public void SetFrightendTimer()
         {
             var frightTimer = new System.Timers.Timer(_frightTime * 1000);
@@ -144,20 +122,21 @@ namespace Pacman
             flashTimer.AutoReset = false;
         }
 
+        private void OnFlashTimeStarted(object source, ElapsedEventArgs e)
+            => _gameState.Ghosts.ForEach(g => g.StartBlinking());
+
         private void OnFrightTimeEnded(object source, ElapsedEventArgs e)
         {
             foreach (var ghost in _game.State.Ghosts)
             {
-                if (ghost.GetMode() != ghost.ReturningHome)
-                    ghost.SetMode(_globalMovingMode);
+                if (ghost.GetCurMode() != ghost.ReturningHome)
+                    ghost.SetMode(ghost.GetLastMode());
             }
 
             _ghostsAreFrightened = false;
+            SoundController.PlayLongSound("Siren");
             _gameState.Pacman.ResetGhostCounter();
         }
-
-        private void OnFlashTimeStarted(object source, ElapsedEventArgs e)
-            => _gameState.Ghosts.ForEach(g => g.StartBlinking());
         #endregion
     }
 }

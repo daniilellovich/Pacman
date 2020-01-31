@@ -5,13 +5,15 @@ namespace Pacman
     public class Game
     {
         public Mediator State;
-        public int score, levelNumber = 1;
-        public int highScore;
+        public int Score { get; set; }
+        public int LevelNumber { get; set; } = 1;
+        public int HighScore { get; private set; }
 
-        public Game()
+        public Game(int levelNumber)
         {
+            LevelNumber = levelNumber;
             Level level = new Level();
-            State = new Mediator(this, level, levelNumber);
+            State = new Mediator(this, level);
             State.Level.PutPacmanLivesDownside(State.Pacman.GetLives());
         }
 
@@ -21,9 +23,14 @@ namespace Pacman
             State.ColissionDetector.Update();
         }
 
-        public static void GameOver()
+        public void OneMoreTry()
         {
+            State = new Mediator(this, State.Level);
+        }
 
+        public void IsOver()
+        {
+            //сделать сохранение в таблицу рекордов
         }
     }
 }

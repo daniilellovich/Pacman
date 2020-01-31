@@ -15,14 +15,14 @@ namespace Pacman
             InitializeComponent();        
             ScaleGUI();
             StartGame();
-            stageL.Text = $"stage {_game.levelNumber} / 256";
-            highScoreL.Text = Convert.ToString(_game.highScore);
+            stageL.Text = $"stage {_game.LevelNumber} / 256";
+            highScoreL.Text = Convert.ToString(_game.HighScore);
             GetReady();
         }
 
         private void StartGame()
         {
-            _game = new Game();
+            _game = new Game(1);
             ResumeGameLoopAndSound();
             pnPacmanLevel.InitObjsToDraw(_game.State);
         }
@@ -41,20 +41,20 @@ namespace Pacman
             GameControllerTimer.Start();
         }
 
-        private void UpdateTimer_Tick(object sender, EventArgs e)
+        private void GameLoopTimer_Tick(object sender, EventArgs e)
         {
             _game.Update();
             pnPacmanLevel.Invalidate();
-            scoreL.Text = Convert.ToString(_game.score);
+            scoreL.Text = Convert.ToString(_game.Score);
         }
 
-        private void BehaviorControllerTimer_Tick(object sender, EventArgs e)
+        private void GameControllerTimer_Tick(object sender, EventArgs e)
             => _game.State.GameController.BehaviorEvents();
 
         private void pnPacmanLevel_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Escape) //make the same to PauseForm
-                new PauseForm(this).Show();
+            if (e.KeyCode == Keys.Escape)
+                new PauseForm(this).ShowDialog();
 
             _game.State.Pacman.GetNextDirFromKeyboard(e.KeyData);
 
@@ -62,22 +62,22 @@ namespace Pacman
         }
 
         private void pnPacmanLevel_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
-        {
+        {//allows to control Pacman by arrows
             switch (e.KeyCode)
             {
-                case Keys.Down: e.IsInputKey = true; break;
-                case Keys.Up:   e.IsInputKey = true; break;
-                case Keys.Left: e.IsInputKey = true; break;
+                case Keys.Down:  e.IsInputKey = true; break;
+                case Keys.Up:    e.IsInputKey = true; break;
+                case Keys.Left:  e.IsInputKey = true; break;
                 case Keys.Right: e.IsInputKey = true; break;
             }
         }
 
         public void GetReady()
         {
-        //    PauseGameLoopAndSound();
-        //    SoundController.PlaySound("Intro");
-        //    readyLabelP.Show();
-        //    SetTimerForGettingReady();
+            PauseGameLoopAndSound();
+            SoundController.PlaySound("Intro");
+            readyLabelP.Show();
+            SetTimerForGettingReady();
         }
 
         private void SetTimerForGettingReady()
@@ -92,7 +92,8 @@ namespace Pacman
         {
             Invoke(new Action(() => ResumeGameLoopAndSound()));
             Invoke(new Action(() => readyLabelP.Hide()));
-            Invoke(new Action(() => _game.State.Level.RemoveOnePacmanLifeDownside(_game.State.Pacman.GetLives() - 1)));
+            Invoke(new Action(() => _game.State.Level
+                .RemoveLifeDownside(_game.State.Pacman.GetLives())));
         }
 
         private void ScaleGUI()

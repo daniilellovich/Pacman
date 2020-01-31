@@ -19,8 +19,8 @@ namespace Pacman
 
         private void ResumeB_Click(object sender, EventArgs e)
         {
+            _gameForm.Invoke(new Action(() => _gameForm.ResumeGameLoopAndSound()));
             Close();
-            _gameForm.GetReady();
         }
 
         private void RestartB_Click(object sender, EventArgs e)
@@ -43,7 +43,10 @@ namespace Pacman
         private void PauseForm_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
-                _gameForm.ResumeGameLoopAndSound();
+            {
+                _gameForm.Invoke(new Action(() => _gameForm.ResumeGameLoopAndSound()));
+                Close();
+            }
         }
 
         private void ScaleGUI()

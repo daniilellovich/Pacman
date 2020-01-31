@@ -1,5 +1,6 @@
 using System.Windows.Forms;
 using System.Drawing;
+using System.Linq;
 
 namespace Pacman
 {
@@ -8,9 +9,9 @@ namespace Pacman
         Mediator _gameState;
 
         public LevelPanel()
-        {
-            SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint, true);
-        }
+            => SetStyle(ControlStyles.AllPaintingInWmPaint | 
+                        ControlStyles.OptimizedDoubleBuffer | 
+                        ControlStyles.UserPaint, true);
 
         public void InitObjsToDraw(Mediator gameState)
             => _gameState = gameState;
@@ -22,38 +23,15 @@ namespace Pacman
             if (_gameState == null)
                 return;
 
-            foreach (var tile in _gameState.Level.Tiles)
+            foreach (var tile in _gameState.Level.GetTiles())
                 tile.Draw(e.Graphics);
 
-            _gameState.Pacman.Draw(e.Graphics);
+            foreach (var character in _gameState.Characters)
+                character.Draw(e.Graphics);
 
-            _gameState.Blinky.Draw(e.Graphics);
-            _gameState.Pinky.Draw(e.Graphics);
-            _gameState.Inky.Draw(e.Graphics);
-            _gameState.Clyde.Draw(e.Graphics);
-
-            if (_gameState.Blinky.PathIsVisible)
-                _gameState.Blinky.DrawPath(e.Graphics);
-            if (_gameState.Pinky.PathIsVisible)
-                _gameState.Pinky.DrawPath(e.Graphics);
-            if (_gameState.Inky.PathIsVisible)
-                _gameState.Inky.DrawPath(e.Graphics);
-            if (_gameState.Clyde.PathIsVisible)
-                _gameState.Clyde.DrawPath(e.Graphics);
-        }
-
-        private void InitializeComponent()
-        {
-            this.SuspendLayout();
-            this.Name = "PacmanLevelPanel";
-            this.Size = new Size(78, 66);
-            this.Load += new System.EventHandler(this.PacmanLevelPanel_Load);
-            this.ResumeLayout(false);
-        }
-
-        private void PacmanLevelPanel_Load(object sender, System.EventArgs e)
-        {
-            
+            foreach (var ghost in _gameState.Ghosts)
+                if (ghost.PathIsVisible)
+                    ghost.DrawPath(e.Graphics);
         }
     }
 }

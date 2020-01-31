@@ -4,10 +4,9 @@ namespace Pacman
 {
     public class Pacman : Character
     {
-        #region vars
         public enum Directions { nowhere, up, right, down, left }
         private Directions _currentDir, _nextDir;
-        private int _dotsEaten, _eatenGhostsCounter, _lives = 3;
+        private int _dotsEaten, _eatenGhostsCounter, _lives;
 
         public Directions GetCurDir()
             => _currentDir;
@@ -20,10 +19,10 @@ namespace Pacman
 
         public int GetEatenGhostsCounter()
             => _eatenGhostsCounter;
-        #endregion
 
-        public Pacman(Mediator gameState) : base(gameState)
+        public Pacman(Mediator gameState, int lives) : base(gameState)
         {
+            _lives = lives;
             _locationF = new PointF(13.5f, 26);
             SetSpriteImage(GameResources.Pacman);
             SetCurSpeed(_normalSpeed);
@@ -33,7 +32,7 @@ namespace Pacman
             => MoveTo(GetNextLocation());
 
         public override void Eaten()
-            => _lives--;
+            => _lives-=1;
         
         public void EatDot()
             => _dotsEaten++;

@@ -7,7 +7,7 @@ namespace Pacman
     public abstract class Ghost : Character
     {
         public delegate Point MovingMode();
-        protected MovingMode _curMode;
+        protected MovingMode _curMode, _lastMode;
 
         protected GhostPathFinder _pathFinder;
         protected Image _spriteImage;
@@ -16,10 +16,11 @@ namespace Pacman
         protected List<Point> _path;
         public bool PathIsVisible { get; private set; }
 
-
-
         public Ghost(Mediator gameState) : base(gameState)
-            => _pathFinder = new GhostPathFinder(_gameState.Level);
+        {
+            _lastMode = ScatterMode;
+            _pathFinder = new GhostPathFinder(_gameState.Level);
+        }
 
         public override void Update()
         {
@@ -56,7 +57,7 @@ namespace Pacman
         {
             if (GetLocF().IsOnXandY(_home, 0.8f))
             {
-                SetMode(_gameState.GameController.GetGlobalMovingMode());
+                SetMode(_lastMode);
                 return GetLoc();
             }
             else
@@ -72,10 +73,9 @@ namespace Pacman
 
         public void SetMode(MovingMode newMode)
         {
-            Console.WriteLine($"{(newMode == ScatterMode || newMode == ChaseMode)} {this} \t currentMode is {_curMode?.Method.Name} \t newMode is {newMode.Method.Name}");
-
-            if ((newMode == ScatterMode || newMode == ChaseMode))
+            if (newMode == ScatterMode || newMode == ChaseMode)
             {
+                _lastMode = newMode;
                 _curMode = newMode;
                 SetSpriteImage(_spriteImage);
                 SetCurSpeed(_normalSpeed);
@@ -94,14 +94,20 @@ namespace Pacman
             }
         }
 
-        public MovingMode GetMode()
+        public MovingMode GetCurMode()
             => _curMode;
-        
+
+        public MovingMode GetLastMode()
+            => _lastMode;
+
         public void StartBlinking()
-            => _sprite.ChangeImage(GameResources.FrightEnd);
+        {
+            if (_curMode == FrightenedMode)
+                _sprite.ChangeImage(GameResources.FrightEnd);
+        }
 
         protected Point GetWalkableNeighbourPoint()
-        {   //move to other class
+        {   //should be moved to other class
             List<Point> validNeighbourPoints = new List<Point>();
 
             foreach (Point point in GetLoc().NeighbourPoints)

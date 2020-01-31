@@ -1,27 +1,30 @@
-﻿namespace Pacman
+﻿using System;
+using System.Collections.Generic;
+
+namespace Pacman
 {
     public class Level
     {
-        public Tile[,] Tiles { get; private set; }
+        private Tile[,] _tiles;
         private int _width;
         private int _height;
 
         public Level()
             => ReadLevelFromFile();
 
-        void ReadLevelFromFile()
+        private void ReadLevelFromFile()
         {
             string[] _lines = Properties.Resources.PacmanMap.Split('\n');
 
             _width = _lines[0].Length - 1;
             _height = _lines.Length - 1;
-            Tiles = new Tile[_width, _height];
+            _tiles = new Tile[_width, _height];
 
             for (int j = 0; j < _height; j++)
                 for (int i = 0; i < _width; i++)
                 {
                     Point point = new Point(i, j);
-                    Tiles[i, j] = (_lines[j][i]) switch
+                    _tiles[i, j] = (_lines[j][i]) switch
                     {
                         '.' => new Dot(point),
                         '@' => new Energizer(point),
@@ -49,43 +52,45 @@
                 }
         }
 
-        public Tile GetTile(Point point) 
-            => Tiles[point.X, point.Y];
+        public Tile GetTile(Point point)
+            => _tiles[point.X, point.Y];
+
+        public Tile[,] GetTiles()
+            => _tiles;
 
         private bool IsValidPoint(Point point)
             => !((point.X < 0 || point.X >= _width) ||
                (point.Y < 0 || point.Y >= _height));
 
         public bool IsWalkableForGhost(Point point)
-            => IsValidPoint(point) && (Tiles[point.X, point.Y].IsWalkableForGhost);
+            => IsValidPoint(point) && (_tiles[point.X, point.Y].IsWalkableForGhost);
 
         public bool IsWalkableForPacman(Point point)
-            => IsValidPoint(point) && (Tiles[point.X, point.Y].IsWalkableForPacman);
+            => IsValidPoint(point) && (_tiles[point.X, point.Y].IsWalkableForPacman);
 
         public void ChangeTileToFloor(Point point)
-            => Tiles[point.X, point.Y] = new Floor(point);
+            => _tiles[point.X, point.Y] = new Floor(point);
 
         public void PutNewFruit(Fruit fruit)
-            => Tiles[14, 20] = fruit;
+            => _tiles[14, 20] = fruit;
 
         public void PutPacmanLivesDownside(int lives)
         {
             if (lives-- == 3)
-                  Tiles[4, 34] = new PacmanLife(new Point(4, 34));
+                _tiles[4, 34] = new PacmanLife(new Point(4, 34));
             if (lives-- == 2)
-                 Tiles[2, 34] = new PacmanLife(new Point(2, 34));
+                _tiles[2, 34] = new PacmanLife(new Point(2, 34));
             if (lives-- == 1)
-                Tiles[0, 34] = new PacmanLife(new Point(0, 34));
+                _tiles[0, 34] = new PacmanLife(new Point(0, 34));
         }
 
-        public void RemoveOnePacmanLifeDownside(int livesLeft)
+        public void RemoveLifeDownside(int livesLeft)
         {
             switch (livesLeft)
             {
-                case 2: Tiles[4, 34] = new Wall(new Point(4, 34), GameResources.Floor); break;
-                case 1: Tiles[2, 34] = new Wall(new Point(2, 34), GameResources.Floor); break;
-                case 0: Tiles[0, 34] = new Wall(new Point(0, 34), GameResources.Floor);
-                        Game.GameOver(); break;
+                case 3: _tiles[4, 34] = new Wall(new Point(4, 34), GameResources.Floor); break;
+                case 2: _tiles[2, 34] = new Wall(new Point(2, 34), GameResources.Floor); break;
+                case 1: _tiles[0, 34] = new Wall(new Point(0, 34), GameResources.Floor); break;
             }
         }
     }
